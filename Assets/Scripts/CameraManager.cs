@@ -6,11 +6,6 @@ public class CameraManager : MonoBehaviour
 {
     [SerializeField] private float speed;
 
-    void Start()
-    {
-        
-    }
-
     void Update()
     {
         if(Input.GetKey(KeyCode.RightArrow))

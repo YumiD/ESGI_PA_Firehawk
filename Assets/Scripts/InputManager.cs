@@ -20,8 +20,13 @@ public class InputManager : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0))
             {
-                print("HEY");
                 cellMouseIsOver.GetComponentInChildren<MeshRenderer>().material.color = Color.green;
+                cellMouseIsOver._canBeOnFire = true;
+                cellMouseIsOver._isOnFire = false;
+            }
+            if (Input.GetMouseButtonDown(1))
+            {
+                cellMouseIsOver.SetFire();
             }
         }
     }
@@ -32,7 +37,6 @@ public class InputManager : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if(Physics.Raycast(ray, out RaycastHit hitInfo, 100f, whatIsAGridLayer))
         {
-            print(hitInfo.transform.GetComponent<GridCell>());
             return hitInfo.transform.GetComponent<GridCell>();
         }
         else
