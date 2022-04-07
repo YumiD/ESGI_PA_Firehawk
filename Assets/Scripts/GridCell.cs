@@ -7,10 +7,10 @@ public class GridCell : MonoBehaviour
     private int posX;
     private int posY;
 
-    // Saves a reference to the gaeObject that gets placed on this cell
+    // Reference to the gaeObject that gets placed on this cell
     public GameObject objectInThisGridSpace = null;
 
-    // Saves if the grid is occupied or not
+    // If the grid is occupied or not
     public bool isOccupied = false;
 
     public void SetPosition(int x, int y)

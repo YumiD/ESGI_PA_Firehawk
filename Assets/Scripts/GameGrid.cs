@@ -7,12 +7,11 @@ public class GameGrid : MonoBehaviour
 
     private int height = 10;
     private int width = 10;
-    private float GridSpaceSize = 5f;
+    private float GridSpaceSize = 5.1f;
 
     [SerializeField] private GameObject gridCellPrefab;
     private GameObject[,] gameGrid;
 
-    // Start is called before the first frame update
     void Start()
     {
         CreateGrid();
@@ -28,13 +27,14 @@ public class GameGrid : MonoBehaviour
             return;
         }
 
-        //Make the grid
+        //Create Grid
         for(int y = 0; y < height; y++)
         {
             for (int x = 0; x < width; x++)
             {
                 //Create GridSpace object for each cell
-                gameGrid[x, y] = Instantiate(gridCellPrefab, new Vector3(x * GridSpaceSize, y * GridSpaceSize), Quaternion.identity);
+                gameGrid[x, y] = Instantiate(gridCellPrefab, new Vector3(x * GridSpaceSize, 0,  y * GridSpaceSize), Quaternion.identity);
+                //gameGrid[x, y].transform.Rotate(90,0,0);
                 gameGrid[x, y].GetComponent<GridCell>().SetPosition(x, y);
                 gameGrid[x, y].transform.parent = transform;
                 gameGrid[x, y].gameObject.name = "Grid Space ( X: " + x.ToString() + " , Y: " + y.ToString() + ")";
