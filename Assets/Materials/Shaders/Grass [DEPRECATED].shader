@@ -1,4 +1,4 @@
-Shader "Grass"
+Shader "Grass_OLD"
 {
     Properties
     {
@@ -20,7 +20,7 @@ Shader "Grass"
 	CGINCLUDE
 	#include "UnityCG.cginc"
 	#include "Autolight.cginc"
-	#include "Assets/Shaders/CustomTessellation.cginc"
+	#include "Assets/Materials/Shaders/CustomTessellation.cginc"
 
 	struct geometryOutput
 	{
@@ -113,7 +113,7 @@ Shader "Grass"
 			Tags
 			{
 				"RenderType" = "Opaque"
-				"LightMode" = "ForwardBase"
+				//"LightMode" = "ForwardBase"
 			}
 
             CGPROGRAM

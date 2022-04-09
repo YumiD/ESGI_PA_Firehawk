@@ -1,4 +1,4 @@
-Shader "Unlit/ggg"
+Shader "Grass"
 {
     Properties
     {
@@ -20,7 +20,7 @@ Shader "Unlit/ggg"
     CGINCLUDE
 	#include "UnityCG.cginc"
 	#include "Autolight.cginc"
-	#include "Assets/Shaders/CustomTessellation.cginc"
+	#include "Assets/Materials/Shaders/CustomTessellation.cginc"
 
 	struct geometryOutput
 	{
@@ -109,7 +109,11 @@ Shader "Unlit/ggg"
 
         Pass
         {
-            Tags { "RenderType"="Opaque" }
+			Name "Forward"
+            Tags {
+				"RenderType" = "Opaque"
+				//"LightMode" = "ForwardBase"
+				}
 
             CGPROGRAM
             #pragma vertex vert

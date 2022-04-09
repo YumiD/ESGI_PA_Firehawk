@@ -77,7 +77,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _WindDistortionMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 616bce77d5b7dc642b18ec3022342e77, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -94,7 +94,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _AlphaClip: 0
-    - _BendRotationRandom: 0.118
+    - _BendRotationRandom: 0.04
     - _BladeHeight: 0.5
     - _BladeHeightRandom: 0.3
     - _BladeWidth: 0.05
@@ -122,8 +122,8 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _Surface: 0
-    - _TessellationUniform: 2.1
-    - _TranslucentGain: 0.218
+    - _TessellationUniform: 4.9
+    - _TranslucentGain: 0.023
     - _WindStrength: 1
     - _WorkflowMode: 1
     - _ZWrite: 1
