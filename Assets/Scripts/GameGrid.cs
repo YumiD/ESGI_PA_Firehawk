@@ -10,7 +10,9 @@ public class GameGrid : MonoBehaviour
     private float GridCellSize = 2f;
     private float GridSpaceSize = 2f;
 
-    [SerializeField] private GameObject gridCellPrefab;
+    [SerializeField] private GameObject gridCellGround;
+    [SerializeField] private GameObject gridCellGrass;
+    [SerializeField] private GameObject gridCellBurned;
     private GameObject[,] gameGrid;
 
     void Start()
@@ -22,7 +24,7 @@ public class GameGrid : MonoBehaviour
     {
         gameGrid = new GameObject[height, width];
 
-        if (gridCellPrefab == null)
+        if (gridCellGround == null)
         {
             Debug.Log("ERROR: Not Assigned");
             return;
@@ -34,7 +36,7 @@ public class GameGrid : MonoBehaviour
             for (int x = 0; x < width; x++)
             {
                 //Create GridSpace object for each cell
-                gameGrid[x, y] = Instantiate(gridCellPrefab, new Vector3(x * GridSpaceSize, 0,  y * GridSpaceSize), Quaternion.identity);
+                gameGrid[x, y] = Instantiate(gridCellGround, new Vector3(x * GridSpaceSize, 0,  y * GridSpaceSize), Quaternion.identity);
                 gameGrid[x, y].transform.localScale = new Vector3(GridCellSize, GridCellSize/2, GridCellSize);
                 gameGrid[x, y].GetComponent<GridCell>().SetPosition(x, y);
                 gameGrid[x, y].transform.parent = transform;
@@ -59,6 +61,18 @@ public class GameGrid : MonoBehaviour
         return neighborsList;
     }
 
+    public void ChangeGridCell(Vector2Int pos, EnumGridCell gridCellType){
+        int x = pos.x;
+        int y = pos.y;
+        Destroy(gameGrid[x, y].GetComponent<GridCell>().gameObject);
+        GameObject newGridCell = GetGameObjectFromEnum(gridCellType);
+        gameGrid[x, y] = Instantiate(newGridCell, new Vector3(x * GridSpaceSize, 0,  y * GridSpaceSize), Quaternion.identity);gameGrid[x, y].transform.localScale = new Vector3(GridCellSize, GridCellSize/2, GridCellSize);
+        gameGrid[x, y].transform.localScale = new Vector3(GridCellSize, GridCellSize/2, GridCellSize);
+        gameGrid[x, y].GetComponent<GridCell>().SetPosition(x, y);
+        gameGrid[x, y].transform.parent = transform;
+        gameGrid[x, y].gameObject.name = "Grid Space ( X: " + x.ToString() + " , Y: " + y.ToString() + ")";
+    }
+
     public Vector2Int GetGridPosFromWorld(Vector3 worldPosition)
     {
         int x = Mathf.FloorToInt(worldPosition.x / GridSpaceSize);
@@ -76,5 +90,18 @@ public class GameGrid : MonoBehaviour
         float y = gridPos.y * GridSpaceSize;
 
         return new Vector3(x, 0, y);
+    }
+
+    public GameObject GetGameObjectFromEnum(EnumGridCell gridCellType){
+        switch(gridCellType){
+            case EnumGridCell.Ground:
+                return gridCellGround;
+            case EnumGridCell.Grass:
+                return gridCellGrass;
+            case EnumGridCell.Burned:
+                return gridCellBurned;
+            default:
+                return gridCellGround;
+        }
     }
 }

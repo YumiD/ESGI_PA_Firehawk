@@ -46,6 +46,7 @@ public class GridCell : MonoBehaviour
         _isOnFire = true;
         _hitPoint = 0;
         GetComponentInChildren<MeshRenderer>().material.color = Color.red;
+        Destroy(transform.GetChild(0).gameObject);
         StartCoroutine(FadeFire());
     }
     public void PropagateFire(){

@@ -16,13 +16,14 @@ public class InputManager : MonoBehaviour
     void Update()
     {
         GridCell cellMouseIsOver = IsMouseOverAGridSpace();
+        EnumGridCell gridCellType = EnumGridCell.Grass;
         if(cellMouseIsOver != null)
         {
             if (Input.GetMouseButtonDown(0))
             {
-                cellMouseIsOver.GetComponentInChildren<MeshRenderer>().material.color = Color.green;
                 cellMouseIsOver._canBeOnFire = true;
                 cellMouseIsOver._isOnFire = false;
+                gameGrid.ChangeGridCell(cellMouseIsOver.GetPosition(), gridCellType);
             }
             if (Input.GetMouseButtonDown(1))
             {

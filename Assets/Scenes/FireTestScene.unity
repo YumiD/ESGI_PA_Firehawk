@@ -198,7 +198,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27958f991a69a3743866dd18f432b7e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridCellPrefab: {fileID: 8096615045226873805, guid: a1454bf3b7a9daf44969671787d76930, type: 3}
+  gridCellGround: {fileID: 8096615045226873805, guid: a1454bf3b7a9daf44969671787d76930, type: 3}
+  gridCellGrass: {fileID: 8096615045226873805, guid: 8220c58b7f8e77047932a920db742de3, type: 3}
+  gridCellBurned: {fileID: 8096615045226873805, guid: adb7a1872e4f7d344a1522ba82a50ce0, type: 3}
 --- !u!4 &273732648
 Transform:
   m_ObjectHideFlags: 0
