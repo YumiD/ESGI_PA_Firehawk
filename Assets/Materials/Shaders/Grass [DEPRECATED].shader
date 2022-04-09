@@ -20,7 +20,7 @@ Shader "Grass"
 	CGINCLUDE
 	#include "UnityCG.cginc"
 	#include "Autolight.cginc"
-	#include "Shaders/CustomTessellation.cginc"
+	#include "Assets/Shaders/CustomTessellation.cginc"
 
 	struct geometryOutput
 	{
