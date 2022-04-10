@@ -40,7 +40,7 @@ public class GameGrid : MonoBehaviour
                 gameGrid[x, y].transform.localScale = new Vector3(GridCellSize, GridCellSize/2, GridCellSize);
                 gameGrid[x, y].GetComponent<GridCell>().SetPosition(x, y);
                 gameGrid[x, y].transform.parent = transform;
-                gameGrid[x, y].gameObject.name = "Grid Space ( X: " + x.ToString() + " , Y: " + y.ToString() + ")";
+                gameGrid[x, y].gameObject.name = "Grid Space ( X: " + x + " , Y: " + y + ")";
             }
         }
     }
