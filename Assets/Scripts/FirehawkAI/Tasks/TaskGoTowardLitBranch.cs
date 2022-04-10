@@ -15,8 +15,9 @@ namespace FirehawkAI.Tasks
         public override NodeState Evaluate()
         {
             var target = (Transform)GetData("FoundLitBranch");
+            var target2 = (Transform)GetData("litBranch");
 
-            if (target == null)
+            if (target == null || target2 != null)
             {
                 State = NodeState.FAILURE;
                 return State;

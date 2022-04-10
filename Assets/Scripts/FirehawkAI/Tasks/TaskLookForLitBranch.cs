@@ -3,11 +3,12 @@ using UnityEngine;
 
 namespace FirehawkAI.Tasks
 {
-    public class TaskLookForLitBranch : TaskPatrol
+    public class TaskLookForLitBranch : Node
     {
-        public TaskLookForLitBranch(Transform transform, Transform[] waypoints, Vector3 groundTransform) : base(
-            transform, waypoints, groundTransform)
+        private readonly Transform _transform;
+        public TaskLookForLitBranch(Transform transform)
         {
+            _transform = transform;
         }
 
         public override NodeState Evaluate()
@@ -20,10 +21,9 @@ namespace FirehawkAI.Tasks
                 State = NodeState.FAILURE;
                 return State;
             }
-            base.Evaluate();
 
             Debug.Log("Looking for lit branch");
-            var colliders = Physics.OverlapSphere(Transform.position, FirehawkBT.DetectionRange,
+            var colliders = Physics.OverlapSphere(_transform.position, FirehawkBT.DetectionRange,
                 FirehawkBT.LitBranchLayerMask);
 
             if (colliders.Length > 0)

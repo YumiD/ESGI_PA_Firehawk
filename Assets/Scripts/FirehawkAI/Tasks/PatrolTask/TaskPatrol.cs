@@ -5,7 +5,7 @@ namespace FirehawkAI.Tasks
 {
     public class TaskPatrol : Node
     {
-        protected readonly Transform Transform;
+        protected readonly Transform CurrentTransform;
         protected readonly Vector3 GroundTransform;
 
         // private readonly Animator _animator;
@@ -13,9 +13,9 @@ namespace FirehawkAI.Tasks
 
         private int _currentWaypointIndex;
 
-        public TaskPatrol(Transform transform, Transform[] waypoints, Vector3 groundTransform)
+        public TaskPatrol(Transform currentTransform, Transform[] waypoints, Vector3 groundTransform)
         {
-            Transform = transform;
+            CurrentTransform = currentTransform;
             // _animator = transform.GetComponent<Animator>();
             _waypoints = waypoints;
             GroundTransform = groundTransform;
@@ -24,17 +24,17 @@ namespace FirehawkAI.Tasks
         public override NodeState Evaluate()
         {
             var wp = _waypoints[_currentWaypointIndex];
-            if (Vector3.Distance(Transform.position, wp.position) < 0.01f)
+            if (Vector3.Distance(CurrentTransform.position, wp.position) < 0.01f)
             {
-                Transform.position = wp.position;
+                CurrentTransform.position = wp.position;
                 _currentWaypointIndex = (_currentWaypointIndex + 1) % _waypoints.Length;
             }
             else
             {
                 var waypointPosition = wp.position;
-                Transform.position = Vector3.MoveTowards(Transform.position, waypointPosition,
+                CurrentTransform.position = Vector3.MoveTowards(CurrentTransform.position, waypointPosition,
                     FirehawkBT.Speed * Time.deltaTime);
-                Transform.LookAt(waypointPosition);
+                CurrentTransform.LookAt(waypointPosition);
             }
             State = NodeState.RUNNING;
             return State;

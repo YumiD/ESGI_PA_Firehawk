@@ -1,4 +1,5 @@
 ﻿using BehaviorTree;
+using UnityEngine;
 
 namespace FirehawkAI.Tasks
 {
@@ -6,7 +7,13 @@ namespace FirehawkAI.Tasks
     {
         public override NodeState Evaluate()
         {
-            return base.Evaluate();
+            var t = (Transform)GetData("litBranch");
+            
+            t.GetComponent<Rigidbody>().isKinematic = false;
+            t.SetParent(null);
+
+            State = NodeState.SUCCESS;
+            return State;
         }
     }
 }

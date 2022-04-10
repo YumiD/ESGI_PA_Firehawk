@@ -48,7 +48,7 @@ namespace FirehawkAI
                         {
                             new ParallelNode(new List<Node>
                             {
-                                new TaskLookForLitBranch(currentPos, waypoints, _groundTransform),
+                                new TaskLookForLitBranch(currentPos),
                                 new TaskPatrol(currentPos, waypoints, _groundTransform)
                             }, ParallelNode.Policy.RequireOne, ParallelNode.Policy.RequireOne),
                             new Selector(new List<Node>
@@ -64,7 +64,7 @@ namespace FirehawkAI
                         new CheckUnburnArea(currentPos),
                         new Sequence(new List<Node>
                         {
-                            new TaskGoTowardUnburnArea(currentPos),
+                            new TaskGoTowardUnburnArea(currentPos, waypoints, _groundTransform),
                             new TaskThrowLitBranch()
                         })
                     }),

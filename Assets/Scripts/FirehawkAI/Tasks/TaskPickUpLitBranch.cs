@@ -14,6 +14,14 @@ namespace FirehawkAI.Tasks
         
         public override NodeState Evaluate()
         {
+            var target = (Transform)GetData("litBranch");
+
+            if (target != null)
+            {
+                State = NodeState.FAILURE;
+                return State;
+            }
+            
             var colliders = Physics.OverlapSphere(_transform.position, FirehawkBT.PickUpRange,
                 FirehawkBT.LitBranchLayerMask);
 
@@ -21,6 +29,7 @@ namespace FirehawkAI.Tasks
             {
                 Debug.Log("Pick up lit branch");
                 colliders[0].transform.SetParent(_transform);
+                colliders[0].GetComponent<Rigidbody>().isKinematic = true;
                 Parent.Parent.SetData("litBranch", colliders[0].transform);
                 // ClearData("FoundLitBranch");
 

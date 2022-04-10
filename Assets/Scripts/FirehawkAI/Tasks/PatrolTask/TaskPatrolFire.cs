@@ -5,7 +5,7 @@ namespace FirehawkAI.Tasks.PatrolTask
 {
     public class TaskPatrolFire : TaskPatrol
     {
-        public TaskPatrolFire(Transform transform, Transform[] waypoints, Vector3 groundTransform) : base(transform,
+        public TaskPatrolFire(Transform currentTransform, Transform[] waypoints, Vector3 groundTransform) : base(currentTransform,
             waypoints, groundTransform)
         {
         }
@@ -17,7 +17,7 @@ namespace FirehawkAI.Tasks.PatrolTask
 
             if (t == null)
             {
-                var colliders = Physics.OverlapSphere(Transform.position, FirehawkBT.DetectionRange,
+                var colliders = Physics.OverlapSphere(CurrentTransform.position, FirehawkBT.DetectionRange,
                     FirehawkBT.GroundLayerMask);
 
                 if (colliders.Length > 0)

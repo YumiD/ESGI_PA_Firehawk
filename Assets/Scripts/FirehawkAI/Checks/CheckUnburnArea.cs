@@ -5,12 +5,13 @@ namespace FirehawkAI.Checks
 {
     public class CheckUnburnArea : Node
     {
-        private Transform _transform;
+        private readonly Transform _transform;
 
         public CheckUnburnArea(Transform transform)
         {
             _transform = transform;
         }
+
         public override NodeState Evaluate()
         {
             var colliders = Physics.OverlapSphere(_transform.position, FirehawkBT.DetectionRange,
@@ -26,8 +27,9 @@ namespace FirehawkAI.Checks
                     return State;
                 }
             }
+
             State = NodeState.FAILURE;
-            return State;   
+            return State;
         }
     }
 }

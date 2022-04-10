@@ -13,18 +13,18 @@ namespace FirehawkAI.Tasks
         }
         public override NodeState Evaluate()
         {
-            Debug.Log("Go back to sky.");
             var currentPos = _transform.position;
             var target = new Vector3(currentPos.x, (float)GetData("OriginCoordinate"), currentPos.z);
             if (Vector3.Distance(_transform.position, target) > 0.01f)
             {
+                Debug.Log("Go back to sky.");
                 _transform.position = Vector3.MoveTowards(
                     _transform.position, target, FirehawkBT.Speed * Time.deltaTime);
                 _transform.LookAt(target);
             }
             else
             {
-                State = NodeState.SUCCESS;
+                State = NodeState.FAILURE;
                 return State;                
             }
             State = NodeState.RUNNING;
