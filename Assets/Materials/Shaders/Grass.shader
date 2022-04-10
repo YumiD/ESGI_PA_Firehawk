@@ -17,10 +17,10 @@ Shader "Grass"
 		_WindStrength("Wind Strength", Float) = 1
     }
 
-	CGINCLUDE
+    CGINCLUDE
 	#include "UnityCG.cginc"
 	#include "Autolight.cginc"
-	#include "Shaders/CustomTessellation.cginc"
+	#include "Assets/Materials/Shaders/CustomTessellation.cginc"
 
 	struct geometryOutput
 	{
@@ -68,7 +68,6 @@ Shader "Grass"
 	float2 _WindFrequency;
 	float _WindStrength;
 
-
 	/*
 	Fonction de shader de gémométrie qui prend en entrée un triangle et renvoie une herbe à la position du premier sommet
 	*/
@@ -110,11 +109,11 @@ Shader "Grass"
 
         Pass
         {
-			Tags
-			{
+			Name "Forward"
+            Tags {
 				"RenderType" = "Opaque"
-				"LightMode" = "ForwardBase"
-			}
+				//"LightMode" = "ForwardBase"
+				}
 
             CGPROGRAM
             #pragma vertex vert
@@ -123,17 +122,19 @@ Shader "Grass"
 			#pragma hull hull
 			#pragma domain domain
 			#pragma target 4.6
-            
-			#include "Lighting.cginc"
 
-			float4 _TopColor;
+            #include "Lighting.cginc"
+
+           
+            float4 _TopColor;
 			float4 _BottomColor;
 			float _TranslucentGain;
-
-			float4 frag (geometryOutput i, fixed facing : VFACE) : SV_Target
+            
+            float4 frag (geometryOutput i, fixed facing : VFACE) : SV_Target
             {	
 				return lerp(_BottomColor, _TopColor, i.uv.y);
             }
+
             ENDCG
         }
     }
