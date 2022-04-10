@@ -17,6 +17,7 @@ namespace FirehawkAI
         public const int LitBranchLayerMask = 1 << 8;
         public const float GroundRange = 32f;
         public const float DetectionRange = 20f;
+        public const float PickUpRange = 2f;
         public const float Speed = 24f;
 
         protected override Node SetupTree()
@@ -45,15 +46,17 @@ namespace FirehawkAI
                         new CheckHaveLitBranch(),
                         new Selector(new List<Node>
                         {
+                            new ParallelNode(new List<Node>
+                            {
+                                new TaskLookForLitBranch(currentPos, waypoints, _groundTransform),
+                                new TaskPatrol(currentPos, waypoints, _groundTransform)
+                            }, ParallelNode.Policy.RequireOne, ParallelNode.Policy.RequireOne),
                             new Selector(new List<Node>
                             {
-                                new Sequence(new List<Node>
-                                {
-                                    new TaskLookForLitBranch(currentPos, waypoints, _groundTransform),
-                                    new TaskGoTowardLitBranch(currentPos)
-                                }),
-                                new TaskPickUpLitBranch()
-                            })
+                                new TaskGoTowardLitBranch(currentPos),
+                                new TaskPickUpLitBranch(currentPos)
+                            }),
+                            new TaskGoBackInSky(currentPos)
                         })
                     }),
                     new Sequence(new List<Node>
@@ -65,10 +68,11 @@ namespace FirehawkAI
                             new TaskThrowLitBranch()
                         })
                     }),
-
+                    
                     new TaskIdle()
                 });
 
+            node.SetData("OriginCoordinate", currentPos.position.y);
             return node;
         }
 
@@ -78,6 +82,8 @@ namespace FirehawkAI
             Gizmos.DrawWireSphere(_groundTransform, GroundRange);
             Gizmos.color = Color.yellow;
             Gizmos.DrawWireSphere(transform.position, DetectionRange);
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(transform.position, PickUpRange);
         }
     }
 }

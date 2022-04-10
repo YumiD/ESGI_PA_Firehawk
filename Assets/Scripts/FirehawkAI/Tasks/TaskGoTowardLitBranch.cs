@@ -5,21 +5,35 @@ namespace FirehawkAI.Tasks
 {
     public class TaskGoTowardLitBranch : Node
     {
-        private Transform _transform;
+        private readonly Transform _transform;
+
         public TaskGoTowardLitBranch(Transform transform)
         {
             _transform = transform;
         }
+
         public override NodeState Evaluate()
         {
-            var target = (Transform)GetData("target");
+            var target = (Transform)GetData("FoundLitBranch");
 
-            if (Vector3.Distance(_transform.position, target.position) > 0.01f)
+            if (target == null)
             {
+                State = NodeState.FAILURE;
+                return State;
+            }
+
+            if (Vector3.Distance(_transform.position, target.position) > 2f)
+            {
+                Debug.Log("Go toward lit branch");
                 var position = target.position;
                 _transform.position = Vector3.MoveTowards(
                     _transform.position, position, FirehawkBT.Speed * Time.deltaTime);
                 _transform.LookAt(position);
+            }
+            else
+            {
+                State = NodeState.FAILURE; // But in fact a success, just a way to go to the next task
+                return State;
             }
 
             State = NodeState.RUNNING;

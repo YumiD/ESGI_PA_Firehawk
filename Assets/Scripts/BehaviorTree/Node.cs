@@ -17,7 +17,7 @@ namespace BehaviorTree
         public Node Parent;
         protected List<Node> Children = new List<Node>();
 
-        private Dictionary<string, object> _dataContext = new Dictionary<string, object>();
+        private readonly Dictionary<string, object> _dataContext = new Dictionary<string, object>();
 
         protected Node()
         {

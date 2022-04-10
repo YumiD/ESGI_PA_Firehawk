@@ -1,4 +1,5 @@
 ﻿using BehaviorTree;
+using UnityEngine;
 
 namespace FirehawkAI.Checks
 {
@@ -10,6 +11,7 @@ namespace FirehawkAI.Checks
 
             if (t == null)
             {
+                Debug.Log("CheckHaveLitBranch");
                 State = NodeState.SUCCESS;
                 return State;
             }

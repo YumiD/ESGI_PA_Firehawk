@@ -5,35 +5,37 @@ namespace FirehawkAI.Tasks
 {
     public class TaskLookForLitBranch : TaskPatrol
     {
-        public TaskLookForLitBranch(Transform transform, Transform[] waypoints, Vector3 groundTransform) : base(transform, waypoints, groundTransform)
+        public TaskLookForLitBranch(Transform transform, Transform[] waypoints, Vector3 groundTransform) : base(
+            transform, waypoints, groundTransform)
         {
         }
 
         public override NodeState Evaluate()
         {
-            base.Evaluate();
-            Debug.Log("Looking for lit branch");
             var t = GetData("litBranch");
+            var t2 = GetData("FoundLitBranch");
 
-            if (t == null)
+            if (t != null || t2 != null)
             {
-                var colliders = Physics.OverlapSphere(Transform.position, FirehawkBT.DetectionRange,
-                    FirehawkBT.LitBranchLayerMask);
+                State = NodeState.FAILURE;
+                return State;
+            }
+            base.Evaluate();
 
-                if (colliders.Length > 0)
-                {
-                    Debug.Log("FOUND lit branch");
-                    Parent.Parent.SetData("branch", colliders[0].transform);
+            Debug.Log("Looking for lit branch");
+            var colliders = Physics.OverlapSphere(Transform.position, FirehawkBT.DetectionRange,
+                FirehawkBT.LitBranchLayerMask);
 
-                    State = NodeState.SUCCESS;
-                    return State;
-                }
+            if (colliders.Length > 0)
+            {
+                Debug.Log("FOUND lit branch");
 
+                Parent.Parent.SetData("FoundLitBranch", colliders[0].transform);
                 State = NodeState.FAILURE;
                 return State;
             }
 
-            State = NodeState.SUCCESS;
+            State = NodeState.RUNNING;
             return State;
         }
     }

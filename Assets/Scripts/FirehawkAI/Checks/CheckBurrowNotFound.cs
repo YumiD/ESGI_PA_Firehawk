@@ -15,7 +15,6 @@ namespace FirehawkAI.Checks
                 State = NodeState.SUCCESS;
                 return State;
             }
-            
             State = NodeState.FAILURE;
             return State;
         }
