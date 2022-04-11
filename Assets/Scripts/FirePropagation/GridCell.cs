@@ -11,7 +11,7 @@ public class GridCell : MonoBehaviour
     [SerializeField] public GameObject _objectInThisGridSpace = null;
 
     // Actual GameObject
-    public GameObject _gameObject = new GameObject();
+    public GameObject _gameObject = null;
 
     public bool _isOccupied = false;
     public bool _isOnFire = false;
