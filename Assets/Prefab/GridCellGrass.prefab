@@ -209,5 +209,5 @@ MonoBehaviour:
   _isOccupied: 0
   _isOnFire: 0
   _canBeOnFire: 1
-  _hitPoint: 150
+  _hitPoint: 250
   _lifetime: 3

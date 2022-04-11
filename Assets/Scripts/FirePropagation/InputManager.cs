@@ -32,6 +32,9 @@ public class InputManager : MonoBehaviour
             if(Input.GetMouseButtonDown(2)){
                gameGrid.AddObject(cellMouseIsOver.GetPosition());
             }
+            if(Input.GetKeyDown(KeyCode.Space)){
+               gameGrid.AddCellZ(cellMouseIsOver.GetPosition());
+            }
         }
     }
 

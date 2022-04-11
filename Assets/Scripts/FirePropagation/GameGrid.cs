@@ -7,6 +7,7 @@ public class GameGrid : MonoBehaviour
 
     private int height = 30;
     private int width = 30;
+    private int maxZ = 10;
     private float GridCellSize = 2f;
     private float GridSpaceSize = 2f;
 
@@ -16,7 +17,7 @@ public class GameGrid : MonoBehaviour
 
     [SerializeField] private GameObject GO_Tree;
 
-    private GameObject[,] gameGrid;
+    private GameObject[,,] gameGrid;
 
     void Start()
     {
@@ -25,7 +26,7 @@ public class GameGrid : MonoBehaviour
 
     private void CreateGrid()
     {
-        gameGrid = new GameObject[height, width];
+        gameGrid = new GameObject[height, width, maxZ];
 
         if (gridCellGround == null)
         {
@@ -39,11 +40,11 @@ public class GameGrid : MonoBehaviour
             for (int x = 0; x < width; x++)
             {
                 //Create GridSpace object for each cell
-                gameGrid[x, y] = Instantiate(gridCellGround, new Vector3(x * GridSpaceSize, 0,  y * GridSpaceSize), Quaternion.identity);
-                gameGrid[x, y].transform.localScale = new Vector3(GridCellSize, GridCellSize/2, GridCellSize);
-                gameGrid[x, y].GetComponent<GridCell>().SetPosition(x, y);
-                gameGrid[x, y].transform.parent = transform;
-                gameGrid[x, y].gameObject.name = "Grid Space ( X: " + x + " , Y: " + y + ")";
+                gameGrid[x, y, 0] = Instantiate(gridCellGround, new Vector3(x * GridSpaceSize, 0,  y * GridSpaceSize), Quaternion.identity);
+                gameGrid[x, y, 0].transform.localScale = new Vector3(GridCellSize, GridCellSize/2, GridCellSize);
+                gameGrid[x, y, 0].GetComponent<GridCell>().SetPosition(x, y);
+                gameGrid[x, y, 0].transform.parent = transform;
+                gameGrid[x, y, 0].gameObject.name = "Grid Space ( X: " + x + " , Y: " + y + " , Z: "+ 0 + " )";
             }
         }
     }
@@ -57,8 +58,8 @@ public class GameGrid : MonoBehaviour
                     continue;
                 if(posX+i<0 || posY+j<0 || posX+i>= width || posY+j >= height)
                     continue;
-                if(gameGrid[posX+i, posY+j].GetComponent<GridCell>()._canBeOnFire)
-                    neighborsList.Add(gameGrid[posX+i, posY+j].GetComponent<GridCell>());
+                if(gameGrid[posX+i, posY+j, 0].GetComponent<GridCell>()._canBeOnFire)
+                    neighborsList.Add(gameGrid[posX+i, posY+j, 0].GetComponent<GridCell>());
             }
         }
         return neighborsList;
@@ -67,21 +68,38 @@ public class GameGrid : MonoBehaviour
     public void ChangeGridCell(Vector2Int pos, EnumGridCell gridCellType){
         int x = pos.x;
         int y = pos.y;
-        Destroy(gameGrid[x, y].GetComponent<GridCell>().gameObject);
+        Destroy(gameGrid[x, y, 0].GetComponent<GridCell>().gameObject);
         GameObject newGridCell = GetGameObjectFromEnum(gridCellType);
-        gameGrid[x, y] = Instantiate(newGridCell, new Vector3(x * GridSpaceSize, 0,  y * GridSpaceSize), Quaternion.identity);
-        gameGrid[x, y].transform.localScale = new Vector3(GridCellSize, GridCellSize/2, GridCellSize);
-        gameGrid[x, y].GetComponent<GridCell>().SetPosition(x, y);
-        gameGrid[x, y].transform.parent = transform;
-        gameGrid[x, y].gameObject.name = "Grid Space ( X: " + x.ToString() + " , Y: " + y.ToString() + ")";
+        gameGrid[x, y, 0] = Instantiate(newGridCell, new Vector3(x * GridSpaceSize, 0,  y * GridSpaceSize), Quaternion.identity);
+        gameGrid[x, y, 0].transform.localScale = new Vector3(GridCellSize, GridCellSize/2, GridCellSize);
+        gameGrid[x, y, 0].GetComponent<GridCell>().SetPosition(x, y);
+        gameGrid[x, y, 0].transform.parent = transform;
+        gameGrid[x, y, 0].gameObject.name = "Grid Space ( X: " + x.ToString() + " , Y: " + y.ToString() + " , Z: " + 0 + " )";
     }
 
     public void AddObject(Vector2Int pos){
         int x = pos.x;
         int y = pos.y;
-        gameGrid[x, y].GetComponent<GridCell>().SetObject(GO_Tree);
-        gameGrid[x, y].GetComponent<GridCell>().GetObject().name = "Tree ( X: " + x + " , Y: " + y + ")";
-        Instantiate(gameGrid[x, y].GetComponent<GridCell>().GetObject(), new Vector3(x * GridSpaceSize, 0,  y * GridSpaceSize), Quaternion.identity);
+        gameGrid[x, y, 0].GetComponent<GridCell>().SetObject(GO_Tree);
+        gameGrid[x, y, 0].GetComponent<GridCell>().GetObject().name = "Tree ( X: " + x + " , Y: " + y + " , Z: " + 0 + " )";
+        Instantiate(gameGrid[x, y, 0].GetComponent<GridCell>().GetObject(), new Vector3(x * GridSpaceSize, 0,  y * GridSpaceSize), Quaternion.identity);
+    }
+
+    public void AddCellZ(Vector2Int pos){
+        int x = pos.x;
+        int y = pos.y;
+        int z = 0;
+        while(z<maxZ){
+            if(gameGrid[x, y, z] == null)
+                break;
+            z++;
+        }
+        print("z : " + z);
+        gameGrid[x, y, z] = Instantiate(gridCellGround, new Vector3(x * GridSpaceSize, (z * GridSpaceSize /2),  y * GridSpaceSize), Quaternion.identity);
+        gameGrid[x, y, z].transform.localScale = new Vector3(GridCellSize, GridCellSize/2, GridCellSize);
+        gameGrid[x, y, z].GetComponent<GridCell>().SetPosition(x, y);
+        gameGrid[x, y, z].transform.parent = transform;
+        gameGrid[x, y, z].gameObject.name = "Grid Space ( X: " + x + " , Y: " + y + " , Z: "+ z + " )";
     }
 
     public Vector2Int GetGridPosFromWorld(Vector3 worldPosition)
