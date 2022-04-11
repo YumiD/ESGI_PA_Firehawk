@@ -11,6 +11,8 @@ public class GameGrid : MonoBehaviour
     private float GridCellSize = 2f;
     private float GridSpaceSize = 2f;
 
+    [SerializeField] private bool generation = true;
+
     [SerializeField] private GameObject gridCellGround;
     [SerializeField] private GameObject gridCellGrass;
     [SerializeField] private GameObject gridCellBurned;
@@ -21,7 +23,8 @@ public class GameGrid : MonoBehaviour
 
     void Start()
     {
-        CreateGrid();
+        if(generation)
+            CreateGrid();
     }
 
     private void CreateGrid()
@@ -71,7 +74,6 @@ public class GameGrid : MonoBehaviour
     public void ChangeGridCell(Vector2Int posXY, int posZ, EnumGridCell gridCellType){
         int x = posXY.x;
         int y = posXY.y;
-        //int z = GetGridCellActualZ(posXY);
         int z = posZ;
         Destroy(gameGrid[x, y, z].GetComponent<GridCell>().gameObject);
         GameObject newGridCell = GetGameObjectFromEnum(gridCellType);
