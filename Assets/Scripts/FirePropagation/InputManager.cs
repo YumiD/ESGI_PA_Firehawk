@@ -21,7 +21,7 @@ public class InputManager : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0))
             {
-                gameGrid.ChangeGridCell(cellMouseIsOver.GetPosition(), gridCellType);
+                gameGrid.ChangeGridCell(cellMouseIsOver.GetPosition(), gameGrid.GetGridCellActualZ(cellMouseIsOver.GetPosition()), gridCellType);
             }
             if (Input.GetMouseButtonDown(1))
             {
