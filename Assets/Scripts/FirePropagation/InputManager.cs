@@ -29,6 +29,9 @@ public class InputManager : MonoBehaviour
             {
                 cellMouseIsOver.SetFire();
             }
+            if(Input.GetMouseButtonDown(2)){
+               gameGrid.AddObject(cellMouseIsOver.GetPosition());
+            }
         }
     }
 

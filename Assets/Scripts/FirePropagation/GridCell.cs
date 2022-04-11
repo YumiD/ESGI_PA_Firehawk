@@ -65,6 +65,14 @@ public class GridCell : MonoBehaviour
         _lifetime = 0;
     }
 
+    public void SetObject(GameObject GO){
+        _objectInThisGridSpace = GO;
+        _isOccupied = true;
+    }
+    public GameObject GetObject(){
+        return _objectInThisGridSpace;
+    }
+
     public void SetPosition(int x, int y)
     {
         _posX = x;
