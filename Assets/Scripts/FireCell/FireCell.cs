@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public enum FireState
 {
@@ -21,6 +22,9 @@ public class FireCell : MonoBehaviour
 
 	[SerializeField]
 	private ParticleSystem _smoke;
+
+	[SerializeField]
+	private List<GameObject> _children = new List<GameObject>();
 	
 	public float Temperature { get; private set; }
 	public FireState FireState { get; private set; } = FireState.None;
@@ -96,6 +100,14 @@ public class FireCell : MonoBehaviour
 		
 		if (newFireState != FireState)
 		{
+			if (newFireState != FireState.OnFire && FireState == FireState.OnFire)
+			{
+				for (int i = 0; i < _children.Count; i++)
+				{
+					_children[i].AddComponent<Rigidbody>();
+				}
+			}
+			
 			FireState = newFireState;
 			OnFireStateChanged();
 		}
