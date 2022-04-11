@@ -7,13 +7,22 @@ namespace FirehawkAI.Checks
     {
         public override NodeState Evaluate()
         {
-            var t = GetData("fire");
+            var target = GetData("fire");
+            // var target2 = GetData("litBranch");
 
-            if (t == null)
+            if (target == null)
             {
                 Debug.Log("CheckIfFire");
                 State = NodeState.SUCCESS;
                 return State;
+            }
+
+            if (((GameObject)target).TryGetComponent<GridCell>(out var cell))
+            {
+                if (!cell.IsCurrentlyOnFire())
+                {
+                    ClearData("fire");
+                }
             }
 
             State = NodeState.FAILURE;

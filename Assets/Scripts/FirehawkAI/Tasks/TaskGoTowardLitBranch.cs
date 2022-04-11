@@ -23,7 +23,7 @@ namespace FirehawkAI.Tasks
                 return State;
             }
 
-            if (Vector3.Distance(_transform.position, target.position) > 2f)
+            if (Vector3.Distance(_transform.position, target.position) > .1f)
             {
                 Debug.Log("Go toward lit branch");
                 var position = target.position;

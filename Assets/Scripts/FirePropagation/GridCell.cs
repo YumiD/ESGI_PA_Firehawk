@@ -42,7 +42,7 @@ public class GridCell : MonoBehaviour
 
     public bool IsCurrentlyOnFire()
     {
-        return _canBeOnFire && _isOnFire;
+        return _isOnFire;
     }
 
     public void SetFire(){
@@ -75,5 +75,4 @@ public class GridCell : MonoBehaviour
     {
         return new Vector2Int(_posX, _posY);
     }
-
 }

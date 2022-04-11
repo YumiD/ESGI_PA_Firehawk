@@ -19,10 +19,17 @@ namespace FirehawkAI.Checks
             if (colliders.Length > 0)
             {
                 Debug.Log("Looking for unburn area");
+                var count = 0;
                 foreach (var col in colliders)
                 {
                     if (!col.TryGetComponent<GridCell>(out var cell)) continue;
                     if (!cell.IsCurrentlyOnFire()) continue;
+                    count++;
+                }
+
+                if (count > colliders.Length * .1f)
+                {
+                    // Debug.Log($"Check only {count} cells on fire among {colliders.Length}");
                     State = NodeState.SUCCESS;
                     return State;
                 }

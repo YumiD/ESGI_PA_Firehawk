@@ -45,13 +45,24 @@ namespace BehaviorTree
             _dataContext[key] = value;
         }
 
+        public void SetDataToRoot(string key, object value)
+        {
+            Node node = Parent;
+            while (node.Parent != null)
+            {
+                node = node.Parent;
+            }
+
+            node._dataContext[key] = value;
+        }
+
         protected object GetData(string key)
         {
             if (_dataContext.TryGetValue(key, out var value))
             {
                 return value;
             }
-            
+
             return Parent?.GetData(key);
         }
 
@@ -74,10 +85,11 @@ namespace BehaviorTree
 
             return false;
         }
-        
+
         protected List<Node> ShuffleList(List<Node> list)
         {
-            for (var i = 0; i < list.Count; i++) {
+            for (var i = 0; i < list.Count; i++)
+            {
                 var temp = list[i];
                 var randomIndex = Random.Range(i, Children.Count);
                 list[i] = list[randomIndex];

@@ -7,32 +7,56 @@ namespace FirehawkAI.Tasks
     {
         private Transform _pointToRunAwayFrom;
         private bool _choosePoint;
-        
-        public TaskGoTowardUnburnArea(Transform currentTransform, Transform[] waypoints, Vector3 groundTransform) : base(currentTransform, waypoints, groundTransform)
+
+        public TaskGoTowardUnburnArea(Transform currentTransform, Transform[] waypoints, Vector3 groundTransform) :
+            base(currentTransform, waypoints, groundTransform)
         {
         }
-        
+
         public override NodeState Evaluate()
         {
-            if (!_choosePoint)
+            var colliders = Physics.OverlapSphere(CurrentTransform.position, FirehawkBT.DetectionRange,
+                FirehawkBT.GroundLayerMask);
+            if (colliders.Length > 0)
             {
-                var unburnArea = FindPointToRunAwayFrom();
-                if (unburnArea)
+                var count = 0;
+                foreach (var col in colliders)
                 {
-                    State = NodeState.SUCCESS;
-                    return State;
+                    if (!col.TryGetComponent<GridCell>(out var cell)) continue;
+                    if (!cell.IsCurrentlyOnFire()) continue;
+                    count++;
                 }
 
-                State = NodeState.FAILURE;
-                return State;
+                if (count <= colliders.Length * .05f)
+                {
+                    Debug.Log($"Go toward only {count} cells on fire among {colliders.Length}");
+                    // _pointToRunAwayFrom = cell.transform;
+                    State = NodeState.SUCCESS;
+                    return State;
+                }   
             }
 
-            // Run away from point
-            var direction = RunAway(CurrentTransform, _pointToRunAwayFrom).normalized;
-            CurrentTransform.LookAt(direction);
-
-            State = NodeState.FAILURE;
+            State = NodeState.RUNNING;
             return State;
+            // if (!_choosePoint)
+            // {
+            //     var unburnArea = FindPointToRunAwayFrom();
+            //     if (unburnArea)
+            //     {
+            //         State = NodeState.SUCCESS;
+            //         return State;
+            //     }
+            //
+            //     State = NodeState.FAILURE;
+            //     return State;
+            // }
+            //
+            // // // Run away from point
+            // // var direction = RunAway(CurrentTransform, _pointToRunAwayFrom).normalized;
+            // // CurrentTransform.LookAt(direction);
+            //
+            // State = NodeState.RUNNING;
+            // return State;
         }
 
         private static Vector3 RunAway(Transform a, Transform b)
@@ -45,11 +69,17 @@ namespace FirehawkAI.Tasks
             var colliders = Physics.OverlapSphere(CurrentTransform.position, FirehawkBT.DetectionRange,
                 FirehawkBT.GroundLayerMask);
             if (colliders.Length <= 0) return false;
+            var count = 0;
             foreach (var col in colliders)
             {
                 if (!col.TryGetComponent<GridCell>(out var cell)) continue;
                 if (!cell.IsCurrentlyOnFire()) continue;
-                _pointToRunAwayFrom = cell.transform;
+                count++;
+            }
+
+            if (count <= 5)
+            {
+                // _pointToRunAwayFrom = cell.transform;
                 _choosePoint = true;
                 return false;
             }

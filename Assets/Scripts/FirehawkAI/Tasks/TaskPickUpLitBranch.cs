@@ -30,8 +30,9 @@ namespace FirehawkAI.Tasks
                 Debug.Log("Pick up lit branch");
                 colliders[0].transform.SetParent(_transform);
                 colliders[0].GetComponent<Rigidbody>().isKinematic = true;
-                Parent.Parent.SetData("litBranch", colliders[0].transform);
-                // ClearData("FoundLitBranch");
+                // Parent.Parent.SetData("litBranch" + FirehawkBT.CurrentLitBranch, colliders[0].transform);
+                SetDataToRoot("litBranch", colliders[0].transform);
+                ClearData("FoundLitBranch");
 
                 State = NodeState.FAILURE;
                 return State;

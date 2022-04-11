@@ -5,7 +5,8 @@ namespace FirehawkAI.Tasks.PatrolTask
 {
     public class TaskPatrolFire : TaskPatrol
     {
-        public TaskPatrolFire(Transform currentTransform, Transform[] waypoints, Vector3 groundTransform) : base(currentTransform,
+        public TaskPatrolFire(Transform currentTransform, Transform[] waypoints, Vector3 groundTransform) : base(
+            currentTransform,
             waypoints, groundTransform)
         {
         }
@@ -27,9 +28,10 @@ namespace FirehawkAI.Tasks.PatrolTask
                         if (!col.TryGetComponent<GridCell>(out var cell)) continue;
                         if (!cell.IsCurrentlyOnFire()) continue;
                         Debug.Log("FOUND fire");
-                        Parent.Parent.SetData("fire", col.transform);
+                        Parent.Parent.SetData("fire", col.gameObject);
                         State = NodeState.RUNNING;
-                        return State;                    }
+                        return State;
+                    }
                 }
             }
 
