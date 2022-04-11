@@ -24,7 +24,7 @@ public class FireManager : MonoBehaviour
             for (int j = i+1; j < _cells.Count; j++)
             {
                 float distanceCenterToCenter = Vector3.Distance(_cells[i].transform.position, _cells[j].transform.position);
-                float distanceEdgeToEdge = distanceCenterToCenter - _cells[i].Collider.radius - _cells[j].Collider.radius;
+                float distanceEdgeToEdge = distanceCenterToCenter - _cells[i].Radius - _cells[j].Radius;
 				
                 _cells[i].OnPropagate(_cells[j], distanceCenterToCenter, distanceEdgeToEdge);
                 _cells[j].OnPropagate(_cells[i], distanceCenterToCenter, distanceEdgeToEdge);

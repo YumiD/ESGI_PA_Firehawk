@@ -13,8 +13,8 @@ public class FireCell : MonoBehaviour
 	private const float CATCH_FIRE_TEMPERATURE = 400;
 
 	[SerializeField]
-	private SphereCollider _collider;
-	public SphereCollider Collider => _collider;
+	private float _radius = 0.5f;
+	public float Radius => _radius;
 	
 	public float Temperature { get; private set; }
 	public FireState FireState { get; private set; } = FireState.None;
