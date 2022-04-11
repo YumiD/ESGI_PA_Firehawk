@@ -21,8 +21,6 @@ public class InputManager : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0))
             {
-                cellMouseIsOver._canBeOnFire = true;
-                cellMouseIsOver._isOnFire = false;
                 gameGrid.ChangeGridCell(cellMouseIsOver.GetPosition(), gridCellType);
             }
             if (Input.GetMouseButtonDown(1))
@@ -34,6 +32,7 @@ public class InputManager : MonoBehaviour
             }
             if(Input.GetKeyDown(KeyCode.Space)){
                gameGrid.AddCellZ(cellMouseIsOver.GetPosition());
+               //cellMouseIsOver.RemoveObject();
             }
         }
     }

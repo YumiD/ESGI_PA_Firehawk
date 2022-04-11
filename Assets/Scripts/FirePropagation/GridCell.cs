@@ -10,6 +10,9 @@ public class GridCell : MonoBehaviour
     // Reference to the gameObject that gets placed on this cell
     [SerializeField] public GameObject _objectInThisGridSpace = null;
 
+    // Actual GameObject
+    public GameObject _gameObject = new GameObject();
+
     public bool _isOccupied = false;
     public bool _isOnFire = false;
     [SerializeField] public bool _canBeOnFire;
@@ -65,12 +68,22 @@ public class GridCell : MonoBehaviour
         _lifetime = 0;
     }
 
-    public void SetObject(GameObject GO){
-        _objectInThisGridSpace = GO;
-        _isOccupied = true;
+    public void RemoveObject(){
+        Destroy(GetObject());
+        _objectInThisGridSpace = null;
+        _isOccupied = false;
     }
-    public GameObject GetObject(){
+
+    public void SetObjectReference(GameObject GO){
+        _objectInThisGridSpace = GO;
+    }
+
+    public GameObject GetObjectReference(){
         return _objectInThisGridSpace;
+    }
+
+    public GameObject GetObject(){
+        return _gameObject;
     }
 
     public void SetPosition(int x, int y)
