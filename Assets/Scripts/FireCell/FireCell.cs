@@ -15,6 +15,12 @@ public class FireCell : MonoBehaviour
 	[SerializeField]
 	private float _radius = 0.5f;
 	public float Radius => _radius;
+
+	[SerializeField]
+	private ParticleSystem _fire;
+
+	[SerializeField]
+	private ParticleSystem _smoke;
 	
 	public float Temperature { get; private set; }
 	public FireState FireState { get; private set; } = FireState.None;
@@ -23,8 +29,19 @@ public class FireCell : MonoBehaviour
 	private void Start()
 	{
 		FireManager.Instance.RegisterFireCell(this);
+		
+		ParticleSystem.ShapeModule fireShape = _fire.shape;
+		fireShape.radius = _radius;
+		
+		ParticleSystem.ShapeModule smokeShape = _smoke.shape;
+		smokeShape.radius = _radius;
 	}
 
+	public void DebugSetTemperature(float temperature)
+	{
+		Temperature = temperature;
+	}
+	
 	public void OnPropagate(FireCell other, float distanceCenterToCenter, float distanceEdgeToEdge)
 	{
 		if (FireState == FireState.OnFire && distanceEdgeToEdge < 2)
@@ -35,7 +52,21 @@ public class FireCell : MonoBehaviour
 
 	private void OnFireStateChanged()
 	{
-		// change particles or smth
+		switch (FireState)
+		{
+			case FireState.None:
+				_smoke.Stop();
+				_fire.Stop();
+				break;
+			case FireState.Smoking:
+				_smoke.Play();
+				_fire.Stop();
+				break;
+			case FireState.OnFire:
+				_smoke.Stop();
+				_fire.Play();
+				break;
+		}
 	}
 
 	private void FixedUpdate()
