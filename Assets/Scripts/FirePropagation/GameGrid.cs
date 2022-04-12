@@ -8,7 +8,7 @@ public class GameGrid : MonoBehaviour
     public int height = 30;
     private int width = 30;
     private int maxZ = 10;
-    private float GridCellSize = 4f;
+    private float GridCellSize = 5f;
 
     [SerializeField] private bool generation = true;
 
@@ -128,7 +128,7 @@ public class GameGrid : MonoBehaviour
 
         _gameGrid[x, y, z].GetComponent<GridCell>().SetObjectReference(GO_Tree);
         _gameGrid[x, y, z].GetComponent<GridCell>()._isOccupied = true;
-        _gameGrid[x, y, z].GetComponent<GridCell>()._gameObject = Instantiate(_gameGrid[x, y, z].GetComponent<GridCell>().GetObjectReference(), new Vector3(x * GridCellSize, z * (GridCellSize /2),  y * GridCellSize), Quaternion.identity);
+        _gameGrid[x, y, z].GetComponent<GridCell>()._gameObject = Instantiate(_gameGrid[x, y, z].GetComponent<GridCell>().GetObjectReference(), new Vector3(x * GridCellSize, (z+0.5f) * (GridCellSize /2),  y * GridCellSize), Quaternion.identity);
         _gameGrid[x, y, z].GetComponent<GridCell>().GetObject().name = "GameObject ( X" + x + " , Y" + y + " , Z" + z + " )";
         _gameGrid[x, y, z].GetComponent<GridCell>().GetObject().transform.parent = _gameGrid[x, y, z].GetComponent<GridCell>().transform;
     }
