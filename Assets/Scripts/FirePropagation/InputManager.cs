@@ -4,35 +4,51 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
-    GameGrid gameGrid;
+    GameGrid _gameGrid;
     [SerializeField] private LayerMask whatIsAGridLayer;
 
 
     void Start()
     {
-        gameGrid = FindObjectOfType<GameGrid>();
+        _gameGrid = FindObjectOfType<GameGrid>();
     }
 
     void Update()
     {
         GridCell cellMouseIsOver = IsMouseOverAGridSpace();
-        EnumGridCell gridCellType = EnumGridCell.Grass;
         if(cellMouseIsOver != null)
         {
             if (Input.GetMouseButtonDown(0))
             {
-                gameGrid.ChangeGridCell(cellMouseIsOver.GetPosition(), gameGrid.GetGridCellActualZ(cellMouseIsOver.GetPosition()), gridCellType);
+                if(cellMouseIsOver.GetGridCellType() == EnumGridCell.GroundSlide)
+                    _gameGrid.ChangeGridCell(cellMouseIsOver.GetPosition(), _gameGrid.GetGridCellActualZ(cellMouseIsOver.GetPosition()), EnumGridCell.GrassSlide);
+                else
+                    _gameGrid.ChangeGridCell(cellMouseIsOver.GetPosition(), _gameGrid.GetGridCellActualZ(cellMouseIsOver.GetPosition()), EnumGridCell.Grass);
             }
             if (Input.GetMouseButtonDown(1))
             {
                 cellMouseIsOver.SetFire();
             }
             if(Input.GetMouseButtonDown(2)){
-               gameGrid.AddObject(cellMouseIsOver.GetPosition());
+               _gameGrid.AddObject(cellMouseIsOver.GetPosition());
             }
             if(Input.GetKeyDown(KeyCode.Space)){
-               gameGrid.AddCellZ(cellMouseIsOver.GetPosition());
-               //cellMouseIsOver.RemoveObject();
+               _gameGrid.AddCellZ(cellMouseIsOver.GetPosition());
+            }
+            if(Input.GetKeyDown(KeyCode.A)){
+                print(cellMouseIsOver.name);
+                int x = int.Parse(cellMouseIsOver.name.Split('X')[1].Split(' ')[0]);
+                int y = int.Parse(cellMouseIsOver.name.Split('Y')[1].Split(' ')[0]);
+                int z = int.Parse(cellMouseIsOver.name.Split('Z')[1].Split(' ')[0]);
+                print(x);
+                print(y);
+                print(z);
+            }
+            if(Input.GetKeyDown(KeyCode.E)){
+                _gameGrid.ChangeGridCell(cellMouseIsOver.GetPosition(), _gameGrid.GetGridCellActualZ(cellMouseIsOver.GetPosition()), EnumGridCell.GroundSlide);
+            }
+            if(Input.GetKeyDown(KeyCode.R)){
+                cellMouseIsOver.transform.Rotate(0,90,0);
             }
         }
     }

@@ -7,6 +7,8 @@ public class GridCell : MonoBehaviour
     private int _posX;
     private int _posY;
 
+    private EnumGridCell _gridCellType;
+
     // Reference to the gameObject that gets placed on this cell
     [SerializeField] public GameObject _objectInThisGridSpace = null;
 
@@ -95,6 +97,13 @@ public class GridCell : MonoBehaviour
     public Vector2Int GetPosition()
     {
         return new Vector2Int(_posX, _posY);
+    }
+
+    public void SetGridCellType(EnumGridCell gridCellType){
+        _gridCellType = gridCellType;
+    }
+    public EnumGridCell GetGridCellType(){
+        return _gridCellType;
     }
 
 }
