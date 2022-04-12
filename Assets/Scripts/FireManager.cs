@@ -11,6 +11,11 @@ public class FireManager : MonoBehaviour
     {
         _cells.Add(cell);
     }
+	
+    public void UnregisterFireCell(FireCell cell)
+    {
+        _cells.Remove(cell);
+    }
 
     private void Awake()
     {

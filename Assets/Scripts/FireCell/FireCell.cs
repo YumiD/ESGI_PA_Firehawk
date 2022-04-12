@@ -53,6 +53,11 @@ public class FireCell : MonoBehaviour
 		smokeShape.radius = _radius;
 	}
 
+	private void OnDestroy()
+	{
+		FireManager.Instance.UnregisterFireCell(this);
+	}
+
 	public void DebugSetTemperature(float temperature)
 	{
 		Temperature = temperature;
