@@ -7,8 +7,13 @@ public class GridCell : MonoBehaviour
     private int _posX;
     private int _posY;
 
+    private EnumGridCell _gridCellType;
+
     // Reference to the gameObject that gets placed on this cell
     [SerializeField] public GameObject _objectInThisGridSpace = null;
+
+    // Actual GameObject
+    public GameObject _gameObject = null;
 
     public bool _isOccupied = false;
     public bool _isOnFire = false;
@@ -65,6 +70,24 @@ public class GridCell : MonoBehaviour
         _lifetime = 0;
     }
 
+    public void RemoveObject(){
+        Destroy(GetObject());
+        _objectInThisGridSpace = null;
+        _isOccupied = false;
+    }
+
+    public void SetObjectReference(GameObject GO){
+        _objectInThisGridSpace = GO;
+    }
+
+    public GameObject GetObjectReference(){
+        return _objectInThisGridSpace;
+    }
+
+    public GameObject GetObject(){
+        return _gameObject;
+    }
+
     public void SetPosition(int x, int y)
     {
         _posX = x;
@@ -75,4 +98,12 @@ public class GridCell : MonoBehaviour
     {
         return new Vector2Int(_posX, _posY);
     }
+
+    public void SetGridCellType(EnumGridCell gridCellType){
+        _gridCellType = gridCellType;
+    }
+    public EnumGridCell GetGridCellType(){
+        return _gridCellType;
+    }
+
 }
