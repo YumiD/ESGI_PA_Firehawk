@@ -205,7 +205,7 @@ MonoBehaviour:
   gridCellGrass: {fileID: 8096615045226873805, guid: 8220c58b7f8e77047932a920db742de3, type: 3}
   gridCellGrassSlide: {fileID: 9055120102077279047, guid: 36c69d9c5faa95248b861546857c7444, type: 3}
   gridCellBurned: {fileID: 8096615045226873805, guid: adb7a1872e4f7d344a1522ba82a50ce0, type: 3}
-  GO_Tree: {fileID: 6087176157282219539, guid: 7e3e109ebd3e40d4e808f006fda542f0, type: 3}
+  GO_Tree: {fileID: 8189746004441625058, guid: 526158abdb510424bb3ea5cf030556b1, type: 3}
 --- !u!4 &273732648
 Transform:
   m_ObjectHideFlags: 0
