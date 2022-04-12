@@ -5,14 +5,40 @@ namespace FirehawkAI.Tasks
 {
     public class TaskThrowLitBranch : Node
     {
+        private float _waitBeforeNewAction = 3f;
+        private float _waitBeforeNewActionCounter;
+
+        private readonly Transform _transform;
+        public TaskThrowLitBranch(Transform transform)
+        {
+            _transform = transform;
+        }
+
         public override NodeState Evaluate()
         {
-            var t = (Transform)GetData("litBranch");
-            
-            t.GetComponent<Rigidbody>().isKinematic = false;
-            t.SetParent(null);
+            var litBranch = (Transform)GetData("litBranch");
+            if (_waitBeforeNewActionCounter > 0)
+            {
+                Debug.Log("Waiting");
+                _waitBeforeNewActionCounter -= Time.deltaTime;
+                if (_waitBeforeNewActionCounter <= 0)
+                {
+                    litBranch.gameObject.layer = 9;
+                    ClearData("litBranch");
+                    State = NodeState.SUCCESS;
+                    return State;
+                }
+            }
+            else
+            {
+                var rigidbodyLitBranch = litBranch.gameObject.GetComponent<Rigidbody>();
+                rigidbodyLitBranch.isKinematic = false;
+                rigidbodyLitBranch.AddRelativeForce(_transform.forward * 1000f);
+                litBranch.SetParent(null);
 
-            State = NodeState.SUCCESS;
+                _waitBeforeNewActionCounter = _waitBeforeNewAction;
+            }
+            State = NodeState.FAILURE;
             return State;
         }
     }
