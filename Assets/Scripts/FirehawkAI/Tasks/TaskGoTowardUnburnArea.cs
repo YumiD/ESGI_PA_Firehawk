@@ -9,7 +9,7 @@ namespace FirehawkAI.Tasks
         private bool _choosePoint;
 
         public TaskGoTowardUnburnArea(Transform currentTransform, Transform[] waypoints, Vector3 groundTransform) :
-            base(currentTransform, waypoints, groundTransform)
+            base(currentTransform, waypoints)
         {
         }
 
@@ -29,7 +29,7 @@ namespace FirehawkAI.Tasks
 
                 if (count <= colliders.Length * .05f)
                 {
-                    Debug.Log($"Go toward only {count} cells on fire among {colliders.Length}");
+                    // Debug.Log($"Go toward only {count} cells on fire among {colliders.Length}");
                     // _pointToRunAwayFrom = cell.transform;
                     State = NodeState.SUCCESS;
                     return State;

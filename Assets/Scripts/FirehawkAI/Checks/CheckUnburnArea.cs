@@ -14,25 +14,36 @@ namespace FirehawkAI.Checks
 
         public override NodeState Evaluate()
         {
-            var colliders = Physics.OverlapSphere(_transform.position, FirehawkBT.DetectionRange,
-                FirehawkBT.GroundLayerMask);
-            if (colliders.Length > 0)
+            var holdingBranch = GetData("isHoldingBranch");
+            if (holdingBranch == null)
             {
-                Debug.Log("Looking for unburn area");
-                var count = 0;
-                foreach (var col in colliders)
-                {
-                    if (!col.TryGetComponent<GridCell>(out var cell)) continue;
-                    if (!cell.IsCurrentlyOnFire()) continue;
-                    count++;
-                }
+                State = NodeState.FAILURE;
+                return State;
+            }
 
-                if (count > colliders.Length * .1f)
+            if ((bool)holdingBranch)
+            {
+                var colliders = Physics.OverlapSphere(_transform.position, FirehawkBT.DetectionRange,
+                    FirehawkBT.GroundLayerMask);
+                if (colliders.Length > 0)
                 {
-                    // Debug.Log($"Check only {count} cells on fire among {colliders.Length}");
-                    State = NodeState.SUCCESS;
-                    return State;
-                }
+                    Debug.Log("Looking for unburn area");
+                    var count = 0;
+                    foreach (var col in colliders)
+                    {
+                        if (!col.TryGetComponent<GridCell>(out var cell)) continue;
+                        if (!cell.IsCurrentlyOnFire()) continue;
+                        count++;
+                    }
+
+                    if (count < colliders.Length * .1f)
+                    {
+                        SetDataToRoot("isHoldingBranch", false);
+                        // Debug.Log($"Check only {count} cells on fire among {colliders.Length}");
+                        State = NodeState.SUCCESS;
+                        return State;
+                    }
+                }   
             }
 
             State = NodeState.FAILURE;

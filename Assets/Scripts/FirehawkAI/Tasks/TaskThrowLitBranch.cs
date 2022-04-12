@@ -8,16 +8,22 @@ namespace FirehawkAI.Tasks
         private float _waitBeforeNewAction = 3f;
         private float _waitBeforeNewActionCounter;
 
+        private readonly Transform _transform;
+        public TaskThrowLitBranch(Transform transform)
+        {
+            _transform = transform;
+        }
+
         public override NodeState Evaluate()
         {
-            var t = (Transform)GetData("litBranch");
+            var litBranch = (Transform)GetData("litBranch");
             if (_waitBeforeNewActionCounter > 0)
             {
                 Debug.Log("Waiting");
                 _waitBeforeNewActionCounter -= Time.deltaTime;
                 if (_waitBeforeNewActionCounter <= 0)
                 {
-                    t.gameObject.layer = 9;
+                    litBranch.gameObject.layer = 9;
                     ClearData("litBranch");
                     State = NodeState.SUCCESS;
                     return State;
@@ -25,13 +31,14 @@ namespace FirehawkAI.Tasks
             }
             else
             {
-                t.gameObject.GetComponent<Rigidbody>().isKinematic = false;
-                t.SetParent(null);
+                var rigidbodyLitBranch = litBranch.gameObject.GetComponent<Rigidbody>();
+                rigidbodyLitBranch.isKinematic = false;
+                rigidbodyLitBranch.AddRelativeForce(_transform.forward * 1000f);
+                litBranch.SetParent(null);
 
                 _waitBeforeNewActionCounter = _waitBeforeNewAction;
-                // FirehawkBT.ThrowNewBranch();
             }
-            State = NodeState.RUNNING;
+            State = NodeState.FAILURE;
             return State;
         }
     }

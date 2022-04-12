@@ -6,6 +6,7 @@ namespace FirehawkAI.Tasks
     public class TaskPickUpLitBranch : Node
     {
         private readonly Transform _transform;
+        private float _yOffset = 2f;
 
         public TaskPickUpLitBranch(Transform transform)
         {
@@ -14,27 +15,16 @@ namespace FirehawkAI.Tasks
         
         public override NodeState Evaluate()
         {
-            var target = (Transform)GetData("litBranch");
-
-            if (target != null)
-            {
-                State = NodeState.FAILURE;
-                return State;
-            }
-            
-            var colliders = Physics.OverlapSphere(_transform.position, FirehawkBT.PickUpRange,
+            var currentPos = _transform.position;
+            var colliders = Physics.OverlapSphere(new Vector3(currentPos.x ,currentPos.y + _yOffset ,currentPos.z), FirehawkBT.PickUpRange,
                 FirehawkBT.LitBranchLayerMask);
 
             if (colliders.Length > 0)
             {
-                Debug.Log("Pick up lit branch");
                 colliders[0].transform.SetParent(_transform);
                 colliders[0].GetComponent<Rigidbody>().isKinematic = true;
-                // Parent.Parent.SetData("litBranch" + FirehawkBT.CurrentLitBranch, colliders[0].transform);
-                SetDataToRoot("litBranch", colliders[0].transform);
-                ClearData("FoundLitBranch");
 
-                State = NodeState.FAILURE;
+                State = NodeState.SUCCESS;
                 return State;
             }
 

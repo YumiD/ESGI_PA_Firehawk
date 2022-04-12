@@ -5,27 +5,47 @@ namespace FirehawkAI.Checks
 {
     public class CheckIfFire : Node
     {
+        private Transform _transform;
+        public CheckIfFire(Transform transform)
+        {
+            _transform = transform;
+        }
         public override NodeState Evaluate()
         {
             var target = GetData("fire");
-            // var target2 = GetData("litBranch");
 
             if (target == null)
             {
                 Debug.Log("CheckIfFire");
-                State = NodeState.SUCCESS;
+                var colliders = Physics.OverlapSphere(_transform.position, FirehawkBT.DetectionRange,
+                    FirehawkBT.GroundLayerMask);
+
+                if (colliders.Length > 0)
+                {
+                    foreach (var col in colliders)
+                    {
+                        if (!col.TryGetComponent<GridCell>(out var cell)) continue;
+                        if (!cell.IsCurrentlyOnFire()) continue;
+                        Debug.Log("FOUND fire");
+                        Parent.Parent.SetData("fire", col.gameObject);
+                        State = NodeState.SUCCESS;
+                        return State;
+                    }
+                }
+
+                State = NodeState.FAILURE;
                 return State;
             }
 
-            if (((GameObject)target).TryGetComponent<GridCell>(out var cell))
+            if (((GameObject)target).TryGetComponent<GridCell>(out var currentCell))
             {
-                if (!cell.IsCurrentlyOnFire())
+                if (!currentCell.IsCurrentlyOnFire())
                 {
                     ClearData("fire");
                 }
             }
 
-            State = NodeState.FAILURE;
+            State = NodeState.SUCCESS;
             return State;
         }
     }
