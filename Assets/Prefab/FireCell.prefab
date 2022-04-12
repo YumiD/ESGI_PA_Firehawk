@@ -9657,6 +9657,9 @@ MonoBehaviour:
   _radius: 0.5
   _fire: {fileID: 3862575657759469708}
   _smoke: {fileID: 2051141862937219843}
+  _burnedMaterial: {fileID: 2100000, guid: fbf1c18fd170ec94db5e8aee229737b6, type: 2}
+  _objectsToDetach: []
+  _objectsToMakeBurned: []
 --- !u!114 &2343149776958338952
 MonoBehaviour:
   m_ObjectHideFlags: 0

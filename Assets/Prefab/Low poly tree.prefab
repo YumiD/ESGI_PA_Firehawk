@@ -31,6 +31,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1910182279864251492}
+  - {fileID: 7828030852408014302}
   m_Father: {fileID: 1342811143439712404}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -129,6 +130,7 @@ Transform:
   m_Children:
   - {fileID: 681777087021304164}
   - {fileID: 8760056814084914449}
+  - {fileID: 5064594161344083374}
   m_Father: {fileID: 1342811143439712404}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -227,7 +229,7 @@ Transform:
   m_Children:
   - {fileID: 8714613451994956008}
   m_Father: {fileID: 681777087021304164}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2723299073158914633
 MeshFilter:
@@ -712,6 +714,7 @@ Transform:
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 4342882213815034925}
   - {fileID: 8564633696738203180}
   m_Father: {fileID: 7472571599852588377}
   m_RootOrder: 0
@@ -1073,6 +1076,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2164211119473603071, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: _fuel
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 2164211119473603071, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
       propertyPath: _radius
       value: 0.492
       objectReference: {fileID: 0}
@@ -1089,9 +1096,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8250894418277603615}
     - target: {fileID: 2164211119473603071, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: _objectsToDetach.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2164211119473603071, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
       propertyPath: _linkedRigidbodies.Array.size
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2164211119473603071, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: _objectsToDetach.Array.data[0]
+      value: 
+      objectReference: {fileID: 8250894418277603615}
     - target: {fileID: 2164211119473603071, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
       propertyPath: _linkedRigidbodies.Array.data[0]
       value: 
@@ -1171,9 +1186,21 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2164211119473603071, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: _fuel
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 2164211119473603071, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
       propertyPath: _radius
       value: 0.492
       objectReference: {fileID: 0}
+    - target: {fileID: 2164211119473603071, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: _objectsToMakeBurned.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2164211119473603071, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: _objectsToMakeBurned.Array.data[0]
+      value: 
+      objectReference: {fileID: 4978073932496476096}
     - target: {fileID: 7284340130923350503, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
       propertyPath: m_Name
       value: FireCell (2)
@@ -1184,6 +1211,96 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 1808104836672246194, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
   m_PrefabInstance: {fileID: 1524950175982007689}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2689398405533103519
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 681777087021304164}
+    m_Modifications:
+    - target: {fileID: 1808104836672246194, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1808104836672246194, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.546
+      objectReference: {fileID: 0}
+    - target: {fileID: 1808104836672246194, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.964
+      objectReference: {fileID: 0}
+    - target: {fileID: 1808104836672246194, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 4.898
+      objectReference: {fileID: 0}
+    - target: {fileID: 1808104836672246194, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071067
+      objectReference: {fileID: 0}
+    - target: {fileID: 1808104836672246194, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 1808104836672246194, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1808104836672246194, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1808104836672246194, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1808104836672246194, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1808104836672246194, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2164211119473603071, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: _radius
+      value: 0.09
+      objectReference: {fileID: 0}
+    - target: {fileID: 2164211119473603071, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: _objectsToDetach.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2164211119473603071, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: _objectsToDetach.Array.data[0]
+      value: 
+      objectReference: {fileID: 2157714929586687031}
+    - target: {fileID: 2164211119473603071, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: _objectsToDetach.Array.data[1]
+      value: 
+      objectReference: {fileID: 3653735004025301245}
+    - target: {fileID: 2164211119473603071, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: _objectsToDetach.Array.data[2]
+      value: 
+      objectReference: {fileID: 2157714929586687031}
+    - target: {fileID: 2164211119473603071, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: _objectsToMakeBurned.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2164211119473603071, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: _objectsToMakeBurned.Array.data[0]
+      value: 
+      objectReference: {fileID: 3676578938087839475}
+    - target: {fileID: 7284340130923350503, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: m_Name
+      value: FireCell (2)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+--- !u!4 &4342882213815034925 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1808104836672246194, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+  m_PrefabInstance: {fileID: 2689398405533103519}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4969048852552782203
 PrefabInstance:
@@ -1249,9 +1366,21 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2164211119473603071, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: _fuel
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 2164211119473603071, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
       propertyPath: _radius
       value: 0.7961
       objectReference: {fileID: 0}
+    - target: {fileID: 2164211119473603071, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: _objectsToMakeBurned.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2164211119473603071, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: _objectsToMakeBurned.Array.data[0]
+      value: 
+      objectReference: {fileID: 5310817352842243144}
     - target: {fileID: 4070812582681244593, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.7071068
@@ -1335,6 +1464,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2164211119473603071, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: _fuel
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 2164211119473603071, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
       propertyPath: _radius
       value: 0.53
       objectReference: {fileID: 0}
@@ -1351,13 +1484,29 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4141241915813719435}
     - target: {fileID: 2164211119473603071, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: _objectsToDetach.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2164211119473603071, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
       propertyPath: _linkedRigidbodies.Array.size
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2164211119473603071, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: _objectsToDetach.Array.data[0]
+      value: 
+      objectReference: {fileID: 4141241915813719435}
+    - target: {fileID: 2164211119473603071, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: _objectsToMakeBurned.Array.size
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2164211119473603071, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
       propertyPath: _linkedRigidbodies.Array.data[0]
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 2164211119473603071, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: _objectsToMakeBurned.Array.data[0]
+      value: 
+      objectReference: {fileID: 5310817352842243144}
     - target: {fileID: 7284340130923350503, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
       propertyPath: m_Name
       value: FireCell
@@ -1436,6 +1585,14 @@ PrefabInstance:
       propertyPath: _radius
       value: 1.6777345
       objectReference: {fileID: 0}
+    - target: {fileID: 2164211119473603071, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: _objectsToMakeBurned.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2164211119473603071, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: _objectsToMakeBurned.Array.data[0]
+      value: 
+      objectReference: {fileID: 516750092721317204}
     - target: {fileID: 7284340130923350503, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
       propertyPath: m_Name
       value: FireCell
@@ -1446,6 +1603,84 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 1808104836672246194, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
   m_PrefabInstance: {fileID: 5464735528920841260}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &6872106323332146204
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 7472571599852588377}
+    m_Modifications:
+    - target: {fileID: 1808104836672246194, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1808104836672246194, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.239
+      objectReference: {fileID: 0}
+    - target: {fileID: 1808104836672246194, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.406
+      objectReference: {fileID: 0}
+    - target: {fileID: 1808104836672246194, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 4.876
+      objectReference: {fileID: 0}
+    - target: {fileID: 1808104836672246194, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071067
+      objectReference: {fileID: 0}
+    - target: {fileID: 1808104836672246194, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 1808104836672246194, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1808104836672246194, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1808104836672246194, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1808104836672246194, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1808104836672246194, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2164211119473603071, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: _radius
+      value: 0.09
+      objectReference: {fileID: 0}
+    - target: {fileID: 2164211119473603071, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: _objectsToDetach.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2164211119473603071, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: _objectsToDetach.Array.data[0]
+      value: 
+      objectReference: {fileID: 5179945827370489507}
+    - target: {fileID: 2164211119473603071, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: _objectsToDetach.Array.data[1]
+      value: 
+      objectReference: {fileID: 3653735004025301245}
+    - target: {fileID: 7284340130923350503, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: m_Name
+      value: FireCell (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+--- !u!4 &5064594161344083374 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1808104836672246194, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+  m_PrefabInstance: {fileID: 6872106323332146204}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7054654653912568154
 PrefabInstance:
@@ -1514,6 +1749,14 @@ PrefabInstance:
       propertyPath: _radius
       value: 0.743533
       objectReference: {fileID: 0}
+    - target: {fileID: 2164211119473603071, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: _objectsToMakeBurned.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2164211119473603071, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: _objectsToMakeBurned.Array.data[0]
+      value: 
+      objectReference: {fileID: 7454639075226337463}
     - target: {fileID: 7284340130923350503, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
       propertyPath: m_Name
       value: FireCell
@@ -1592,6 +1835,14 @@ PrefabInstance:
       propertyPath: _radius
       value: 1.3511635
       objectReference: {fileID: 0}
+    - target: {fileID: 2164211119473603071, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: _objectsToMakeBurned.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2164211119473603071, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: _objectsToMakeBurned.Array.data[0]
+      value: 
+      objectReference: {fileID: 4899466190907536661}
     - target: {fileID: 7284340130923350503, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
       propertyPath: m_Name
       value: FireCell
@@ -1667,6 +1918,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2164211119473603071, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: _fuel
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 2164211119473603071, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
       propertyPath: _radius
       value: 0.38052756
       objectReference: {fileID: 0}
@@ -1683,8 +1938,28 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1429179436873999446}
     - target: {fileID: 2164211119473603071, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: _objectsToDetach.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2164211119473603071, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
       propertyPath: _linkedRigidbodies.Array.size
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2164211119473603071, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: _objectsToDetach.Array.data[0]
+      value: 
+      objectReference: {fileID: 893945351875366983}
+    - target: {fileID: 2164211119473603071, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: _objectsToDetach.Array.data[1]
+      value: 
+      objectReference: {fileID: 1429179436873999446}
+    - target: {fileID: 2164211119473603071, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: _objectsToDetach.Array.data[2]
+      value: 
+      objectReference: {fileID: 4019895719275431553}
+    - target: {fileID: 2164211119473603071, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: _objectsToMakeBurned.Array.size
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2164211119473603071, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
       propertyPath: _linkedRigidbodies.Array.data[0]
@@ -1694,6 +1969,10 @@ PrefabInstance:
       propertyPath: _linkedRigidbodies.Array.data[1]
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 2164211119473603071, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: _objectsToMakeBurned.Array.data[0]
+      value: 
+      objectReference: {fileID: 9150925572688754306}
     - target: {fileID: 7284340130923350503, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
       propertyPath: m_Name
       value: FireCell (4)
@@ -1704,6 +1983,88 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 1808104836672246194, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
   m_PrefabInstance: {fileID: 7374200884314565575}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &8481805667916588140
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 9117376173293626149}
+    m_Modifications:
+    - target: {fileID: 1808104836672246194, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1808104836672246194, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.0845085
+      objectReference: {fileID: 0}
+    - target: {fileID: 1808104836672246194, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.5959992
+      objectReference: {fileID: 0}
+    - target: {fileID: 1808104836672246194, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 5.0739994
+      objectReference: {fileID: 0}
+    - target: {fileID: 1808104836672246194, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071067
+      objectReference: {fileID: 0}
+    - target: {fileID: 1808104836672246194, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 1808104836672246194, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1808104836672246194, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1808104836672246194, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1808104836672246194, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1808104836672246194, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2164211119473603071, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: _radius
+      value: 0.09
+      objectReference: {fileID: 0}
+    - target: {fileID: 2164211119473603071, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: _objectsToDetach.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2164211119473603071, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: _objectsToDetach.Array.data[0]
+      value: 
+      objectReference: {fileID: 4516179084820443994}
+    - target: {fileID: 2164211119473603071, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: _objectsToMakeBurned.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2164211119473603071, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: _objectsToMakeBurned.Array.data[0]
+      value: 
+      objectReference: {fileID: 2297731838702119768}
+    - target: {fileID: 7284340130923350503, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: m_Name
+      value: FireCell
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+--- !u!4 &7828030852408014302 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1808104836672246194, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+  m_PrefabInstance: {fileID: 8481805667916588140}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &9158857650851290545
 PrefabInstance:
@@ -1772,6 +2133,14 @@ PrefabInstance:
       propertyPath: _radius
       value: 1.125279
       objectReference: {fileID: 0}
+    - target: {fileID: 2164211119473603071, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: _objectsToMakeBurned.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2164211119473603071, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: _objectsToMakeBurned.Array.data[0]
+      value: 
+      objectReference: {fileID: 1134086354910424293}
     - target: {fileID: 7284340130923350503, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
       propertyPath: m_Name
       value: FireCell

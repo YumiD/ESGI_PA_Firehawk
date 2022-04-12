@@ -24,7 +24,19 @@ public class FireCell : MonoBehaviour
 	private ParticleSystem _smoke;
 
 	[SerializeField]
-	private List<GameObject> _children = new List<GameObject>();
+	private Material _burnedMaterial;
+
+	/// <summary>
+	/// This is a list of objects that will recieve a Rigidbody to get detached from their base once this FireCell is fully burned.
+	/// </summary>
+	[SerializeField]
+	private List<GameObject> _objectsToDetach = new List<GameObject>();
+
+	/// <summary>
+	/// This is a list of objects that will recieve the "Burned" material once this FireCell is fully burned.
+	/// </summary>
+	[SerializeField]
+	private List<MeshRenderer> _objectsToMakeBurned = new List<MeshRenderer>();
 	
 	public float Temperature { get; private set; }
 	public FireState FireState { get; private set; } = FireState.None;
@@ -50,7 +62,7 @@ public class FireCell : MonoBehaviour
 	{
 		if (FireState == FireState.OnFire && distanceEdgeToEdge < 2)
 		{
-			other.Temperature += 100 * Time.fixedDeltaTime;
+			other.Temperature += 80 * Time.fixedDeltaTime;
 		}
 	}
 
@@ -102,9 +114,14 @@ public class FireCell : MonoBehaviour
 		{
 			if (newFireState != FireState.OnFire && FireState == FireState.OnFire)
 			{
-				for (int i = 0; i < _children.Count; i++)
+				for (int i = 0; i < _objectsToDetach.Count; i++)
 				{
-					_children[i].AddComponent<Rigidbody>();
+					_objectsToDetach[i].AddComponent<Rigidbody>();
+				}
+
+				for (int i = 0; i < _objectsToMakeBurned.Count; i++)
+				{
+					_objectsToMakeBurned[i].sharedMaterial = _burnedMaterial;
 				}
 			}
 			
