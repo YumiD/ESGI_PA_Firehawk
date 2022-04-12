@@ -8,8 +8,7 @@ public class GameGrid : MonoBehaviour
     public int height = 30;
     private int width = 30;
     private int maxZ = 10;
-    private float GridCellSize = 2f;
-    private float GridSpaceSize = 2f;
+    private float GridCellSize = 4f;
 
     [SerializeField] private bool generation = true;
 
@@ -54,7 +53,7 @@ public class GameGrid : MonoBehaviour
 
     private void CreateGridCell(int x, int y, int z, EnumGridCell gridCellType){
         GameObject newGridCell = GetGameObjectFromEnum(gridCellType);
-        _gameGrid[x, y, z] = Instantiate(newGridCell, new Vector3(x * GridSpaceSize, z,  y * GridSpaceSize), Quaternion.identity);
+        _gameGrid[x, y, z] = Instantiate(newGridCell, new Vector3(x * GridCellSize, z * (GridCellSize /2),  y * GridCellSize), Quaternion.identity);
         _gameGrid[x, y, z].transform.localScale = new Vector3(GridCellSize, GridCellSize/2, GridCellSize);
         _gameGrid[x, y, z].GetComponent<GridCell>().SetPosition(x, y);
         _gameGrid[x, y, z].GetComponent<GridCell>().SetGridCellType(gridCellType);
@@ -129,7 +128,7 @@ public class GameGrid : MonoBehaviour
 
         _gameGrid[x, y, z].GetComponent<GridCell>().SetObjectReference(GO_Tree);
         _gameGrid[x, y, z].GetComponent<GridCell>()._isOccupied = true;
-        _gameGrid[x, y, z].GetComponent<GridCell>()._gameObject = Instantiate(_gameGrid[x, y, z].GetComponent<GridCell>().GetObjectReference(), new Vector3(x * GridSpaceSize, (z * GridSpaceSize /2),  y * GridSpaceSize), Quaternion.identity);
+        _gameGrid[x, y, z].GetComponent<GridCell>()._gameObject = Instantiate(_gameGrid[x, y, z].GetComponent<GridCell>().GetObjectReference(), new Vector3(x * GridCellSize, z * (GridCellSize /2),  y * GridCellSize), Quaternion.identity);
         _gameGrid[x, y, z].GetComponent<GridCell>().GetObject().name = "GameObject ( X" + x + " , Y" + y + " , Z" + z + " )";
         _gameGrid[x, y, z].GetComponent<GridCell>().GetObject().transform.parent = _gameGrid[x, y, z].GetComponent<GridCell>().transform;
     }
@@ -160,8 +159,8 @@ public class GameGrid : MonoBehaviour
 
     public Vector2Int GetGridPosFromWorld(Vector3 worldPosition)
     {
-        int x = Mathf.FloorToInt(worldPosition.x / GridSpaceSize);
-        int y = Mathf.FloorToInt(worldPosition.z / GridSpaceSize);
+        int x = Mathf.FloorToInt(worldPosition.x / GridCellSize);
+        int y = Mathf.FloorToInt(worldPosition.z / GridCellSize);
 
         x = Mathf.Clamp(x, 0, width);
         y = Mathf.Clamp(y, 0, height);
@@ -171,8 +170,8 @@ public class GameGrid : MonoBehaviour
 
     public Vector3 GetWorldPosFromGridPos(Vector3 gridPos)
     {
-        float x = gridPos.x * GridSpaceSize;
-        float y = gridPos.y * GridSpaceSize;
+        float x = gridPos.x * GridCellSize;
+        float y = gridPos.y * GridCellSize;
 
         return new Vector3(x, 0, y);
     }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InputManager : MonoBehaviour
+public class InputManagerBuild : MonoBehaviour
 {
     GameGrid _gameGrid;
     [SerializeField] private LayerMask whatIsAGridLayer;
