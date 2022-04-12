@@ -6,10 +6,16 @@ public class FireManager : MonoBehaviour
     public static FireManager Instance { get; private set; }
     
     private List<FireCell> _cells = new List<FireCell>();
+    
+    private List<FireCell> _burningCells = new List<FireCell>();
+    private List<FireCell> _cellsThatCanBurn = new List<FireCell>();
 	
     public void RegisterFireCell(FireCell cell)
     {
         _cells.Add(cell);
+
+        _burningCells.Capacity = _cells.Capacity;
+        _cellsThatCanBurn.Capacity = _cells.Capacity;
     }
 	
     public void UnregisterFireCell(FireCell cell)
@@ -24,16 +30,36 @@ public class FireManager : MonoBehaviour
 
     private void FixedUpdate()
     {
+        _burningCells.Clear();
+        _cellsThatCanBurn.Clear();
+        
         for (int i = 0; i < _cells.Count; i++)
         {
-            for (int j = i+1; j < _cells.Count; j++)
+            if (_cells[i].FireState == FireState.OnFire)
             {
-                float distanceCenterToCenter = Vector3.Distance(_cells[i].transform.position, _cells[j].transform.position);
-                float distanceEdgeToEdge = distanceCenterToCenter - _cells[i].Radius - _cells[j].Radius;
-				
-                _cells[i].OnPropagate(_cells[j], distanceCenterToCenter, distanceEdgeToEdge);
-                _cells[j].OnPropagate(_cells[i], distanceCenterToCenter, distanceEdgeToEdge);
+                _burningCells.Add(_cells[i]);
+            }
+            else if (_cells[i].Fuel > 0)
+            {
+                _cellsThatCanBurn.Add(_cells[i]);
             }
         }
+
+        int callsAfterOpt = 0;
+        for (int i = 0; i < _burningCells.Count; i++)
+        {
+            for (int j = 0; j < _cellsThatCanBurn.Count; j++)
+            {
+                float distanceCenterToCenter = Vector3.Distance(_burningCells[i].transform.position, _cellsThatCanBurn[j].transform.position);
+                float distanceEdgeToEdge = distanceCenterToCenter - _burningCells[i].Radius - _cellsThatCanBurn[j].Radius;
+				
+                _burningCells[i].OnPropagate(_cellsThatCanBurn[j], distanceCenterToCenter, distanceEdgeToEdge);
+
+                callsAfterOpt++;
+            }
+        }
+        
+        Debug.Log($"Calls before opt: {(_cells.Count * _cells.Count + _cells.Count) / 2}");
+        Debug.Log($"Calls after opt: {callsAfterOpt}");
     }
 }
