@@ -6,10 +6,12 @@ namespace FirehawkAI.Tasks
     public class TaskGoTowardLitBranch : Node
     {
         private readonly Transform _transform;
+        private readonly Transform _meshTransform;
 
-        public TaskGoTowardLitBranch(Transform transform)
+        public TaskGoTowardLitBranch(Transform transform, Transform meshTransform)
         {
             _transform = transform;
+            _meshTransform = meshTransform;
         }
 
         public override NodeState Evaluate()
@@ -17,14 +19,17 @@ namespace FirehawkAI.Tasks
             var target = (GameObject)GetData("FoundLitBranch");
             if (target != null)
             {
-                if (Vector3.Distance(_transform.position, target.transform.position) > .1f)
+                if (Vector3.Distance(_meshTransform.position, target.transform.position) > FirehawkBT.DistanceBetweenMeshParent+.1f)
                 {
                     Debug.Log("Go toward lit branch");
                     var position = target.transform.position;
                     _transform.position = Vector3.MoveTowards(
                         _transform.position, position, FirehawkBT.Speed * Time.deltaTime);
-                    _transform.LookAt(position);
-                }   
+                    // _transform.LookAt(position);
+                }
+
+                State = NodeState.SUCCESS;
+                return State;
             }
 
             State = NodeState.RUNNING;

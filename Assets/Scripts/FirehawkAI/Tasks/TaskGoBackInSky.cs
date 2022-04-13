@@ -18,6 +18,7 @@ namespace FirehawkAI.Tasks
             var litBranch = GetData("litBranch");
             if (litBranch == null)
             {
+                Debug.Log("Can't go back yet");
                 State = NodeState.SUCCESS;
                 return State;
             }
@@ -27,7 +28,7 @@ namespace FirehawkAI.Tasks
             {
                 _transform.position = Vector3.MoveTowards(
                     _transform.position, target, FirehawkBT.Speed * Time.deltaTime);
-                _transform.LookAt(target);
+                // _transform.LookAt(target);
             }
             
             State = NodeState.RUNNING;

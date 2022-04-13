@@ -206,8 +206,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _objectInThisGridSpace: {fileID: 0}
+  _gameObject: {fileID: 0}
   _isOccupied: 0
   _isOnFire: 0
   _canBeOnFire: 1
-  _hitPoint: 250
+  _hitPoint: 150
   _lifetime: 3

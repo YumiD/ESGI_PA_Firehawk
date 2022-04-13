@@ -46,7 +46,7 @@ public class GameGrid : MonoBehaviour
             for (int x = 0; x < width; x++)
             {
                 //Create GridSpace object for each cell
-                CreateGridCell(x, y, 0, EnumGridCell.Ground);
+                CreateGridCell(x, y, 0, EnumGridCell.Grass);
             }
         }
     }

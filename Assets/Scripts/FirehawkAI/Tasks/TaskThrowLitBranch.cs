@@ -33,7 +33,7 @@ namespace FirehawkAI.Tasks
             {
                 var rigidbodyLitBranch = litBranch.gameObject.GetComponent<Rigidbody>();
                 rigidbodyLitBranch.isKinematic = false;
-                rigidbodyLitBranch.AddRelativeForce(_transform.forward * 1000f);
+                rigidbodyLitBranch.AddRelativeForce(-_transform.up * 1000f);
                 litBranch.SetParent(null);
 
                 _waitBeforeNewActionCounter = _waitBeforeNewAction;

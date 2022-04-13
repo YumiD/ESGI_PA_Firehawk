@@ -18,6 +18,7 @@ namespace FirehawkAI.Tasks
 
         public override NodeState Evaluate()
         {
+            Debug.Log("PATROL");
             var wp = _waypoints[FirehawkBT.CurrentWaypointIndex];
             if (Vector3.Distance(CurrentTransform.position, wp.position) < 0.01f)
             {
