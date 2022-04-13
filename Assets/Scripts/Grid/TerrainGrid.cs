@@ -183,7 +183,14 @@ public class TerrainGrid : MonoBehaviour
 	{
 		Vector3 localPosition = transform.worldToLocalMatrix * new Vector4(worldPosition.x, worldPosition.y, worldPosition.z, 1);
 
-		Vector3Int gridPos = new Vector3(localPosition.x, localPosition.z, localPosition.y).Divide(_gridCellSize).FloorToInt();
+		Vector3 zUpGridCellSize = new Vector3
+		{
+			x = _gridCellSize.x,
+			y = _gridCellSize.z,
+			z = _gridCellSize.y
+		};
+
+		Vector3Int gridPos = new Vector3(localPosition.x, localPosition.z, localPosition.y).Divide(zUpGridCellSize).FloorToInt();
 
 		return gridPos;
 	}
