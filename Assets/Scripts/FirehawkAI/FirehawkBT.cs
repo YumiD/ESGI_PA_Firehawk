@@ -27,7 +27,6 @@ namespace FirehawkAI
             var currentPos = transform;
             var originCoordinate = currentPos.position.y;
             DistanceBetweenMeshParent = Vector3.Distance(currentPos.position, meshTransform.position);
-            Debug.Log(DistanceBetweenMeshParent);
             Node node = new Selector(
                 new List<Node>
                 {

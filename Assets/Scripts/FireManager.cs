@@ -59,7 +59,7 @@ public class FireManager : MonoBehaviour
             }
         }
         
-        Debug.Log($"Calls before opt: {(_cells.Count * _cells.Count + _cells.Count) / 2}");
-        Debug.Log($"Calls after opt: {callsAfterOpt}");
+        // Debug.Log($"Calls before opt: {(_cells.Count * _cells.Count + _cells.Count) / 2}");
+        // Debug.Log($"Calls after opt: {callsAfterOpt}");
     }
 }

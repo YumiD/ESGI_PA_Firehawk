@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2006400441302187122}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 24.997, y: 1.672, z: 15}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_Children:
   - {fileID: 6074323903234224542}
@@ -60,8 +60,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 4, y: 0.5, z: 2}
-  m_Center: {x: 0.54, y: 0, z: 0}
+  m_Size: {x: 1.5, y: 0.5, z: 2}
+  m_Center: {x: 0.16, y: 0, z: -1.05}
 --- !u!1 &2317887125589629073
 GameObject:
   m_ObjectHideFlags: 0
@@ -73,7 +73,6 @@ GameObject:
   - component: {fileID: 6074323903234224542}
   - component: {fileID: 8638899706954823105}
   - component: {fileID: 3795076240144754920}
-  - component: {fileID: 8222942411444016132}
   m_Layer: 0
   m_Name: Branche 2
   m_TagString: Untagged
@@ -89,7 +88,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2317887125589629073}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: 2, y: -5.3, z: 3.8}
+  m_LocalPosition: {x: 0.81, y: -3.08, z: 1.08}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8482161154263353705}
@@ -145,20 +144,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &8222942411444016132
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2317887125589629073}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 3905598052468025151, guid: 2c0150c761061a74e8f7caa765d8d39d, type: 3}
 --- !u!1001 &7827569951102720219
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -254,6 +239,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31dfd3c9dec1a8348b5adccbb3f32fee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  whaIsLitBranch:
-    serializedVersion: 2
-    m_Bits: 256

@@ -32,14 +32,14 @@ namespace FirehawkAI.Checks
                     foreach (var col in colliders)
                     {
                         if (!col.TryGetComponent<GridCell>(out var cell)) continue;
-                        if (cell.IsCurrentlyOnFire())
-                        {
-                            count++;
-                        }
-                        if (cell.IsCurrentlySmoking())
-                        {
-                            count++;
-                        }
+                        // if (cell.IsCurrentlyOnFire())
+                        // {
+                        //     count++;
+                        // }
+                        // if (cell.IsCurrentlySmoking())
+                        // {
+                        //     count++;
+                        // }
                     }
 
                     Debug.Log(count);
