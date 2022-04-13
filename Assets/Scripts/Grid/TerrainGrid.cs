@@ -81,6 +81,11 @@ public class TerrainGrid : MonoBehaviour
 			
 			_grid[x, y, z] = child.gameObject.GetComponent<GridCell>();
 			_grid[x, y, z].GridPosition = gridPos;
+
+			if (_grid[x, y, z].Anchor.transform.childCount > 0)
+			{
+				_grid[x, y, z].Object = _grid[x, y, z].Anchor.transform.GetChild(0).gameObject;
+			}
 		}
 	}
 
@@ -178,7 +183,7 @@ public class TerrainGrid : MonoBehaviour
 	{
 		Vector3 localPosition = transform.worldToLocalMatrix * new Vector4(worldPosition.x, worldPosition.y, worldPosition.z, 1);
 
-		Vector3Int gridPos = new Vector3(localPosition.x, localPosition.z, localPosition.y).Divide(_size).FloorToInt();
+		Vector3Int gridPos = new Vector3(localPosition.x, localPosition.z, localPosition.y).Divide(_gridCellSize).FloorToInt();
 
 		return gridPos;
 	}
@@ -190,7 +195,7 @@ public class TerrainGrid : MonoBehaviour
 
 	public Vector3 GetWorldPosFromGridPos(Vector3Int gridPos)
 	{
-		Vector3 localPosition = new Vector3(gridPos.x, gridPos.z, gridPos.y).Multiply(_size);
+		Vector3 localPosition = new Vector3(gridPos.x, gridPos.z, gridPos.y).Multiply(_gridCellSize);
 
 		return transform.localToWorldMatrix * new Vector4(localPosition.x, localPosition.y, localPosition.z, 1);
 	}
