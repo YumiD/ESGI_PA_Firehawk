@@ -59,12 +59,12 @@ public class InputManagerBuild : MonoBehaviour
 				
 				_terrainGrid.ChangeCellZ((Vector2Int)cellMouseIsOver.GridPosition, prefab);
 			}
-			else if (Input.GetKeyDown(KeyCode.Alpha1))
+			else if (Input.GetKey(KeyCode.Alpha1))
 			{
 				Vector3Int gridPos = cellMouseIsOver.GridPosition;
 				_terrainGrid.SetObject(new Vector2Int(gridPos.x, gridPos.y), _treePrefab);
 			}
-			else if (Input.GetKeyDown(KeyCode.Alpha2))
+			else if (Input.GetKey(KeyCode.Alpha2))
 			{
 				Vector3Int gridPos = cellMouseIsOver.GridPosition;
 				_terrainGrid.SetObject(new Vector2Int(gridPos.x, gridPos.y), _tallGrassPrefab);
