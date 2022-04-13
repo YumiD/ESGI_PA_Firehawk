@@ -24,5 +24,13 @@ public class CameraManager : MonoBehaviour
         {
             transform.Translate(new Vector3(0,0,speed * Time.deltaTime));
         }
+        if(Input.GetKey(KeyCode.A))
+        {
+            transform.Translate(new Vector3(0,speed * Time.deltaTime,0));
+        }
+        if(Input.GetKey(KeyCode.E))
+        {
+            transform.Translate(new Vector3(0,-speed * Time.deltaTime,0));
+        }
     }
 }

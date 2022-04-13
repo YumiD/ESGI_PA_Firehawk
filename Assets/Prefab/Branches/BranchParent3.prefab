@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 1426200437031580365}
   - component: {fileID: 3907249833488184233}
   - component: {fileID: 8099109928556121976}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: BranchParent3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -151,6 +151,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5125717465570864467}
     m_Modifications:
+    - target: {fileID: 41057577317874329, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 41057577317874329, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 41057577317874329, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 1808104836672246194, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -223,6 +235,30 @@ PrefabInstance:
       propertyPath: _objectsToMakeBurned.Array.data[0]
       value: 
       objectReference: {fileID: 9030220098334536388}
+    - target: {fileID: 4070812582681244593, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4070812582681244593, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4070812582681244593, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4070812582681244593, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.232
+      objectReference: {fileID: 0}
+    - target: {fileID: 4070812582681244593, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.061
+      objectReference: {fileID: 0}
+    - target: {fileID: 4070812582681244593, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.723
+      objectReference: {fileID: 0}
     - target: {fileID: 7284340130923350503, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
       propertyPath: m_Name
       value: FireCell

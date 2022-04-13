@@ -46,7 +46,6 @@ namespace FirehawkAI.Checks
                 if (litBranch == null)
                 {
                     // Go toward lit branch
-                    // Debug.Log(Vector3.Distance(_meshTransform.position, foundLitBranch.transform.position));
                     if (Vector3.Distance(_meshTransform.position, foundLitBranch.transform.position) >
                         FirehawkBT.DistanceBetweenMeshParent+.1f)
                     {
@@ -55,7 +54,6 @@ namespace FirehawkAI.Checks
                         return State;
                     }
 
-                    // var currentPosWithOffset = new Vector3(currentPos.x, currentPos.y + FirehawkBT.YOffset);
                     // Pick Up part
                     var posWithOffset = new Vector3(currentPos.x, currentPos.y + FirehawkBT.YOffset, currentPos.z);
                     var colliders = Physics.OverlapSphere(posWithOffset, FirehawkBT.PickUpRange,
@@ -64,6 +62,10 @@ namespace FirehawkAI.Checks
                     {
                         Debug.Log("Pick up lit branch");
                         SetDataToRoot("litBranch", colliders[0].transform);
+                        if (fireCell != null)
+                        {
+                            fireCell.HoldByFirehawk();
+                        }
                     }
                 }
 
@@ -77,8 +79,6 @@ namespace FirehawkAI.Checks
                         Debug.Log("Go back in sky done");
                         SetDataToRoot("isHoldingBranch", true);
                         ClearData("FoundLitBranch");
-                        // State = NodeState.SUCCESS;
-                        // return State;
                     }
 
                     State = NodeState.SUCCESS;

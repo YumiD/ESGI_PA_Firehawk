@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1956926595604039234}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: TallGrass
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -184,10 +184,48 @@ PrefabInstance:
       propertyPath: m_Name
       value: FireCell
       objectReference: {fileID: 0}
+    - target: {fileID: 7284340130923350503, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+--- !u!1 &1469918251636600079 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7284340130923350503, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+  m_PrefabInstance: {fileID: 8174347912372200680}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7522897972324300122 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1808104836672246194, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
   m_PrefabInstance: {fileID: 8174347912372200680}
   m_PrefabAsset: {fileID: 0}
+--- !u!54 &4674466871109806548
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1469918251636600079}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!135 &4827521153901243094
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1469918251636600079}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 2.5
+  m_Center: {x: 0, y: 0, z: 0}

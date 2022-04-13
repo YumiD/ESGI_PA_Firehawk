@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7912253764680427640}
   - component: {fileID: 5205684362749962524}
   - component: {fileID: 1036611646022047181}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: BranchParent2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -151,21 +151,33 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6074323903234224542}
     m_Modifications:
+    - target: {fileID: 41057577317874329, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 41057577317874329, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 41057577317874329, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 1808104836672246194, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1808104836672246194, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.239
+      value: -0.66
       objectReference: {fileID: 0}
     - target: {fileID: 1808104836672246194, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.406
+      value: 2.135
       objectReference: {fileID: 0}
     - target: {fileID: 1808104836672246194, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 4.876
+      value: 3.019
       objectReference: {fileID: 0}
     - target: {fileID: 1808104836672246194, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
       propertyPath: m_LocalRotation.w
@@ -211,6 +223,18 @@ PrefabInstance:
       propertyPath: _objectsToDetach.Array.data[1]
       value: 
       objectReference: {fileID: 3653735004025301245, guid: 7e3e109ebd3e40d4e808f006fda542f0, type: 3}
+    - target: {fileID: 4070812582681244593, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4070812582681244593, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4070812582681244593, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 7284340130923350503, guid: 30c0cec78beec1345aaf9b1045b0ead5, type: 3}
       propertyPath: m_Name
       value: FireCell

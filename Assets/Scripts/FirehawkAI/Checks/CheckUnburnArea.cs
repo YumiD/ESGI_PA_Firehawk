@@ -24,33 +24,30 @@ namespace FirehawkAI.Checks
             if ((bool)holdingBranch)
             {
                 var colliders = Physics.OverlapSphere(_transform.position, FirehawkBT.DetectionRange,
-                    FirehawkBT.GroundLayerMask);
+                    FirehawkBT.GrassLayerMask);
                 if (colliders.Length > 0)
                 {
                     Debug.Log("Looking for unburn area");
-                    var count = 0;
+                    var countNbOnFireCell = 0;
                     foreach (var col in colliders)
                     {
-                        if (!col.TryGetComponent<GridCell>(out var cell)) continue;
-                        // if (cell.IsCurrentlyOnFire())
-                        // {
-                        //     count++;
-                        // }
-                        // if (cell.IsCurrentlySmoking())
-                        // {
-                        //     count++;
-                        // }
+                        var cell = col.GetComponentInChildren<FireCell>();
+                        if (cell != null)
+                        {
+                            if (cell.FireState != FireState.None)
+                            {
+                                countNbOnFireCell++;
+                            }
+                        }
                     }
 
-                    Debug.Log(count);
-                    if (count < colliders.Length * .1f)
+                    if (countNbOnFireCell < colliders.Length * .1f)
                     {
                         SetDataToRoot("isHoldingBranch", false);
-                        // Debug.Log($"Check only {count} cells on fire among {colliders.Length}");
                         State = NodeState.SUCCESS;
                         return State;
                     }
-                }   
+                }
             }
 
             State = NodeState.FAILURE;

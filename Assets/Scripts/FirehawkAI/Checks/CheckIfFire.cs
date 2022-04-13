@@ -5,7 +5,7 @@ namespace FirehawkAI.Checks
 {
     public class CheckIfFire : Node
     {
-        private Transform _transform;
+        private readonly Transform _transform;
         public CheckIfFire(Transform transform)
         {
             _transform = transform;
@@ -18,7 +18,7 @@ namespace FirehawkAI.Checks
             {
                 Debug.Log("CheckIfFire");
                 var colliders = Physics.OverlapSphere(_transform.position, FirehawkBT.DetectionRange,
-                    FirehawkBT.GroundLayerMask);
+                    FirehawkBT.GrassLayerMask);
 
                 if (colliders.Length > 0)
                 {

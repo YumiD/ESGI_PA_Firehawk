@@ -101,6 +101,11 @@ public class FireCell : MonoBehaviour
 		}
 	}
 
+	public void HoldByFirehawk()
+	{
+		_isBeingHeld = !_isBeingHeld;
+	}
+
 	private void FixedUpdate()
 	{
 		if (FireState == FireState.OnFire)
@@ -113,7 +118,7 @@ public class FireCell : MonoBehaviour
 		}
 		
 		FireState newFireState;
-		if (Temperature >= CATCH_FIRE_TEMPERATURE && Fuel > 0 || _isBeingHeld)
+		if ((Temperature >= CATCH_FIRE_TEMPERATURE && Fuel > 0) || _isBeingHeld)
 		{
 			newFireState = FireState.OnFire;
 		}
