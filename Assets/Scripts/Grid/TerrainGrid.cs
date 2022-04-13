@@ -67,7 +67,13 @@ public class TerrainGrid : MonoBehaviour
 		{
 			Transform child = transform.GetChild(i);
 
-			Vector3Int gridPos = child.localPosition.Divide(_gridCellSize).RoundToInt();
+			Vector3Int gridPos = GetGridPosFromWorld(child.position);
+
+			if (!IsGridPosValid(gridPos))
+			{
+				Debug.Log($"Object not in range ({gridPos}), please adjust the grid size.");
+				continue;
+			}
 
 			int x = gridPos.x;
 			int y = gridPos.y;
@@ -172,10 +178,14 @@ public class TerrainGrid : MonoBehaviour
 	{
 		Vector3 localPosition = transform.worldToLocalMatrix * new Vector4(worldPosition.x, worldPosition.y, worldPosition.z, 1);
 
-		Vector3Int gridPos = new Vector3(localPosition.x, localPosition.z, localPosition.y).FloorToInt();
-		gridPos.Clamp(new Vector3Int(0, 0, 0), _size);
+		Vector3Int gridPos = new Vector3(localPosition.x, localPosition.z, localPosition.y).Divide(_size).FloorToInt();
 
 		return gridPos;
+	}
+
+	public bool IsGridPosValid(Vector3Int gridPos)
+	{
+		return gridPos.IsBetween(new Vector3Int(0, 0, 0), _size - new Vector3Int(1, 1, 1));
 	}
 
 	public Vector3 GetWorldPosFromGridPos(Vector3Int gridPos)

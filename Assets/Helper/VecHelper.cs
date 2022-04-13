@@ -83,5 +83,12 @@ namespace Helper
 				z = Mathf.Clamp(vec.z, min.z, max.z)
 			};
 		}
+
+		public static bool IsBetween(this Vector3Int vec, Vector3Int min, Vector3Int max)
+		{
+			return vec.x.IsBetween(min.x, max.x) &&
+			       vec.y.IsBetween(min.y, max.y) &&
+			       vec.y.IsBetween(min.y, max.y);
+		}
 	}
 }
