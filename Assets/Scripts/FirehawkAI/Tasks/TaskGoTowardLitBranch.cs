@@ -25,7 +25,6 @@ namespace FirehawkAI.Tasks
                     var position = target.transform.position;
                     _transform.position = Vector3.MoveTowards(
                         _transform.position, position, FirehawkBT.Speed * Time.deltaTime);
-                    // _transform.LookAt(position);
                 }
 
                 State = NodeState.SUCCESS;

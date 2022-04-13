@@ -50,6 +50,11 @@ public class GridCell : MonoBehaviour
         return _isOnFire;
     }
 
+    public bool IsCurrentlySmoking()
+    {
+        return !(_canBeOnFire && _isOnFire);
+    }
+
     public void SetFire(){
         if(!_canBeOnFire)
             return;

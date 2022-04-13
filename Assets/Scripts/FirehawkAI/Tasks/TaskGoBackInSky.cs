@@ -8,7 +8,7 @@ namespace FirehawkAI.Tasks
         private readonly Transform _transform;
         private readonly float _originCoordinate;
 
-        public TaskGoBackInSky(Transform transform, float originCoordinate)
+        public TaskGoBackInSky(Transform transform,float originCoordinate)
         {
             _transform = transform;
             _originCoordinate = originCoordinate;
@@ -28,7 +28,6 @@ namespace FirehawkAI.Tasks
             {
                 _transform.position = Vector3.MoveTowards(
                     _transform.position, target, FirehawkBT.Speed * Time.deltaTime);
-                // _transform.LookAt(target);
             }
             
             State = NodeState.RUNNING;

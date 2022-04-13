@@ -67,10 +67,6 @@ namespace FirehawkAI
                     }),
                     new TaskPatrol(currentPos, waypoints)
                 });
-
-            // node.SetData("OriginCoordinate", currentPos.position.y);
-            // node.SetData("isHoldingBranch", false);
-
             return node;
         }
 

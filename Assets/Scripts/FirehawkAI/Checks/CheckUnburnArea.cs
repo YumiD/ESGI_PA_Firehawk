@@ -32,10 +32,17 @@ namespace FirehawkAI.Checks
                     foreach (var col in colliders)
                     {
                         if (!col.TryGetComponent<GridCell>(out var cell)) continue;
-                        if (!cell.IsCurrentlyOnFire()) continue;
-                        count++;
+                        if (cell.IsCurrentlyOnFire())
+                        {
+                            count++;
+                        }
+                        if (cell.IsCurrentlySmoking())
+                        {
+                            count++;
+                        }
                     }
 
+                    Debug.Log(count);
                     if (count < colliders.Length * .1f)
                     {
                         SetDataToRoot("isHoldingBranch", false);

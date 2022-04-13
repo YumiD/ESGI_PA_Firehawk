@@ -5,7 +5,7 @@ namespace FirehawkAI.Tasks
 {
     public class TaskThrowLitBranch : Node
     {
-        private float _waitBeforeNewAction = 3f;
+        private const float WaitBeforeNewAction = 3f;
         private float _waitBeforeNewActionCounter;
 
         private readonly Transform _transform;
@@ -36,7 +36,7 @@ namespace FirehawkAI.Tasks
                 rigidbodyLitBranch.AddRelativeForce(-_transform.up * 1000f);
                 litBranch.SetParent(null);
 
-                _waitBeforeNewActionCounter = _waitBeforeNewAction;
+                _waitBeforeNewActionCounter = WaitBeforeNewAction;
             }
             State = NodeState.FAILURE;
             return State;

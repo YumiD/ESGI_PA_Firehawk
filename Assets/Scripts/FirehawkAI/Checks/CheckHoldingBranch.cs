@@ -25,6 +25,17 @@ namespace FirehawkAI.Checks
                 return State;
             }
 
+            var fireCell = foundLitBranch.GetComponentInChildren<FireCell>();
+            if (fireCell != null)
+            {
+                if (fireCell.FireState == FireState.Smoking)
+                {
+                    ClearData("FoundLitBranch");
+                    State = NodeState.FAILURE;
+                    return State;
+                }
+            }
+
             var holdingBranch = GetData("isHoldingBranch");
             if (holdingBranch == null)
             {
