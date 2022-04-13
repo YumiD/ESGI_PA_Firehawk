@@ -23,7 +23,7 @@ namespace FirehawkAI.Tasks
                 foreach (var col in colliders)
                 {
                     if (!col.TryGetComponent<GridCell>(out var cell)) continue;
-                    if (!cell.IsCurrentlyOnFire()) continue;
+                    // if (!cell.IsCurrentlyOnFire()) continue; //TODO: fix
                     count++;
                 }
 
@@ -73,7 +73,7 @@ namespace FirehawkAI.Tasks
             foreach (var col in colliders)
             {
                 if (!col.TryGetComponent<GridCell>(out var cell)) continue;
-                if (!cell.IsCurrentlyOnFire()) continue;
+                // if (!cell.IsCurrentlyOnFire()) continue; //TODO: fix
                 count++;
             }
 

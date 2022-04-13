@@ -25,7 +25,7 @@ namespace FirehawkAI.Checks
                     foreach (var col in colliders)
                     {
                         if (!col.TryGetComponent<GridCell>(out var cell)) continue;
-                        if (!cell.IsCurrentlyOnFire()) continue;
+                        // if (!cell.IsCurrentlyOnFire()) continue; //TODO: fix
                         Debug.Log("FOUND fire");
                         Parent.Parent.SetData("fire", col.gameObject);
                         State = NodeState.SUCCESS;
@@ -39,7 +39,7 @@ namespace FirehawkAI.Checks
 
             if (((GameObject)target).TryGetComponent<GridCell>(out var currentCell))
             {
-                if (!currentCell.IsCurrentlyOnFire())
+                // if (!currentCell.IsCurrentlyOnFire()) //TODO: fix
                 {
                     ClearData("fire");
                 }
