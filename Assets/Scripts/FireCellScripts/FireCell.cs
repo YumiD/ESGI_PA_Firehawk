@@ -68,7 +68,7 @@ public class FireCell : MonoBehaviour
 	
 	public void OnPropagate(FireCell other, float distanceCenterToCenter, float distanceEdgeToEdge)
 	{
-		if (FireState == FireState.OnFire && distanceEdgeToEdge < 2)
+		if (FireState == FireState.OnFire && distanceEdgeToEdge < 3)
 		{
 			other.Temperature += 80 * Time.fixedDeltaTime;
 		}
