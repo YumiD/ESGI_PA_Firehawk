@@ -121,6 +121,7 @@ public class FireCell : MonoBehaviour
 		if ((Temperature >= CATCH_FIRE_TEMPERATURE && Fuel > 0) || _isBeingHeld)
 		{
 			newFireState = FireState.OnFire;
+			gameObject.layer = 12;
 		}
 		else if (Temperature >= START_SMOKING_TEMPERATURE)
 		{
