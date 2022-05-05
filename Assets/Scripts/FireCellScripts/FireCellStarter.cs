@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace FireCellScripts
 {
+    [RequireComponent(typeof(FireCell))]
     public class FireCellStarter : MonoBehaviour
     {
         private FireCell _fireCell;
