@@ -139,6 +139,7 @@ namespace Grid
                 return;
             }
 
+            _lastSelected = null;
             EventSystem.current.SetSelectedGameObject(null);
             _choice = IconChoice.Default;
         }
