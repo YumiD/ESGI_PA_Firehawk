@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using BehaviorTree;
 using FirehawkAI.Checks;
 using FirehawkAI.Tasks;
+using Sounds;
 using UnityEngine;
 using Tree = BehaviorTree.Tree;
 
@@ -67,6 +68,7 @@ namespace FirehawkAI
                     }),
                     new TaskPatrol(currentPos, waypoints)
                 });
+            SoundManager.Instance.LoopSound(10, SoundCategory.Actor,"EagleChirp", false);
             return node;
         }
 

@@ -709,6 +709,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  meshTransform: {fileID: 4339576184935128}
+  feetTransform: {fileID: 4944460651899780}
 --- !u!1 &1585751792936906
 GameObject:
   m_ObjectHideFlags: 0

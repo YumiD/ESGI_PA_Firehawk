@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using FireCellScripts;
+using Sounds;
 using UnityEngine;
 
 public enum FireState
@@ -28,13 +30,13 @@ public class FireCell : MonoBehaviour
 	private Material _burnedMaterial;
 
 	/// <summary>
-	/// This is a list of objects that will recieve a Rigidbody to get detached from their base once this FireCell is fully burned.
+	/// This is a list of objects that will receive a Rigidbody to get detached from their base once this FireCell is fully burned.
 	/// </summary>
 	[SerializeField]
 	private List<GameObject> _objectsToDetach = new List<GameObject>();
 
 	/// <summary>
-	/// This is a list of objects that will recieve the "Burned" material once this FireCell is fully burned.
+	/// This is a list of objects that will receive the "Burned" material once this FireCell is fully burned.
 	/// </summary>
 	[SerializeField]
 	private List<MeshRenderer> _objectsToMakeBurned = new List<MeshRenderer>();
@@ -93,6 +95,7 @@ public class FireCell : MonoBehaviour
 			case FireState.OnFire:
 				_smoke.Stop();
 				_fire.Play();
+				SoundManager.Instance.PlaySound("Fire", SoundCategory.Actor, true);
 				if (TryGetComponent(out FireCellBranch branch2))
 				{
 					branch2.BurnBranch();

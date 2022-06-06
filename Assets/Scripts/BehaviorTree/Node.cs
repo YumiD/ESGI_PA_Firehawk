@@ -14,7 +14,7 @@ namespace BehaviorTree
     {
         protected NodeState State;
 
-        public Node Parent;
+        public Node Parent { get; private set; }
         protected List<Node> Children = new List<Node>();
 
         private readonly Dictionary<string, object> _dataContext = new Dictionary<string, object>();
@@ -26,7 +26,7 @@ namespace BehaviorTree
 
         protected Node(List<Node> children)
         {
-            foreach (var child in children)
+            foreach (Node child in children)
             {
                 Attach(child);
             }
