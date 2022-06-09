@@ -19,7 +19,7 @@ namespace FirehawkAI.Checks
             {
                 Debug.Log("CheckIfFire");
                 var colliders = Physics.OverlapSphere(_transform.position, FirehawkBT.DetectionRange,
-                    FirehawkBT.GrassLayerMask);
+                    FirehawkBT.BurningLayerMask);
 
                 if (colliders.Length > 0)
                 {

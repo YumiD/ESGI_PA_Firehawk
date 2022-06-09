@@ -15,6 +15,7 @@ namespace FirehawkAI
         [SerializeField] private Transform feetTransform;
         public const int GroundLayerMask = 1 << 6;
         public const int GrassLayerMask = 1 << 10;
+        public const int BurningLayerMask = 1 << 12;
         public const int BurrowLayerMask = 1 << 7;
         public const int LitBranchLayerMask = 1 << 8;
         public const float DetectionRange = 20f;
