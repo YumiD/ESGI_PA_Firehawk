@@ -1,4 +1,5 @@
 ﻿using BehaviorTree;
+using FireCellScripts;
 using UnityEngine;
 
 namespace FirehawkAI.Checks

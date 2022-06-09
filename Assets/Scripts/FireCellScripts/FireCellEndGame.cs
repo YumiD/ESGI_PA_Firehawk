@@ -1,4 +1,3 @@
-using System;
 using Events.Bool;
 using UnityEngine;
 
@@ -18,8 +17,8 @@ namespace FireCellScripts
                 return;
             }
 
-            var colliders = new Collider[1];
-            var size = Physics.OverlapSphereNonAlloc(transform.position, radius, colliders, fireMask);
+            Collider[] colliders = new Collider[1];
+            int size = Physics.OverlapSphereNonAlloc(transform.position, radius, colliders, fireMask);
 
             if (size < 1) return;
             

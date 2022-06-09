@@ -1,13 +1,21 @@
 ﻿using UnityEngine;
 
-[ExecuteInEditMode]
-public class FireCellEditorViewer : MonoBehaviour
+namespace FireCellScripts
 {
-	[SerializeField]
-	private FireCell _cell;
-	
-	private void OnDrawGizmosSelected()
+	[ExecuteInEditMode]
+	[RequireComponent(typeof(FireCell))]
+	public class FireCellEditorViewer : MonoBehaviour
 	{
-		Gizmos.DrawWireSphere(transform.position, _cell.Radius);
+		private FireCell _cell;
+
+		private void Start()
+		{
+			_cell = GetComponent<FireCell>();
+		}
+
+		private void OnDrawGizmosSelected()
+		{
+			Gizmos.DrawWireSphere(transform.position, _cell.Radius);
+		}
 	}
 }
