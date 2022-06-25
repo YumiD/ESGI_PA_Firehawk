@@ -7,7 +7,7 @@ namespace FirehawkAI.Tasks
     {
         public override NodeState Evaluate()
         {
-            Debug.Log("Idle");
+            // Debug.Log("Idle");
             State = NodeState.RUNNING;
             return State;
         }

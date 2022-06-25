@@ -11,10 +11,11 @@ namespace Grid
         private enum IconChoice
         {
             Default = -1,
-            Tree = 0,
-            Grass = 1,
-            Flat = 2,
-            Slide = 3
+            TreeBase = 0,
+            TreeCoconut = 1,
+            Grass = 2,
+            Flat = 3,
+            Slide = 4,
         }
 
         private IconChoice _choice;
@@ -57,7 +58,8 @@ namespace Grid
                     case IconChoice.Slide:
                         _clicked = true;
                         break;
-                    case IconChoice.Tree:
+                    case IconChoice.TreeBase:
+                    case IconChoice.TreeCoconut:
                     case IconChoice.Grass:
                     case IconChoice.Default:
                     default:
@@ -78,7 +80,9 @@ namespace Grid
                         break;
                     case IconChoice.Default:
                         break;
-                    case IconChoice.Tree:
+                    case IconChoice.TreeBase:
+                        break;
+                    case IconChoice.TreeCoconut:
                         break;
                     case IconChoice.Grass:
                         break;

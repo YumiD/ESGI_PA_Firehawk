@@ -19,7 +19,7 @@ namespace FirehawkAI.Tasks
             var litBranch = (Transform)GetData("litBranch");
             if (litBranch == null)
             {
-                Debug.Log("Can't pick up");
+                // Debug.Log("Can't pick up");
                 State = NodeState.SUCCESS;
                 return State;
             }
