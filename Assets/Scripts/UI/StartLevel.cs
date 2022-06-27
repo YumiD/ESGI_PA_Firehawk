@@ -1,6 +1,7 @@
 using System;
 using Events.Trigger;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace UI
@@ -17,20 +18,21 @@ namespace UI
             if (!_hasStarted)
             {
                 _hasStarted = true;
-                startBtn.text = "Pause";
+                startBtn.text = "||";
                 triggerFireEvent.Raise();
             }
             else
             {
-                var currentGameState = startBtn.text.Equals("Pause");
+                bool currentGameState = startBtn.text.Equals("||");
                 Time.timeScale = currentGameState ? 0f : 1f;
-                startBtn.text =  currentGameState ? "Resume" : "Pause";
+                startBtn.text =  currentGameState ? "▶" : "||";
             }
         }
 
         public void Reset()
         {
-            throw new NotImplementedException();
+            GameStateManager.Instance.IsEditMode = true;
+            SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
         }
 
         public void Quit()

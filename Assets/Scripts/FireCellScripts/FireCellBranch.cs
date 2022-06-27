@@ -1,4 +1,3 @@
-using FirehawkAI;
 using UnityEngine;
 
 namespace FireCellScripts

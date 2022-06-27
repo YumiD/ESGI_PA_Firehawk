@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UI;
+using UI.Models;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -26,6 +27,7 @@ namespace Grid
         private Camera _camera;
         private GameObject _lastSelected;
         private bool _clicked;
+        private bool _canEdit = true;
 
         private void Start()
         {
@@ -45,6 +47,7 @@ namespace Grid
             var cellMouseIsOver = IsMouseOverAGridSpace();
 
             if (cellMouseIsOver == null) return;
+            if (!_canEdit) return;
 
             var gridPos = cellMouseIsOver.GridPosition;
             if (Input.GetMouseButton(0) && (int)_choice >= 0)
@@ -168,6 +171,11 @@ namespace Grid
                 : choicesPrefab[(int)IconChoice.Flat].prefab;
 
             _terrainGrid.ChangeCellZ((Vector2Int)cellMouseIsOver.GridPosition, prefab);
+        }
+
+        public void ManageClick()
+        {
+            _canEdit = false;
         }
     }
 }

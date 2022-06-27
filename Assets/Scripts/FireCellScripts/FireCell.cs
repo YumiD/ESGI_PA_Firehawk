@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Sounds;
-using Trees.Interfaces;
+using Trees.Models;
 using UnityEngine;
 
 namespace FireCellScripts
@@ -78,6 +78,13 @@ namespace FireCellScripts
 				other.Temperature += 80 * Time.fixedDeltaTime;
 			}
 		}
+		public void OnPutOutFire(FireCell other, float distanceEdgeToEdge)
+		{
+			if (FireState == FireState.OnFire && distanceEdgeToEdge < 3)
+			{
+				other.Temperature -= 80 * Time.fixedDeltaTime;
+			}
+		}
 
 		private void OnFireStateChanged()
 		{
@@ -145,15 +152,15 @@ namespace FireCellScripts
 					for (int i = 0; i < _objectsToDetach.Count; i++)
 					{
 						_objectsToDetach[i].AddComponent<Rigidbody>();
-						if (_objectsToDetach[i].TryGetComponent(out ITree tree))
+						if (_objectsToDetach[i].TryGetComponent(out ATree tree))
 						{
-							tree.Fall();
+							tree.OnFall();
 						}
 					}
 
 					for (int i = 0; i < _objectsToMakeBurned.Count; i++)
 					{
-						_objectsToMakeBurned[i].sharedMaterial = _burnedMaterial;
+						_objectsToMakeBurned[i].sharedMaterial= _burnedMaterial;
 					}
 				}
 			

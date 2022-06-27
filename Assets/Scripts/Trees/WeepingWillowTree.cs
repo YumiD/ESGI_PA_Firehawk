@@ -1,13 +1,11 @@
-using FireCellScripts;
+﻿using FireCellScripts;
 using Trees.Models;
 using UnityEngine;
 
 namespace Trees
 {
-    public class PalmTree : ATree
+    public class WeepingWillowTree : ATree
     {
-        [SerializeField] private GameObject direction;
-
         public override void OnBurn()
         {
             throw new System.NotImplementedException();
@@ -15,8 +13,11 @@ namespace Trees
 
         public override void OnFall(FireCell[] cells = default)
         {
-            Rb = GetComponent<Rigidbody>();
-            Rb.AddForce(-direction.transform.forward * 100f);
+            if (cells != null && cells.Length <= 0)
+            {
+                return;
+            }
+            
         }
     }
 }
