@@ -17,6 +17,7 @@ namespace Trees
         {
             _rb = GetComponent<Rigidbody>();
             _rb.AddForce(-direction.transform.forward * 100f);
+            direction.SetActive(false);
         }
     }
 }
