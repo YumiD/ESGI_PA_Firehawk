@@ -67,7 +67,7 @@ public class TerrainGrid : MonoBehaviour
 		{
 			Transform child = transform.GetChild(i);
 
-			Vector3Int gridPos = GetGridPosFromWorld(child.position);
+			Vector3Int gridPos = GetGridPosFromScene(child.localPosition);
 
 			if (!IsGridPosValid(gridPos))
 			{
@@ -179,10 +179,8 @@ public class TerrainGrid : MonoBehaviour
 		return z - 1;
 	}
 
-	public Vector3Int GetGridPosFromWorld(Vector3 worldPosition)
+	public Vector3Int GetGridPosFromScene(Vector3 scenePosition)
 	{
-		Vector3 localPosition = transform.worldToLocalMatrix * new Vector4(worldPosition.x, worldPosition.y, worldPosition.z, 1);
-
 		Vector3 zUpGridCellSize = new Vector3
 		{
 			x = _gridCellSize.x,
@@ -190,20 +188,11 @@ public class TerrainGrid : MonoBehaviour
 			z = _gridCellSize.y
 		};
 
-		Vector3Int gridPos = new Vector3(localPosition.x, localPosition.z, localPosition.y).Divide(zUpGridCellSize).FloorToInt();
-
-		return gridPos;
+		return new Vector3(scenePosition.x, scenePosition.z, scenePosition.y).Divide(zUpGridCellSize).FloorToInt();
 	}
 
 	public bool IsGridPosValid(Vector3Int gridPos)
 	{
 		return gridPos.IsBetween(new Vector3Int(0, 0, 0), _size - new Vector3Int(1, 1, 1));
-	}
-
-	public Vector3 GetWorldPosFromGridPos(Vector3Int gridPos)
-	{
-		Vector3 localPosition = new Vector3(gridPos.x, gridPos.z, gridPos.y).Multiply(_gridCellSize);
-
-		return transform.localToWorldMatrix * new Vector4(localPosition.x, localPosition.y, localPosition.z, 1);
 	}
 }
