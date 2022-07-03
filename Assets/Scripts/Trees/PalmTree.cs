@@ -13,7 +13,7 @@ namespace Trees
             throw new System.NotImplementedException();
         }
 
-        public override void OnFall(FireCell[] cells = default)
+        public override void OnFall()
         {
             Rb = GetComponent<Rigidbody>();
             Rb.AddForce(-direction.transform.forward * 100f);

@@ -49,6 +49,7 @@ namespace FireCellScripts
 		public float Fuel { get; private set; } = 100;
 
 		private bool _isBeingHeld;
+		public bool ShouldBeExtinct { get; set; }
 
 		private void Start()
 		{
@@ -82,8 +83,13 @@ namespace FireCellScripts
 		{
 			if (FireState == FireState.OnFire && distanceEdgeToEdge < 3)
 			{
-				other.Temperature -= 80 * Time.fixedDeltaTime;
+				other.Temperature = 0;
 			}
+		}
+
+		public void Extinct()
+		{
+			ShouldBeExtinct = true;
 		}
 
 		private void OnFireStateChanged()

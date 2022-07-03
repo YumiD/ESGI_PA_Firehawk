@@ -1,22 +1,25 @@
 ﻿using JetBrains.Annotations;
 using UnityEngine;
 
-public class GridCell : MonoBehaviour
+namespace Grid
 {
-	public enum CellSurface
+	public class GridCell : MonoBehaviour
 	{
-		Flat,
-		Slide
+		public enum CellSurface
+		{
+			Flat,
+			Slide
+		}
+
+		public GameObject Anchor;
+
+		[CanBeNull]
+		[HideInInspector]
+		public GameObject Object;
+
+		public CellSurface Surface;
+
+		[HideInInspector]
+		public Vector3Int GridPosition;
 	}
-
-	public GameObject Anchor;
-
-	[CanBeNull]
-	[HideInInspector]
-	public GameObject Object;
-
-	public CellSurface Surface;
-
-	[HideInInspector]
-	public Vector3Int GridPosition;
 }

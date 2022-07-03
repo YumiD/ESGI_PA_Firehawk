@@ -7,6 +7,6 @@ namespace Trees.Models
     {
         protected Rigidbody Rb;
         public abstract void OnBurn();
-        public abstract void OnFall(FireCell[] cells = default);
+        public abstract void OnFall();
     }
 }

@@ -31,7 +31,7 @@ namespace UI
 
         public void Reset()
         {
-            GameStateManager.Instance.IsEditMode = true;
+            GameManager.Instance.IsEditMode = true;
             SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
         }
 
