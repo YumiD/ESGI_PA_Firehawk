@@ -22,13 +22,13 @@ namespace FirehawkAI.Tasks
                 return State;
             }
 
-            Debug.Log("Looking for lit branch");
+            // Debug.Log("Looking for lit branch");
             var colliders = Physics.OverlapSphere(_transform.position, FirehawkBT.DetectionRange,
                 FirehawkBT.LitBranchLayerMask);
 
             if (colliders.Length > 0)
             {
-                Debug.Log("FOUND lit branch");
+                // Debug.Log("FOUND lit branch");
 
                 Parent.Parent.SetData("FoundLitBranch", colliders[0].transform);
                 State = NodeState.FAILURE;

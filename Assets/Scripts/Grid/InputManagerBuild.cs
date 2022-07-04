@@ -78,8 +78,8 @@ namespace Grid
         // Returns grid cell if mouse is over it, else null
         private GridCell IsMouseOverAGridSpace()
         {
-            Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
-            return Physics.Raycast(ray, out var hitInfo, 100f, whatIsAGridLayer)
+            var ray = _camera.ScreenPointToRay(Input.mousePosition);
+            return Physics.Raycast(ray, out var hitInfo, 2000f, whatIsAGridLayer)
                 ? hitInfo.transform.parent.GetComponent<GridCell>()
                 : null;
         }

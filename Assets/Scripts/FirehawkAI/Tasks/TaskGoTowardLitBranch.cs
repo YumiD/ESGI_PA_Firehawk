@@ -21,7 +21,7 @@ namespace FirehawkAI.Tasks
             {
                 if (Vector3.Distance(_meshTransform.position, target.transform.position) > FirehawkBT.DistanceBetweenMeshParent+.1f)
                 {
-                    Debug.Log("Go toward lit branch");
+                    // Debug.Log("Go toward lit branch");
                     var position = target.transform.position;
                     _transform.position = Vector3.MoveTowards(
                         _transform.position, position, FirehawkBT.Speed * Time.deltaTime);

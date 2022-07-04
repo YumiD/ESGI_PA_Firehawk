@@ -28,7 +28,7 @@ namespace FirehawkAI.Checks
                     FirehawkBT.GrassLayerMask);
                 if (colliders.Length > 0)
                 {
-                    Debug.Log("Looking for unburn area");
+                    // Debug.Log("Looking for unburn area");
                     var countNbOnFireCell = 0;
                     foreach (var col in colliders)
                     {

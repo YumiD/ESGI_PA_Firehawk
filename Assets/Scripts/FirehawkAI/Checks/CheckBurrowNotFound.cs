@@ -23,14 +23,14 @@ namespace FirehawkAI.Checks
             var burrow = GetData("burrow");
             if (burrow == null)
             {
-                Debug.Log("Looking for burrow");
+                // Debug.Log("Looking for burrow");
                 
                 var colliders = Physics.OverlapSphere(_transform.position, FirehawkBT.DetectionRange,
                     FirehawkBT.BurrowLayerMask);
 
                 if (colliders.Length > 0)
                 {
-                    Debug.Log("FOUND Burrow");
+                    // Debug.Log("FOUND Burrow");
                     Parent.Parent.SetData("burrow", colliders[0].transform);
 
                     State = NodeState.SUCCESS;
