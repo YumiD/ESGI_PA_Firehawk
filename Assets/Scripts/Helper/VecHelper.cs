@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Newtonsoft.Json.Linq;
 
 namespace Helper
 {
@@ -13,7 +14,7 @@ namespace Helper
 				z = left.z + right.z
 			};
 		}
-		
+
 		public static Vector3 Substract(this Vector3 left, Vector3 right)
 		{
 			return new Vector3
@@ -23,7 +24,7 @@ namespace Helper
 				z = left.z - right.z
 			};
 		}
-		
+
 		public static Vector3 Multiply(this Vector3 left, Vector3 right)
 		{
 			return new Vector3
@@ -33,7 +34,7 @@ namespace Helper
 				z = left.z * right.z
 			};
 		}
-		
+
 		public static Vector3 Divide(this Vector3 left, Vector3 right)
 		{
 			return new Vector3
@@ -89,6 +90,14 @@ namespace Helper
 			return vec.x.IsBetween(min.x, max.x) &&
 			       vec.y.IsBetween(min.y, max.y) &&
 			       vec.y.IsBetween(min.y, max.y);
+		}
+
+		public static JArray ToJson(this Vector3Int vec){
+			JArray jiji = new JArray();
+			jiji.Add(vec.x);
+			jiji.Add(vec.y);
+			jiji.Add(vec.z);
+			return jiji;
 		}
 	}
 }

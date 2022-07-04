@@ -237,5 +237,9 @@ namespace Grid
 
             return transform.localToWorldMatrix * new Vector4(localPosition.x, localPosition.y, localPosition.z, 1);
         }
+
+        public Vector3Int GetSize(){
+            return _size;
+        }
     }
 }
