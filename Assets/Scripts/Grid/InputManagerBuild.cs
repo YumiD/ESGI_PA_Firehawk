@@ -129,7 +129,7 @@ namespace Grid
         private GridCell IsMouseOverAGridSpace()
         {
             var ray = _camera.ScreenPointToRay(Input.mousePosition);
-            return Physics.Raycast(ray, out var hitInfo, 100f, whatIsAGridLayer)
+            return Physics.Raycast(ray, out var hitInfo, 2000f, whatIsAGridLayer)
                 ? hitInfo.transform.parent.GetComponent<GridCell>()
                 : null;
         }
