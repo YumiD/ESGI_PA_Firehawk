@@ -15,8 +15,8 @@ namespace Trees
 
         public override void OnFall()
         {
-            _rb = GetComponent<Rigidbody>();
-            _rb.AddForce(-direction.transform.forward * 100f);
+            Rb = GetComponent<Rigidbody>();
+            Rb.AddForce(-direction.transform.forward * 100f);
             direction.SetActive(false);
         }
     }

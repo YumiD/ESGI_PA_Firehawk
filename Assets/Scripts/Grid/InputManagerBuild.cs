@@ -2,6 +2,7 @@
 using Grid.Interfaces;
 using UI.Models;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Grid
 {
@@ -87,6 +88,10 @@ namespace Grid
         public void ManageClick()
         {
             _canEdit = false;
+            foreach (ButtonPrefab icon in choicesPrefab)
+            {
+                icon.iconButton.gameObject.GetComponent<Button>().interactable = false;
+            }
         }
     }
 }
