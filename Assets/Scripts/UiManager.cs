@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using Scriptable_Objects;
-using UI;
+using UI.Models;
 using UnityEngine;
 
 public class UiManager : MonoBehaviour
 {
     public static UiManager Instance;
-    [SerializeField] private List<UiIcon> icons;
+    [SerializeField] private List<AIcon> icons;
 
     private void Awake()
     {
@@ -18,10 +18,10 @@ public class UiManager : MonoBehaviour
 
     public void InitializeUi()
     {
-        UpdateUi();
+        LevelEditorUpdateUi();
     }
 
-    public void UpdateUi()
+    public void LevelEditorUpdateUi()
     {
         List<ItemDictionary> item = GameManager.Instance.GetInventory();
 

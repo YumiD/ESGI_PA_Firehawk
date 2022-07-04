@@ -13,7 +13,7 @@ namespace Grid.LevelEditor
         public override void PutObject(GridCell cellMouseIsOver, int choice, List<ButtonPrefab> choicesPrefab)
         {
             Vector3Int gridPos = cellMouseIsOver.GridPosition;
-            if (Input.GetMouseButton(0) && choice >= 0)
+            if (Input.GetMouseButtonDown(0) && choice >= 0)
             {
                 switch (choice)
                 {
@@ -40,10 +40,11 @@ namespace Grid.LevelEditor
                         ManageSlideBloc(cellMouseIsOver, choicesPrefab);
                         break;
                     case (int)LevelEditorIconChoice.IconChoice.Default:
-                        break;
                     case (int)LevelEditorIconChoice.IconChoice.Tree:
-                        break;
                     case (int)LevelEditorIconChoice.IconChoice.Grass:
+                    case (int)LevelEditorIconChoice.IconChoice.Campfire:
+                    case (int)LevelEditorIconChoice.IconChoice.Goal:
+                    case (int)LevelEditorIconChoice.IconChoice.Palmer:
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();

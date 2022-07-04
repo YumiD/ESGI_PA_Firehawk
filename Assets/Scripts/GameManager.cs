@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Scriptable_Objects;
 using UnityEngine;
@@ -38,7 +37,7 @@ public class GameManager : MonoBehaviour
 
     public void AddInInventory(GameObject obj)
     {
-        foreach (ItemDictionary item in _inventory.Where(item => item.item.name == obj.name))
+        foreach (ItemDictionary item in _inventory.Where(item => obj.name.Contains(item.item.name)))
         {
             item.AddItem();
             return;
@@ -49,7 +48,7 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < _inventory.Count; i++)
         {
-            if (_inventory[i].item.name == obj.name)
+            if (obj.name.Contains(_inventory[i].item.name))
             {
                 bool result = _inventory[i].VerifyItem();
                 if (result)
