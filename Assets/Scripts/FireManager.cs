@@ -53,8 +53,15 @@ public class FireManager : MonoBehaviour
             {
                 float distanceCenterToCenter = Vector3.Distance(_burningCells[i].transform.position, _cellsThatCanBurn[j].transform.position);
                 float distanceEdgeToEdge = distanceCenterToCenter - _burningCells[i].Radius - _cellsThatCanBurn[j].Radius;
-				
-                _burningCells[i].OnPropagate(_cellsThatCanBurn[j], distanceCenterToCenter, distanceEdgeToEdge);
+
+                if (_burningCells[i].ShouldBeExtinct)
+                {                    
+                    _burningCells[i].OnPutOutFire(_cellsThatCanBurn[j], distanceEdgeToEdge);
+                }
+                else
+                {
+                    _burningCells[i].OnPropagate(_cellsThatCanBurn[j], distanceCenterToCenter, distanceEdgeToEdge);
+                }
 
                 callsAfterOpt++;
             }

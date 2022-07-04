@@ -1,198 +1,226 @@
-﻿using Helper;
+﻿using Grid;
+using Helper;
 using UnityEngine;
 
 public class TerrainGrid : MonoBehaviour
 {
-	[SerializeField]
-	private Vector3Int _size = new Vector3Int(30, 30, 10);
-	
-	private Vector3 _gridCellSize = new Vector3(5, 2.5f, 5);
+    [SerializeField] private Vector3Int _size = new Vector3Int(30, 30, 10);
 
-	[SerializeField]
-	private bool _generation = true;
+    private Vector3 _gridCellSize = new Vector3(5, 2.5f, 5);
 
-	[SerializeField]
-	private GameObject _flatTerrainPrefab;
+    [SerializeField] private bool _generation = true;
 
-	private GridCell[,,] _grid;
+    [SerializeField] private GameObject _flatTerrainPrefab;
 
-	private void Start()
-	{
-		if (_generation)
-			CreateGrid();
-		else
-			BuildGrid();
-	}
+    private GridCell[,,] _grid;
 
-	private void CreateGrid()
-	{
-		_grid = new GridCell[_size.x, _size.y, _size.z];
+    private void Start()
+    {
+        if (_generation)
+            CreateGrid();
+        else
+            BuildGrid();
+    }
 
-		//Create Grid
-		for (int y = 0; y < _size.y; y++)
-		{
-			for (int x = 0; x < _size.x; x++)
-			{
-				//Create GridSpace object for each cell
-				CreateGridCell(x, y, 0, _flatTerrainPrefab);
-			}
-		}
-	}
+    private void CreateGrid()
+    {
+        _grid = new GridCell[_size.x, _size.y, _size.z];
 
-	private void CreateGridCell(int x, int y, int z, GameObject cellPrefab)
-	{
-		_grid[x, y, z] = Instantiate(cellPrefab, new Vector3(x, z, y).Multiply(_gridCellSize), Quaternion.identity).GetComponent<GridCell>();
-		_grid[x, y, z].GridPosition = new Vector3Int(x, y, z);
-		_grid[x, y, z].transform.parent = transform;
-		_grid[x, y, z].gameObject.name = $"Grid Space ({x} , {y} , {z})";
-	}
+        //Create Grid
+        for (int y = 0; y < _size.y; y++)
+        {
+            for (int x = 0; x < _size.x; x++)
+            {
+                //Create GridSpace object for each cell
+                CreateGridCell(x, y, 0, _flatTerrainPrefab);
+            }
+        }
+    }
 
-	private void RemoveGridCell(int x, int y, int z)
-	{
-		Destroy(_grid[x, y, z].gameObject);
-		_grid[x, y, z] = null;
-	}
+    private void CreateGridCell(int x, int y, int z, GameObject cellPrefab)
+    {
+        _grid[x, y, z] = Instantiate(cellPrefab, new Vector3(x, z, y).Multiply(_gridCellSize), Quaternion.identity)
+            .GetComponent<GridCell>();
+        _grid[x, y, z].GridPosition = new Vector3Int(x, y, z);
+        _grid[x, y, z].transform.parent = transform;
+        _grid[x, y, z].gameObject.name = $"Grid Space ({x} , {y} , {z})";
+    }
 
-	public GridCell GetCell(int x, int y, int z)
-	{
-		return _grid[x, y, z];
-	}
+    private void RemoveGridCell(int x, int y, int z)
+    {
+        Destroy(_grid[x, y, z].gameObject);
+        _grid[x, y, z] = null;
+    }
 
-	// If the grid was always generated, we fill the array _gameGrid with existent gridCells
-	public void BuildGrid()
-	{
-		_grid = new GridCell[_size.x, _size.y, _size.z];
+    public GridCell GetCell(int x, int y, int z)
+    {
+        return _grid[x, y, z];
+    }
 
-		for (int i = 0; i < transform.childCount; i++)
-		{
-			Transform child = transform.GetChild(i);
+    // If the grid was always generated, we fill the array _gameGrid with existent gridCells
+    public void BuildGrid()
+    {
+        _grid = new GridCell[_size.x, _size.y, _size.z];
 
-			Vector3Int gridPos = GetGridPosFromScene(child.localPosition);
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            Transform child = transform.GetChild(i);
 
-			if (!IsGridPosValid(gridPos))
-			{
-				Debug.Log($"Object not in range ({gridPos}), please adjust the grid size.");
-				continue;
-			}
+            Vector3Int gridPos = GetGridPosFromWorld(child.position);
 
-			int x = gridPos.x;
-			int y = gridPos.y;
-			int z = gridPos.z;
-			
-			_grid[x, y, z] = child.gameObject.GetComponent<GridCell>();
-			_grid[x, y, z].GridPosition = gridPos;
+            if (!IsGridPosValid(gridPos))
+            {
+                Debug.Log($"Object not in range ({gridPos}), please adjust the grid size.");
+                continue;
+            }
 
-			if (_grid[x, y, z].Anchor.transform.childCount > 0)
-			{
-				_grid[x, y, z].Object = _grid[x, y, z].Anchor.transform.GetChild(0).gameObject;
-			}
-		}
-	}
+            int x = gridPos.x;
+            int y = gridPos.y;
+            int z = gridPos.z;
 
-	public void SetObject(Vector2Int pos, GameObject objectPrefab)
-	{
-		int x = pos.x;
-		int y = pos.y;
-		int z = GetGridCellActualZ(pos);
+            _grid[x, y, z] = child.gameObject.GetComponent<GridCell>();
+            _grid[x, y, z].GridPosition = gridPos;
 
-		if (_grid[x, y, z].Object != null)
-		{
-			Destroy(_grid[x, y, z].Object);
-		}
-		
-		_grid[x, y, z].Object = Instantiate(objectPrefab, _grid[x, y, z].Anchor.transform);
-	}
+            if (_grid[x, y, z].Anchor.transform.childCount > 0)
+            {
+                _grid[x, y, z].Object = _grid[x, y, z].Anchor.transform.GetChild(0).gameObject;
+            }
+        }
+    }
 
-	public void AddCellZ(Vector2Int pos, GameObject cellPrefab)
-	{
-		int x = pos.x;
-		int y = pos.y;
-		int currentZ = GetGridCellActualZ(pos);
-		int newZ = currentZ + 1;
-		
-		if (newZ >= _size.y)
-			return;
+    public bool SetObject(Vector2Int pos, GameObject objectPrefab)
+    {
+        int x = pos.x;
+        int y = pos.y;
+        int z = GetGridCellActualZ(pos);
 
-		if (_grid[x, y, currentZ].Object != null)
-		{
-			Destroy(_grid[x, y, currentZ].Object);
-		}
+        if (_grid[x, y, z].Object != null)
+        {
+            return false;
+        }
 
-		if (_grid[x, y, currentZ].Surface == GridCell.CellSurface.Slide)
-		{
-			ChangeCellZ(pos, _flatTerrainPrefab);
-		}
-		
-		CreateGridCell(x, y, newZ, cellPrefab);
-	}
+        _grid[x, y, z].Object = Instantiate(objectPrefab, _grid[x, y, z].Anchor.transform);
+        return true;
+    }
 
-	public void ChangeCellZ(Vector2Int pos, GameObject cellPrefab)
-	{
-		int x = pos.x;
-		int y = pos.y;
-		int z = GetGridCellActualZ(pos);
+    public bool RemoveObject(Vector2Int pos)
+    {
+        int x = pos.x;
+        int y = pos.y;
+        int z = GetGridCellActualZ(pos);
 
-		GameObject cellObject = null;
-		if (_grid[x, y, z].Object != null)
-		{
-			cellObject = _grid[x, y, z].Object;
-			_grid[x, y, z].Object = null;
-			cellObject.transform.SetParent(transform.root, false);
-		}
-		
-		RemoveGridCell(x, y, z);
-		
-		CreateGridCell(x, y, z, cellPrefab);
+        if (_grid[x, y, z].Object != null)
+        {
+            Destroy(_grid[x, y, z].Object);
+            return true;
+        }
 
-		if (cellObject != null)
-		{
-			_grid[x, y, z].Object = cellObject;
-			cellObject.transform.SetParent(_grid[x, y, z].Anchor.transform, false);
-		}
-	}
+        return false;
+    }
 
-	public void RemoveCellZ(Vector2Int pos)
-	{
-		int x = pos.x;
-		int y = pos.y;
-		int z = GetGridCellActualZ(pos);
-		
-		if (z == 0) // keep lowest cell
-			return;
+    public void AddCellZ(Vector2Int pos, GameObject cellPrefab)
+    {
+        int x = pos.x;
+        int y = pos.y;
+        int currentZ = GetGridCellActualZ(pos);
+        int newZ = currentZ + 1;
 
-		RemoveGridCell(x, y, z);
-	}
+        if (newZ >= _size.y)
+            return;
 
-	public int GetGridCellActualZ(Vector2Int pos)
-	{
-		int x = pos.x;
-		int y = pos.y;
-		int z = 0;
-		
-		while (z < _size.z)
-		{
-			if (_grid[x, y, z] == null)
-				break;
-			z++;
-		}
+        if (_grid[x, y, currentZ].Object != null)
+        {
+            Destroy(_grid[x, y, currentZ].Object);
+        }
 
-		return z - 1;
-	}
+        if (_grid[x, y, currentZ].Surface == GridCell.CellSurface.Slide)
+        {
+            ChangeCellZ(pos, _flatTerrainPrefab);
+        }
 
-	public Vector3Int GetGridPosFromScene(Vector3 scenePosition)
-	{
-		Vector3 zUpGridCellSize = new Vector3
-		{
-			x = _gridCellSize.x,
-			y = _gridCellSize.z,
-			z = _gridCellSize.y
-		};
+        CreateGridCell(x, y, newZ, cellPrefab);
+    }
 
-		return new Vector3(scenePosition.x, scenePosition.z, scenePosition.y).Divide(zUpGridCellSize).FloorToInt();
-	}
+    public void ChangeCellZ(Vector2Int pos, GameObject cellPrefab)
+    {
+        int x = pos.x;
+        int y = pos.y;
+        int z = GetGridCellActualZ(pos);
 
-	public bool IsGridPosValid(Vector3Int gridPos)
-	{
-		return gridPos.IsBetween(new Vector3Int(0, 0, 0), _size - new Vector3Int(1, 1, 1));
-	}
+        GameObject cellObject = null;
+        if (_grid[x, y, z].Object != null)
+        {
+            cellObject = _grid[x, y, z].Object;
+            _grid[x, y, z].Object = null;
+            cellObject.transform.SetParent(transform.root, false);
+        }
+
+        RemoveGridCell(x, y, z);
+
+        CreateGridCell(x, y, z, cellPrefab);
+
+        if (cellObject != null)
+        {
+            _grid[x, y, z].Object = cellObject;
+            cellObject.transform.SetParent(_grid[x, y, z].Anchor.transform, false);
+        }
+    }
+
+    public void RemoveCellZ(Vector2Int pos)
+    {
+        int x = pos.x;
+        int y = pos.y;
+        int z = GetGridCellActualZ(pos);
+
+        if (z == 0) // keep lowest cell
+            return;
+
+        RemoveGridCell(x, y, z);
+    }
+
+    public int GetGridCellActualZ(Vector2Int pos)
+    {
+        int x = pos.x;
+        int y = pos.y;
+        int z = 0;
+
+        while (z < _size.z)
+        {
+            if (_grid[x, y, z] == null)
+                break;
+            z++;
+        }
+
+        return z - 1;
+    }
+
+    public Vector3Int GetGridPosFromWorld(Vector3 worldPosition)
+    {
+        Vector3 localPosition = transform.worldToLocalMatrix *
+                                new Vector4(worldPosition.x, worldPosition.y, worldPosition.z, 1);
+
+        Vector3 zUpGridCellSize = new Vector3
+        {
+            x = _gridCellSize.x,
+            y = _gridCellSize.z,
+            z = _gridCellSize.y
+        };
+
+        Vector3Int gridPos = new Vector3(localPosition.x, localPosition.z, localPosition.y).Divide(zUpGridCellSize)
+            .FloorToInt();
+
+        return gridPos;
+    }
+
+    public bool IsGridPosValid(Vector3Int gridPos)
+    {
+        return gridPos.IsBetween(new Vector3Int(0, 0, 0), _size - new Vector3Int(1, 1, 1));
+    }
+
+    public Vector3 GetWorldPosFromGridPos(Vector3Int gridPos)
+    {
+        Vector3 localPosition = new Vector3(gridPos.x, gridPos.z, gridPos.y).Multiply(_gridCellSize);
+
+        return transform.localToWorldMatrix * new Vector4(localPosition.x, localPosition.y, localPosition.z, 1);
+    }
 }

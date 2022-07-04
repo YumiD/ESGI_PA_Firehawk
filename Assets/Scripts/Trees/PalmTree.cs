@@ -1,22 +1,22 @@
-using Trees.Interfaces;
+using FireCellScripts;
+using Trees.Models;
 using UnityEngine;
 
 namespace Trees
 {
-    public class PalmTree : MonoBehaviour, ITree
+    public class PalmTree : ATree
     {
         [SerializeField] private GameObject direction;
-        private Rigidbody _rb;
 
-        public void Burn()
+        public override void OnBurn()
         {
             throw new System.NotImplementedException();
         }
 
-        public void Fall()
+        public override void OnFall()
         {
-            _rb = GetComponent<Rigidbody>();
-            _rb.AddForce(-direction.transform.forward * 100f);
+            Rb = GetComponent<Rigidbody>();
+            Rb.AddForce(-direction.transform.forward * 100f);
             direction.SetActive(false);
         }
     }
