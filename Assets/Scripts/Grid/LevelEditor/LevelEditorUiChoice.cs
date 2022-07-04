@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
 using Grid.Interfaces;
+using UI;
 using UI.Models;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace Grid.LevelEditor
 {
     public class LevelEditorUiChoice : MonoBehaviour, IUiChoice
     {
         private LevelEditorIconChoice.IconChoice _choice;
-        private GameObject _lastSelected;
+
         private void Start()
         {
             _choice = LevelEditorIconChoice.IconChoice.Default;
@@ -22,28 +22,22 @@ namespace Grid.LevelEditor
 
         public void SetChoice(int choice, IReadOnlyList<ButtonPrefab> choicesPrefab)
         {
+            choicesPrefab[choice].iconButton.GetComponent<LevelEditorUiIcon>().SelectButton();
             if (choice != (int)_choice)
             {
                 _choice = (LevelEditorIconChoice.IconChoice)choice;
-                EventSystem.current.SetSelectedGameObject(choicesPrefab[choice].iconButton.gameObject);
-                return;
-            }
-
-            _lastSelected = null;
-            EventSystem.current.SetSelectedGameObject(null);
-            _choice = LevelEditorIconChoice.IconChoice.Default;
-        }
-
-        public void ButtonStaySelected()
-        {
-            if (EventSystem.current == null) return;
-            if (EventSystem.current.currentSelectedGameObject != null)
-            {
-                _lastSelected = EventSystem.current.currentSelectedGameObject;
+                for (int i = 0; i < choicesPrefab.Count; i++)
+                {
+                    if (i != choice)
+                    {
+                        choicesPrefab[i].iconButton.GetComponent<LevelEditorUiIcon>().DeSelectButton();
+                    }
+                }
             }
             else
             {
-                EventSystem.current.SetSelectedGameObject(_lastSelected);
+                choicesPrefab[choice].iconButton.GetComponent<LevelEditorUiIcon>().DeSelectButton();
+                _choice = LevelEditorIconChoice.IconChoice.Default;
             }
         }
     }

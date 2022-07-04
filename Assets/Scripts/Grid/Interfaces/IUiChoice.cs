@@ -7,6 +7,5 @@ namespace Grid.Interfaces
     {
         int GetChoice();
         void SetChoice(int choice, IReadOnlyList<ButtonPrefab> choicesPrefab);
-        void ButtonStaySelected();
     }
 }
