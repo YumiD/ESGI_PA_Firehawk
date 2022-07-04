@@ -13,7 +13,7 @@ namespace Grid.LevelEditor
         public override void PutObject(GridCell cellMouseIsOver, int choice, List<ButtonPrefab> choicesPrefab)
         {
             Vector3Int gridPos = cellMouseIsOver.GridPosition;
-            if (Input.GetMouseButtonDown(0) && choice >= 0)
+            if (Input.GetMouseButton(0) && choice >= 0)
             {
                 switch (choice)
                 {
@@ -24,8 +24,11 @@ namespace Grid.LevelEditor
                         _clicked = true;
                         break;
                     default:
+                        Vector2Int pos = new Vector2Int(gridPos.x, gridPos.y);
                         terrainGrid.SetObject(new Vector2Int(gridPos.x, gridPos.y),
                             choicesPrefab[choice].prefab);
+                        terrainGrid.RemoveObject(pos);
+                        terrainGrid.CreateObject(choicesPrefab[choice].prefab, pos.x, pos.y);
                         break;
                 }
             }

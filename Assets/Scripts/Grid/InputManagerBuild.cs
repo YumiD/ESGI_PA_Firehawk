@@ -36,7 +36,6 @@ namespace Grid
 
         private void Update()
         {
-            _uiChoice.ButtonStaySelected();
             GridCell cellMouseIsOver = IsMouseOverAGridSpace();
 
             if (cellMouseIsOver == null) return;
