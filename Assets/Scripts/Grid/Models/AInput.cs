@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Grid.Interfaces;
 using UI.Models;
 using UnityEngine;
@@ -8,11 +7,14 @@ namespace Grid.Models
 {
     public abstract class AInput : MonoBehaviour, IPlaceObject
     {
-        [SerializeField]protected TerrainGrid TerrainGrid;
+        [SerializeField]protected TerrainGrid terrainGrid;
 
-        private void Start()
+        private void OnEnable()
         {
-            // TerrainGrid = FindObjectOfType<TerrainGrid>();
+            if (terrainGrid == null)
+            {
+                terrainGrid = FindObjectOfType<TerrainGrid>();
+            }
         }
 
         public abstract void PutObject(GridCell cellMouseIsOver, int choice, List<ButtonPrefab> choicesPrefab);

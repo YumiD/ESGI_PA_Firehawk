@@ -20,7 +20,6 @@ namespace Grid
         private void Start()
         {
             _camera = Camera.main;
-            FindObjectOfType<TerrainGrid>();
             _putObject = GetComponent<IPlaceObject>();
             _uiChoice = GetComponent<IUiChoice>();
             AddButtonEvent();

@@ -24,7 +24,7 @@ namespace Grid.LevelEditor
                         _clicked = true;
                         break;
                     default:
-                        TerrainGrid.SetObject(new Vector2Int(gridPos.x, gridPos.y),
+                        terrainGrid.SetObject(new Vector2Int(gridPos.x, gridPos.y),
                             choicesPrefab[choice].prefab);
                         break;
                 }
@@ -34,7 +34,7 @@ namespace Grid.LevelEditor
                 switch (choice)
                 {
                     case (int)LevelEditorIconChoice.IconChoice.Flat:
-                        TerrainGrid.AddCellZ((Vector2Int)gridPos, choicesPrefab[choice].prefab);
+                        terrainGrid.AddCellZ((Vector2Int)gridPos, choicesPrefab[choice].prefab);
                         break;
                     case (int)LevelEditorIconChoice.IconChoice.Slide:
                         ManageSlideBloc(cellMouseIsOver, choicesPrefab);
@@ -55,21 +55,21 @@ namespace Grid.LevelEditor
             else if (Input.GetMouseButtonDown(1))
             {
                 gridPos = cellMouseIsOver.GridPosition;
-                TerrainGrid.RemoveCellZ((Vector2Int)gridPos);
+                terrainGrid.RemoveCellZ((Vector2Int)gridPos);
             }
         }
         
         private void ManageSlideBloc(GridCell cellMouseIsOver, IReadOnlyList<ButtonPrefab> choicesPrefab)
         {
-            int z = TerrainGrid.GetGridCellActualZ((Vector2Int)cellMouseIsOver.GridPosition);
+            int z = terrainGrid.GetGridCellActualZ((Vector2Int)cellMouseIsOver.GridPosition);
 
-            GridCell topCell = TerrainGrid.GetCell(cellMouseIsOver.GridPosition.x, cellMouseIsOver.GridPosition.y, z);
+            GridCell topCell = terrainGrid.GetCell(cellMouseIsOver.GridPosition.x, cellMouseIsOver.GridPosition.y, z);
 
             GameObject prefab = topCell.Surface == GridCell.CellSurface.Flat
                 ? choicesPrefab[(int)LevelEditorIconChoice.IconChoice.Slide].prefab
                 : choicesPrefab[(int)LevelEditorIconChoice.IconChoice.Flat].prefab;
 
-            TerrainGrid.ChangeCellZ((Vector2Int)cellMouseIsOver.GridPosition, prefab);
+            terrainGrid.ChangeCellZ((Vector2Int)cellMouseIsOver.GridPosition, prefab);
         }
     }
 }
