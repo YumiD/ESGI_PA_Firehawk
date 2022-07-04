@@ -8,11 +8,11 @@ namespace Grid.Models
 {
     public abstract class AInput : MonoBehaviour, IPlaceObject
     {
-        protected TerrainGrid TerrainGrid;
+        [SerializeField]protected TerrainGrid TerrainGrid;
 
         private void Start()
         {
-            TerrainGrid = FindObjectOfType<TerrainGrid>();
+            // TerrainGrid = FindObjectOfType<TerrainGrid>();
         }
 
         public abstract void PutObject(GridCell cellMouseIsOver, int choice, List<ButtonPrefab> choicesPrefab);
