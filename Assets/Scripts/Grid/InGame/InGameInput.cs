@@ -22,14 +22,14 @@ namespace Grid.InGame
                 }
 
                 Vector2Int pos = new Vector2Int(gridPos.x, gridPos.y);
-                (bool, GameObject) result = TerrainGrid.SetObject(pos, choicesPrefab[choice].prefab);
+                (bool, GameObject) result = terrainGrid.SetObject(pos, choicesPrefab[choice].prefab);
                 if (!result.Item1)
                 {
                     // If different objects
                     GameManager.Instance.AddInInventory(result.Item2);
-                    TerrainGrid.RemoveObject(pos);
-                    TerrainGrid.CreateObject(choicesPrefab[choice].prefab, pos.x, pos.y);
-                    TerrainGrid.AddInInventory(pos.x, pos.y);
+                    terrainGrid.RemoveObject(pos);
+                    terrainGrid.CreateObject(choicesPrefab[choice].prefab, pos.x, pos.y);
+                    terrainGrid.AddInInventory(pos.x, pos.y);
                 }
                 else
                 {
@@ -40,7 +40,7 @@ namespace Grid.InGame
             }
             else if (Input.GetMouseButtonDown(1))
             {
-                bool result = TerrainGrid.RemoveObject(new Vector2Int(gridPos.x, gridPos.y));
+                bool result = terrainGrid.RemoveObject(new Vector2Int(gridPos.x, gridPos.y));
                 if (result)
                 {
                     GameManager.Instance.AddInInventory(choicesPrefab[choice].prefab);
