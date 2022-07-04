@@ -90,7 +90,8 @@ namespace Grid
             _canEdit = false;
             foreach (ButtonPrefab icon in choicesPrefab)
             {
-                icon.iconButton.gameObject.GetComponent<Button>().interactable = false;
+                icon.iconButton.gameObject.GetComponent<Button>().interactable = 
+                    !icon.iconButton.gameObject.GetComponent<Button>().interactable;
             }
         }
     }
