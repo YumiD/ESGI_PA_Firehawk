@@ -21,7 +21,10 @@ namespace Grid
         private void Start()
         {
             if (!_initialized)
+            {
                 CreateGrid();
+                _initialized = true;
+            }
         }
 
         private void CreateGrid()
@@ -225,27 +228,32 @@ namespace Grid
             JArray jsonGridCells = new JArray();
             for (int x = 0; x < _size.x; x++)
             {
-                for (int y = 0; y < _size.x; y++)
+                for (int y = 0; y < _size.y; y++)
                 {
-                    for (int z = 0; z < _size.x; z++)
+                    for (int z = 0; z < _size.z; z++)
                     {
+                        GridCell gridCell = _grid[x, y, z];
+
+                        if (gridCell == null)
+                        {
+                            continue;
+                        }
+                        
                         JObject jsonCell = new JObject();
 
-                        GridCell gridCell = _grid[x, y, z];
-						
-                        jsonCell["position"] = new JArray(x, y, z);
-                        jsonCell["rotation"] = gridCell.transform.eulerAngles.y;
+                        jsonCell["p"] = new JArray(x, y, z);
+                        jsonCell["r"] = gridCell.transform.eulerAngles.y;
 
-                        jsonCell["type"] = gridCell.Surface switch
+                        jsonCell["t"] = gridCell.Surface switch
                         {
-                            GridCell.CellSurface.Flat => "flat",
-                            GridCell.CellSurface.Slide => "slide",
+                            GridCell.CellSurface.Flat => "f",
+                            GridCell.CellSurface.Slide => "s",
                             _ => throw new ArgumentOutOfRangeException()
                         };
 
                         if (gridCell.Object != null)
                         {
-                            jsonCell["object"] = "todo";//TODO
+                            jsonCell["o"] = "";//TODO
                         }
 						
                         jsonGridCells.Add(jsonCell);
@@ -268,7 +276,7 @@ namespace Grid
             {
                 JObject jsonCell = (JObject)jsonGridCells[i];
 
-                Vector3Int gridPos = jsonCell["position"].ToVector3Int();
+                Vector3Int gridPos = jsonCell["p"].ToVector3Int();
 
                 if (!IsGridPosValid(gridPos))
                 {
@@ -280,15 +288,15 @@ namespace Grid
                 int y = gridPos.y;
                 int z = gridPos.z;
 
-                string cellType = (string)jsonCell["type"];
+                string cellType = (string)jsonCell["t"];
                 GameObject prefab = cellType switch
                 {
-                    "flat" => _flatTerrainPrefab,
-                    "slide" => _slideTerrainPrefab,
+                    "f" => _flatTerrainPrefab,
+                    "s" => _slideTerrainPrefab,
                     _ => throw new ArgumentOutOfRangeException()
                 };
 				
-                CreateGridCell(x, y, z, (float)jsonCell["rotation"], prefab);
+                CreateGridCell(x, y, z, (float)jsonCell["r"], prefab);
 
                 if (jsonCell.ContainsKey("object"))
                 {

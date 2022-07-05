@@ -2,8 +2,8 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Newtonsoft.Json.Linq;
-using Helper;
 using Grid;
+using Newtonsoft.Json;
 
 namespace UI.LevelEditor
 {
@@ -11,19 +11,21 @@ namespace UI.LevelEditor
     {
         [SerializeField]
         private GameObject gridGenerator;
+        private GameObject _gridGeneratorInstance;
+        
         public void GenerateLevel(int dropdownValue) {
-            Instantiate(gridGenerator, new Vector3(0, 0, 0), Quaternion.identity);
+            _gridGeneratorInstance = Instantiate(gridGenerator, new Vector3(0, 0, 0), Quaternion.identity);
         }
         public void QuitLevelEditor() {
             SceneManager.LoadScene(0);
         }
         public void ExportTerrainJSON(){
 
-            JObject root = gridGenerator.GetComponent<TerrainGrid>().Serialize();
+            JObject root = _gridGeneratorInstance.GetComponent<TerrainGrid>().Serialize();
 
             print(root.ToString());
 
-            File.WriteAllText(Application.dataPath + "/gridGenerated.json", root.ToString());
+            File.WriteAllText(Application.dataPath + "/gridGenerated.json", root.ToString(Formatting.None));
 
         }
     }
