@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -11,22 +12,26 @@ namespace UI.LevelEditor
     {
         [SerializeField]
         private GameObject gridGenerator;
-        private GameObject _gridGeneratorInstance;
+        private TerrainGrid _terrainGridInstance;
         
         public void GenerateLevel(int dropdownValue) {
-            _gridGeneratorInstance = Instantiate(gridGenerator, new Vector3(0, 0, 0), Quaternion.identity);
+            _terrainGridInstance = Instantiate(gridGenerator, new Vector3(0, 0, 0), Quaternion.identity).GetComponent<TerrainGrid>();
+            _terrainGridInstance.Create(dropdownValue switch
+            {
+                0 => new Vector3Int(10, 10, 10),
+                1 => new Vector3Int(20, 20, 10),
+                2 => new Vector3Int(30, 30, 10),
+                _ => throw new ArgumentOutOfRangeException()
+            });
         }
         public void QuitLevelEditor() {
             SceneManager.LoadScene(0);
         }
         public void ExportTerrainJSON(){
 
-            JObject root = _gridGeneratorInstance.GetComponent<TerrainGrid>().Serialize();
-
-            print(root.ToString());
+            JObject root = _terrainGridInstance.Serialize();
 
             File.WriteAllText(Application.dataPath + "/gridGenerated.json", root.ToString(Formatting.None));
-
         }
     }
 }

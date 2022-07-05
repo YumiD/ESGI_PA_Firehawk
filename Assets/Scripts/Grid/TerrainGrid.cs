@@ -7,40 +7,14 @@ namespace Grid
 {
     public class TerrainGrid : MonoBehaviour
     {
-        [SerializeField] private Vector3Int _size = new Vector3Int(30, 30, 10);
+        private Vector3Int _size;
 
         private Vector3 _gridCellSize = new Vector3(5, 2.5f, 5);
-
-        private bool _initialized;
 
         [SerializeField] private GameObject _flatTerrainPrefab;
         [SerializeField] private GameObject _slideTerrainPrefab;
 
         private GridCell[,,] _grid;
-
-        private void Start()
-        {
-            if (!_initialized)
-            {
-                CreateGrid();
-                _initialized = true;
-            }
-        }
-
-        private void CreateGrid()
-        {
-            _grid = new GridCell[_size.x, _size.y, _size.z];
-
-            //Create Grid
-            for (int y = 0; y < _size.y; y++)
-            {
-                for (int x = 0; x < _size.x; x++)
-                {
-                    //Create GridSpace object for each cell
-                    CreateGridCell(x, y, 0, 0, _flatTerrainPrefab);
-                }
-            }
-        }
 
         private void CreateGridCell(int x, int y, int z, float angle, GameObject cellPrefab)
         {
@@ -202,18 +176,6 @@ namespace Grid
             return z - 1;
         }
 
-        public Vector3Int GetGridPosFromScene(Vector3 scenePosition)
-        {
-            Vector3 zUpGridCellSize = new Vector3
-            {
-                x = _gridCellSize.x,
-                y = _gridCellSize.z,
-                z = _gridCellSize.y
-            };
-
-            return new Vector3(scenePosition.x, scenePosition.z, scenePosition.y).Divide(zUpGridCellSize).FloorToInt();
-        }
-
         public bool IsGridPosValid(Vector3Int gridPos)
         {
             return gridPos.IsBetween(new Vector3Int(0, 0, 0), _size - new Vector3Int(1, 1, 1));
@@ -303,8 +265,20 @@ namespace Grid
                     //TODO
                 }
             }
+        }
 
-            _initialized = true;
+        public void Create(Vector3Int size)
+        {
+            _size = size;
+            _grid = new GridCell[_size.x, _size.y, _size.z];
+            
+            for (int y = 0; y < _size.y; y++)
+            {
+                for (int x = 0; x < _size.x; x++)
+                {
+                    CreateGridCell(x, y, 0, 0, _flatTerrainPrefab);
+                }
+            }
         }
     }
 }
