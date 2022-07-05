@@ -35,35 +35,10 @@ namespace UI.LevelEditor{
             SceneManager.LoadScene(0);
         }
         public void ExportTerrainJSON(){
-            /*GridData gridData = new GridData();
-            GridCellData griCellData = new GridCellData();
-            griCellData.pos = new Vector3(1,1,1);
-            //gridData.gridCells.Add(griCellData);
-            gridData.gridCells = new GridCellData[1];
-            gridData.gridCells[0] = griCellData;
 
-            //string strOutput = JsonUtility.ToJson(gridData);
-            string strOutput = JsonConvert.SerializeObject(griCellData, Formatting.Indented);
-            print(strOutput);
-            File.WriteAllText(Application.dataPath + "/gridGenerated.json", strOutput);*/
-
-            string toto = "abc";
-            int tata = 2;
-            Vector3Int tonton = new Vector3Int(1,1,1);
-            JObject root = new JObject();
-            string json = @"{ CPU: 'Intel',
-            Drives: [
-                'DVD read/writer',
-                '500 gigabyte hard drive'
-            ]
-            }";
-            root["a"] = tonton.ToJson();
-            root["b"] = JObject.Parse(json);
-
-            Vector3Int gridGeneratorSize = gridGenerator.GetComponent<TerrainGrid>().GetSize();
+            JObject root = gridGenerator.GetComponent<TerrainGrid>().Serialize();
 
             print(root.ToString());
-            print(gridGeneratorSize);
 
             File.WriteAllText(Application.dataPath + "/gridGenerated.json", root.ToString());
 
