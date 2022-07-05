@@ -10,7 +10,7 @@ namespace Grid.InGame
     {
         [SerializeField] private EventTrigger updateUi;
 
-        public override void PutObject(GridCell cellMouseIsOver, int choice, List<ButtonPrefab> choicesPrefab)
+        public override void PutObject(GridCell cellMouseIsOver, int choice, List<IconPrefab> choicesPrefab)
         {
             Vector3Int gridPos = cellMouseIsOver.GridPosition;
             if (Input.GetMouseButtonDown(0) && choice >= 0)

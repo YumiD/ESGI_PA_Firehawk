@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Grid.Interfaces;
-using UI;
+using UI.LevelEditor;
 using UI.Models;
 using UnityEngine;
 
@@ -20,23 +20,28 @@ namespace Grid.LevelEditor
             return (int)_choice;
         }
 
-        public void SetChoice(int choice, IReadOnlyList<ButtonPrefab> choicesPrefab)
+        public void SetChoice(int choice, IReadOnlyList<IconPrefab> choicesPrefab)
         {
-            choicesPrefab[choice].iconButton.GetComponent<LevelEditorUiIcon>().SelectButton();
-            if (choice != (int)_choice)
+            int currentChoice = choice;
+            if (choicesPrefab[choice].icon.TryGetComponent(out LevelEditorDropdown dropdown))
             {
-                _choice = (LevelEditorIconChoice.IconChoice)choice;
+                currentChoice = (int)dropdown.ChoiceDropdown;
+            }
+            choicesPrefab[currentChoice].icon.GetComponent<LevelEditorUiIcon>().SelectButton();
+            if (currentChoice != (int)_choice)
+            {
+                _choice = (LevelEditorIconChoice.IconChoice)currentChoice;
                 for (int i = 0; i < choicesPrefab.Count; i++)
                 {
-                    if (i != choice)
+                    if (i != currentChoice)
                     {
-                        choicesPrefab[i].iconButton.GetComponent<LevelEditorUiIcon>().DeSelectButton();
+                        choicesPrefab[i].icon.GetComponent<LevelEditorUiIcon>().DeSelectButton();
                     }
                 }
             }
             else
             {
-                choicesPrefab[choice].iconButton.GetComponent<LevelEditorUiIcon>().DeSelectButton();
+                choicesPrefab[currentChoice].icon.GetComponent<LevelEditorUiIcon>().DeSelectButton();
                 _choice = LevelEditorIconChoice.IconChoice.Default;
             }
         }

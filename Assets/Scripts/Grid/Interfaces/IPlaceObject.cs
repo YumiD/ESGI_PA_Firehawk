@@ -5,6 +5,6 @@ namespace Grid.Interfaces
 {
     public interface IPlaceObject
     {
-        void PutObject(GridCell cellMouseIsOver, int choice, List<ButtonPrefab> choicesPrefab);
+        void PutObject(GridCell cellMouseIsOver, int choice, List<IconPrefab> choicesPrefab);
     }
 }

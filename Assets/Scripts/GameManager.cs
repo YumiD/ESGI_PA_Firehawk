@@ -9,7 +9,6 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private LevelInventory levelInventory;
     private readonly List<ItemDictionary> _inventory = new List<ItemDictionary>();
-    public bool IsEditMode { get; set; }
 
     private void Awake()
     {
@@ -66,10 +65,5 @@ public class GameManager : MonoBehaviour
     public void RemoveInInventory(int index)
     {
         _inventory[index].RemoveItem();
-    }
-
-    public void SetGameState(bool isEditMode)
-    {
-        IsEditMode = isEditMode;
     }
 }

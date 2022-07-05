@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Grid.Interfaces;
-using UI;
+using UI.InGame;
 using UI.Models;
 using UnityEngine;
 
@@ -20,9 +20,9 @@ namespace Grid.InGame
             return (int)_choice;
         }
 
-        public void SetChoice(int choice, IReadOnlyList<ButtonPrefab> choicesPrefab)
+        public void SetChoice(int choice, IReadOnlyList<IconPrefab> choicesPrefab)
         {
-            choicesPrefab[choice].iconButton.GetComponent<LevelEditorUiIcon>().SelectButton();
+            choicesPrefab[choice].icon.GetComponent<InGameUiIcon>().SelectButton();
             if (choice != (int)_choice)
             {
                 _choice = (InGameIconChoice.IconChoice)choice;
@@ -30,13 +30,13 @@ namespace Grid.InGame
                 {
                     if (i != choice)
                     {
-                        choicesPrefab[i].iconButton.GetComponent<LevelEditorUiIcon>().DeSelectButton();
+                        choicesPrefab[i].icon.GetComponent<InGameUiIcon>().DeSelectButton();
                     }
                 }
             }
             else
             {
-                choicesPrefab[choice].iconButton.GetComponent<LevelEditorUiIcon>().DeSelectButton();
+                choicesPrefab[choice].icon.GetComponent<InGameUiIcon>().DeSelectButton();
                 _choice = InGameIconChoice.IconChoice.Default;
             }
         }
