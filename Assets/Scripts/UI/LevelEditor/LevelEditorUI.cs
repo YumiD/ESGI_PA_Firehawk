@@ -15,19 +15,6 @@ namespace UI.LevelEditor{
         [SerializeField]
         private GameObject gridGenerator;
 
-        private class GridData{
-            /*public string test1 = "letsgoooo";
-            public int test2 = 80085;*/
-            //public GridCellData[] gridCells;
-            //public List<GridCellData> gridCells;
-
-            public GridCellData[] gridCells;
-        }
-
-        private class GridCellData{
-            public Vector3 pos = new Vector3();
-        }
-
         public void GenerateLevel(int dropdownValue) {
             Instantiate(gridGenerator, new Vector3(0, 0, 0), Quaternion.identity);
         }
