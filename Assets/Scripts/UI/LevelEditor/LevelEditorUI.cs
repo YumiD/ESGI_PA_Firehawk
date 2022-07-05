@@ -1,5 +1,9 @@
+using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Newtonsoft.Json.Linq;
+using Helper;
+using Grid;
 
 namespace UI.LevelEditor
 {
@@ -12,6 +16,15 @@ namespace UI.LevelEditor
         }
         public void QuitLevelEditor() {
             SceneManager.LoadScene(0);
+        }
+        public void ExportTerrainJSON(){
+
+            JObject root = gridGenerator.GetComponent<TerrainGrid>().Serialize();
+
+            print(root.ToString());
+
+            File.WriteAllText(Application.dataPath + "/gridGenerated.json", root.ToString());
+
         }
     }
 }
