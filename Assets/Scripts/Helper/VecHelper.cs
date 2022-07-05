@@ -99,5 +99,14 @@ namespace Helper
 			jiji.Add(vec.z);
 			return jiji;
 		}
+
+		public static Vector3Int ToVector3Int(this JToken array)
+		{
+			return new Vector3Int(
+				(int)array[0],
+				(int)array[1],
+				(int)array[2]
+			);
+		}
 	}
 }

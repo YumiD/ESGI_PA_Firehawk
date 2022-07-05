@@ -1,4 +1,5 @@
-﻿using Helper;
+﻿using System;
+using Helper;
 using Newtonsoft.Json.Linq;
 using UnityEngine;
 
@@ -10,18 +11,17 @@ namespace Grid
 
 		private Vector3 _gridCellSize = new Vector3(5, 2.5f, 5);
 
-		[SerializeField] private bool _generation = true;
+		private bool _initialized = false;
 
 		[SerializeField] private GameObject _flatTerrainPrefab;
+		[SerializeField] private GameObject _slideTerrainPrefab;
 
 		private GridCell[,,] _grid;
 
 		private void Start()
 		{
-			if (_generation)
+			if (!_initialized)
 				CreateGrid();
-			else
-				BuildGrid();
 		}
 
 		private void CreateGrid()
@@ -34,17 +34,17 @@ namespace Grid
 				for (int x = 0; x < _size.x; x++)
 				{
 					//Create GridSpace object for each cell
-					CreateGridCell(x, y, 0, _flatTerrainPrefab);
+					CreateGridCell(x, y, 0, 0, _flatTerrainPrefab);
 				}
 			}
 		}
 
-		private void CreateGridCell(int x, int y, int z, GameObject cellPrefab)
+		private void CreateGridCell(int x, int y, int z, float angle, GameObject cellPrefab)
 		{
-			_grid[x, y, z] = Instantiate(cellPrefab, new Vector3(x, z, y).Multiply(_gridCellSize), Quaternion.identity)
-				.GetComponent<GridCell>();
+			_grid[x, y, z] = Instantiate(cellPrefab, transform).GetComponent<GridCell>();
+			_grid[x, y, z].transform.localPosition = new Vector3(x, z, y).Multiply(_gridCellSize);
+			_grid[x, y, z].transform.localRotation = Quaternion.Euler(0, angle, 0);
 			_grid[x, y, z].GridPosition = new Vector3Int(x, y, z);
-			_grid[x, y, z].transform.parent = transform;
 			_grid[x, y, z].gameObject.name = $"Grid Space ({x} , {y} , {z})";
 		}
 
@@ -57,37 +57,6 @@ namespace Grid
 		public GridCell GetCell(int x, int y, int z)
 		{
 			return _grid[x, y, z];
-		}
-
-		// If the grid was always generated, we fill the array _gameGrid with existent gridCells
-		public void BuildGrid()
-		{
-			_grid = new GridCell[_size.x, _size.y, _size.z];
-
-			for (int i = 0; i < transform.childCount; i++)
-			{
-				Transform child = transform.GetChild(i);
-
-				Vector3Int gridPos = GetGridPosFromWorld(child.position);
-
-				if (!IsGridPosValid(gridPos))
-				{
-					Debug.Log($"Object not in range ({gridPos}), please adjust the grid size.");
-					continue;
-				}
-
-				int x = gridPos.x;
-				int y = gridPos.y;
-				int z = gridPos.z;
-
-				_grid[x, y, z] = child.gameObject.GetComponent<GridCell>();
-				_grid[x, y, z].GridPosition = gridPos;
-
-				if (_grid[x, y, z].Anchor.transform.childCount > 0)
-				{
-					_grid[x, y, z].Object = _grid[x, y, z].Anchor.transform.GetChild(0).gameObject;
-				}
-			}
 		}
 
 		public (bool, GameObject) SetObject(Vector2Int pos, GameObject objectPrefab)
@@ -143,17 +112,20 @@ namespace Grid
 			if (newZ >= _size.y)
 				return;
 
-			if (_grid[x, y, currentZ].Object != null)
+			if (currentZ >= 0)
 			{
-				Destroy(_grid[x, y, currentZ].Object);
+				if (_grid[x, y, currentZ].Object != null)
+				{
+					Destroy(_grid[x, y, currentZ].Object);
+				}
+
+				if (_grid[x, y, currentZ].Surface == GridCell.CellSurface.Slide)
+				{
+					ChangeCellZ(pos, _flatTerrainPrefab);
+				}
 			}
 
-			if (_grid[x, y, currentZ].Surface == GridCell.CellSurface.Slide)
-			{
-				ChangeCellZ(pos, _flatTerrainPrefab);
-			}
-
-			CreateGridCell(x, y, newZ, cellPrefab);
+			CreateGridCell(x, y, newZ, 0, cellPrefab);
 		}
 
 		public void ChangeCellZ(Vector2Int pos, GameObject cellPrefab)
@@ -161,6 +133,8 @@ namespace Grid
 			int x = pos.x;
 			int y = pos.y;
 			int z = GetGridCellActualZ(pos);
+
+			float angle = _grid[x, y, z].transform.eulerAngles.y;
 
 			GameObject cellObject = null;
 			if (_grid[x, y, z].Object != null)
@@ -172,7 +146,7 @@ namespace Grid
 
 			RemoveGridCell(x, y, z);
 
-			CreateGridCell(x, y, z, cellPrefab);
+			CreateGridCell(x, y, z, 0, cellPrefab);
 
 			if (cellObject != null)
 			{
@@ -262,11 +236,17 @@ namespace Grid
 						
 						jsonCell["position"] = new JArray(x, y, z);
 						jsonCell["rotation"] = gridCell.transform.eulerAngles.y;
-						jsonCell["type"] = "todo";
+
+						jsonCell["type"] = gridCell.Surface switch
+						{
+							GridCell.CellSurface.Flat => "flat",
+							GridCell.CellSurface.Slide => "slide",
+							_ => throw new ArgumentOutOfRangeException()
+						};
 
 						if (gridCell.Object != null)
 						{
-							jsonCell["object"] = "todo";
+							jsonCell["object"] = "todo";//TODO
 						}
 						
 						jsonGridCells.Add(jsonCell);
@@ -277,6 +257,47 @@ namespace Grid
 			root["grid_cells"] = jsonGridCells;
 
 			return root;
+		}
+
+		public void Deserialize(JObject jsonData)
+		{
+			_size = jsonData["grid_size"].ToVector3Int();
+			_grid = new GridCell[_size.x, _size.y, _size.z];
+
+			JArray jsonGridCells = (JArray)jsonData["grid_cells"];
+			for (int i = 0; i < jsonGridCells.Count; i++)
+			{
+				JObject jsonCell = (JObject)jsonGridCells[i];
+
+				Vector3Int gridPos = jsonCell["position"].ToVector3Int();
+
+				if (!IsGridPosValid(gridPos))
+				{
+					Debug.Log($"Object not in range ({gridPos}), please adjust the grid size.");
+					continue;
+				}
+
+				int x = gridPos.x;
+				int y = gridPos.y;
+				int z = gridPos.z;
+
+				string cellType = (string)jsonCell["type"];
+				GameObject prefab = cellType switch
+				{
+					"flat" => _flatTerrainPrefab,
+					"slide" => _slideTerrainPrefab,
+					_ => throw new ArgumentOutOfRangeException()
+				};
+				
+				CreateGridCell(x, y, z, (float)jsonCell["rotation"], prefab);
+
+				if (jsonCell.ContainsKey("object"))
+				{
+					//TODO
+				}
+			}
+
+			_initialized = true;
 		}
 	}
 }
