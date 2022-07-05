@@ -2,7 +2,7 @@ using TMPro;
 using UI.Models;
 using UnityEngine;
 
-namespace UI
+namespace UI.InGame
 {
     public class InGameUiIcon : AIcon
     {

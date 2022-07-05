@@ -2,6 +2,7 @@
 {
     public interface IIcon
     {
-        void UpdateQuantity(int qty);
+        public void SelectButton();
+        public void DeSelectButton();
     }
 }

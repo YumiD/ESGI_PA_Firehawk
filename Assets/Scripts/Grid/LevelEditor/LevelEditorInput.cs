@@ -10,7 +10,7 @@ namespace Grid.LevelEditor
     {
         private bool _clicked;
 
-        public override void PutObject(GridCell cellMouseIsOver, int choice, List<ButtonPrefab> choicesPrefab)
+        public override void PutObject(GridCell cellMouseIsOver, int choice, List<IconPrefab> choicesPrefab)
         {
             Vector3Int gridPos = cellMouseIsOver.GridPosition;
             if (Input.GetMouseButton(0) && choice >= 0)
@@ -44,6 +44,7 @@ namespace Grid.LevelEditor
                         break;
                     case (int)LevelEditorIconChoice.IconChoice.Default:
                     case (int)LevelEditorIconChoice.IconChoice.Tree:
+                    case (int)LevelEditorIconChoice.IconChoice.BombTree:
                     case (int)LevelEditorIconChoice.IconChoice.Grass:
                     case (int)LevelEditorIconChoice.IconChoice.Campfire:
                     case (int)LevelEditorIconChoice.IconChoice.Goal:
@@ -62,7 +63,7 @@ namespace Grid.LevelEditor
             }
         }
         
-        private void ManageSlideBloc(GridCell cellMouseIsOver, IReadOnlyList<ButtonPrefab> choicesPrefab)
+        private void ManageSlideBloc(GridCell cellMouseIsOver, IReadOnlyList<IconPrefab> choicesPrefab)
         {
             int z = terrainGrid.GetGridCellActualZ((Vector2Int)cellMouseIsOver.GridPosition);
 

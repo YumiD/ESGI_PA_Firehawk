@@ -17,6 +17,6 @@ namespace Grid.Models
             }
         }
 
-        public abstract void PutObject(GridCell cellMouseIsOver, int choice, List<ButtonPrefab> choicesPrefab);
+        public abstract void PutObject(GridCell cellMouseIsOver, int choice, List<IconPrefab> choicesPrefab);
     }
 }

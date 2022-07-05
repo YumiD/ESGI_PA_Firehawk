@@ -8,11 +8,11 @@ namespace Grid
 {
     public class InputManagerBuild : MonoBehaviour
     {
-        [SerializeField] private List<ButtonPrefab> choicesPrefab = new List<ButtonPrefab>();
+        [SerializeField] private List<IconPrefab> choicesPrefab = new List<IconPrefab>();
+        [SerializeField] private LayerMask whatIsAGridLayer;
+
         private IPlaceObject _putObject;
         private IUiChoice _uiChoice;
-
-        [SerializeField] private LayerMask whatIsAGridLayer;
 
         private Camera _camera;
         private bool _canEdit = true;
@@ -30,7 +30,14 @@ namespace Grid
             for (int i = 0; i < choicesPrefab.Count; i++)
             {
                 int numChoice = i;
-                choicesPrefab[i].iconButton.onClick.AddListener(delegate { _uiChoice.SetChoice(numChoice, choicesPrefab); });
+                if (choicesPrefab[i].icon.TryGetComponent(out Button btn))
+                {
+                    btn.onClick.AddListener(delegate { _uiChoice.SetChoice(numChoice, choicesPrefab); });
+                }
+                if (choicesPrefab[i].icon.TryGetComponent(out Dropdown dropdown))
+                {
+                    dropdown.onValueChanged.AddListener(delegate { _uiChoice.SetChoice(numChoice, choicesPrefab); });
+                }
             }
         }
 
@@ -42,7 +49,7 @@ namespace Grid
             if (!_canEdit) return;
 
             _putObject.PutObject(cellMouseIsOver, _uiChoice.GetChoice(), choicesPrefab);
-            
+
             KeyboardInput(cellMouseIsOver);
         }
 
@@ -86,10 +93,10 @@ namespace Grid
         public void ManageClick()
         {
             _canEdit = false;
-            foreach (ButtonPrefab icon in choicesPrefab)
+            foreach (IconPrefab icon in choicesPrefab)
             {
-                icon.iconButton.gameObject.GetComponent<Button>().interactable = 
-                    !icon.iconButton.gameObject.GetComponent<Button>().interactable;
+                icon.icon.gameObject.GetComponent<Button>().interactable =
+                    !icon.icon.gameObject.GetComponent<Button>().interactable;
             }
         }
     }

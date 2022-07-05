@@ -7,11 +7,12 @@
             Default = -1,
             Tree = 0,
             Palmer = 1,
-            Grass = 2,
-            Flat = 3,
-            Slide = 4,
-            Campfire = 5,
-            Goal = 6
+            BombTree = 2,
+            Grass = 3,
+            Flat = 4,
+            Slide = 5,
+            Campfire = 6,
+            Goal = 7
         }
     }
 }
