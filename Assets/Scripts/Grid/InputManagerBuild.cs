@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using Grid.Interfaces;
+using Grid.LevelEditor;
+using Grid.Models;
 using UI.Models;
 using UnityEngine;
 using UnityEngine.UI;
@@ -27,16 +29,28 @@ namespace Grid
 
         private void AddButtonEvent()
         {
+            GameObject tempDropdown = null;
             for (int i = 0; i < choicesPrefab.Count; i++)
             {
+                if (choicesPrefab[i].icon == null)
+                {
+                    choicesPrefab[i].icon = tempDropdown;
+                    continue;
+                }
+                
                 int numChoice = i;
                 if (choicesPrefab[i].icon.TryGetComponent(out Button btn))
                 {
-                    btn.onClick.AddListener(delegate { _uiChoice.SetChoice(numChoice, choicesPrefab); });
+                    btn.onClick.AddListener(delegate { _uiChoice.SetChoice<AIconChoice.IconChoice>(numChoice, choicesPrefab); });
                 }
-                if (choicesPrefab[i].icon.TryGetComponent(out Dropdown dropdown))
+
+                if (tempDropdown != choicesPrefab[i].icon)
                 {
-                    dropdown.onValueChanged.AddListener(delegate { _uiChoice.SetChoice(numChoice, choicesPrefab); });
+                    if (choicesPrefab[i].icon.TryGetComponent(out Dropdown dropdown))
+                    {
+                        tempDropdown = choicesPrefab[i].icon;
+                        dropdown.onValueChanged.AddListener(delegate { _uiChoice.SetChoice<AIconChoice.IconChoice>(numChoice, choicesPrefab); });
+                    }   
                 }
             }
         }
@@ -57,22 +71,22 @@ namespace Grid
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                _uiChoice.SetChoice(0, choicesPrefab);
+                _uiChoice.SetChoice<IUiChoice>(0, choicesPrefab);
             }
 
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
-                _uiChoice.SetChoice(1, choicesPrefab);
+                _uiChoice.SetChoice<IUiChoice>(3, choicesPrefab);
             }
 
             if (Input.GetKeyDown(KeyCode.Alpha3))
             {
-                _uiChoice.SetChoice(2, choicesPrefab);
+                _uiChoice.SetChoice<IUiChoice>(4, choicesPrefab);
             }
 
             if (Input.GetKeyDown(KeyCode.Alpha4))
             {
-                _uiChoice.SetChoice(3, choicesPrefab);
+                _uiChoice.SetChoice<IUiChoice>(5, choicesPrefab);
             }
 
             if (Input.GetKeyDown(KeyCode.R))

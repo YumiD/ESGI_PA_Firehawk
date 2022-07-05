@@ -17,10 +17,10 @@ namespace Grid.LevelEditor
             {
                 switch (choice)
                 {
-                    case (int)LevelEditorIconChoice.IconChoice.Flat:
+                    case (int)AIconChoice.IconChoice.Flat:
                         _clicked = true;
                         break;
-                    case (int)LevelEditorIconChoice.IconChoice.Slide:
+                    case (int)AIconChoice.IconChoice.Slide:
                         _clicked = true;
                         break;
                     default:
@@ -36,19 +36,19 @@ namespace Grid.LevelEditor
             {
                 switch (choice)
                 {
-                    case (int)LevelEditorIconChoice.IconChoice.Flat:
+                    case (int)AIconChoice.IconChoice.Flat:
                         terrainGrid.AddCellZ((Vector2Int)gridPos, choicesPrefab[choice].prefab);
                         break;
-                    case (int)LevelEditorIconChoice.IconChoice.Slide:
+                    case (int)AIconChoice.IconChoice.Slide:
                         ManageSlideBloc(cellMouseIsOver, choicesPrefab);
                         break;
-                    case (int)LevelEditorIconChoice.IconChoice.Default:
-                    case (int)LevelEditorIconChoice.IconChoice.Tree:
-                    case (int)LevelEditorIconChoice.IconChoice.BombTree:
-                    case (int)LevelEditorIconChoice.IconChoice.Grass:
-                    case (int)LevelEditorIconChoice.IconChoice.Campfire:
-                    case (int)LevelEditorIconChoice.IconChoice.Goal:
-                    case (int)LevelEditorIconChoice.IconChoice.Palmer:
+                    case (int)AIconChoice.IconChoice.Default:
+                    case (int)AIconChoice.IconChoice.Tree:
+                    case (int)AIconChoice.IconChoice.BombTree:
+                    case (int)AIconChoice.IconChoice.Grass:
+                    case (int)AIconChoice.IconChoice.Campfire:
+                    case (int)AIconChoice.IconChoice.Goal:
+                    case (int)AIconChoice.IconChoice.Palmer:
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
@@ -70,8 +70,8 @@ namespace Grid.LevelEditor
             GridCell topCell = terrainGrid.GetCell(cellMouseIsOver.GridPosition.x, cellMouseIsOver.GridPosition.y, z);
 
             GameObject prefab = topCell.Surface == GridCell.CellSurface.Flat
-                ? choicesPrefab[(int)LevelEditorIconChoice.IconChoice.Slide].prefab
-                : choicesPrefab[(int)LevelEditorIconChoice.IconChoice.Flat].prefab;
+                ? choicesPrefab[(int)AIconChoice.IconChoice.Slide].prefab
+                : choicesPrefab[(int)AIconChoice.IconChoice.Flat].prefab;
 
             terrainGrid.ChangeCellZ((Vector2Int)cellMouseIsOver.GridPosition, prefab);
         }

@@ -1,23 +1,23 @@
-﻿using Grid.LevelEditor;
+﻿using Grid.Models;
 using UI.Models;
 
 namespace UI.LevelEditor
 {
-    public class LevelEditorDropdown : AItemDropdown
+    public class LevelEditorDropdown : AItemDropdown<AIconChoice.IconChoice>
     {
-        private LevelEditorIconChoice.IconChoice _choiceDropdown = LevelEditorIconChoice.IconChoice.Tree; 
-        public LevelEditorIconChoice.IconChoice ChoiceDropdown
+        public override void ResetValue()
         {
-            get
-            {
-                ConvertToEnum();
-                return _choiceDropdown;
-            }
+            ChoiceDropdown = AIconChoice.IconChoice.Default;
         }
 
-        public override void ConvertToEnum()
+        protected override void ConvertToEnum()
         {
-            _choiceDropdown = (LevelEditorIconChoice.IconChoice)CurrentIndex;
+            ChoiceDropdown = (AIconChoice.IconChoice)CurrentIndex;
+        }
+
+        public void OnSelect()
+        {
+            ItemDropdown.onValueChanged.Invoke(0);
         }
     }
 }

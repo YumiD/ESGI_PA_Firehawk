@@ -3,22 +3,34 @@ using UnityEngine.UI;
 
 namespace UI.Models
 {
-    public abstract class AItemDropdown : MonoBehaviour
+    public abstract class AItemDropdown<T> : MonoBehaviour
     {
-        private Dropdown _itemDropdown;
+        private T _choiceDropdown; 
+        public T ChoiceDropdown
+        {
+            get
+            {
+                ConvertToEnum();
+                return _choiceDropdown;
+            }
+            protected set => _choiceDropdown = value;
+        }
+        protected Dropdown ItemDropdown;
         protected int CurrentIndex;
 
         private void Awake()
         {
-            _itemDropdown = GetComponent<Dropdown>();
-            _itemDropdown.onValueChanged.AddListener(delegate { GetValueDropdown(); });
+            ItemDropdown = GetComponent<Dropdown>();
+            ItemDropdown.onValueChanged.AddListener(delegate { GetValueDropdown(); });
         }
 
         public void GetValueDropdown()
         {
-            CurrentIndex = _itemDropdown.value;
+            CurrentIndex = ItemDropdown.value;
         }
 
-        public abstract void ConvertToEnum();
+        public abstract void ResetValue();
+
+        protected abstract void ConvertToEnum();
     }
 }

@@ -6,6 +6,6 @@ namespace Grid.Interfaces
     public interface IUiChoice
     {
         int GetChoice();
-        void SetChoice(int choice, IReadOnlyList<IconPrefab> choicesPrefab);
+        void SetChoice<T1>(int choice, IReadOnlyList<IconPrefab> choicesPrefab);
     }
 }

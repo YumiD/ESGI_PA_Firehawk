@@ -1,6 +1,6 @@
-﻿namespace Grid.LevelEditor
+﻿namespace Grid.Models
 {
-    public static class LevelEditorIconChoice
+    public abstract class AIconChoice
     {
         public enum IconChoice
         {
