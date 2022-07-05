@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Newtonsoft.Json.Linq;
 
 namespace Helper
 {
@@ -89,6 +90,24 @@ namespace Helper
 			return vec.x.IsBetween(min.x, max.x) &&
 			       vec.y.IsBetween(min.y, max.y) &&
 			       vec.y.IsBetween(min.y, max.y);
+		}
+
+		public static JArray ToJson(this Vector3Int vec)
+		{
+			return new JArray(
+				vec.x,
+				vec.y,
+				vec.z
+			);
+		}
+
+		public static Vector3Int ToVector3Int(this JToken array)
+		{
+			return new Vector3Int(
+				(int)array[0],
+				(int)array[1],
+				(int)array[2]
+			);
 		}
 	}
 }
