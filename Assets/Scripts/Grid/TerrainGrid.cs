@@ -89,19 +89,35 @@ namespace Grid
             }
         }
 
-        public (bool, GameObject) SetObject(Vector2Int pos, GameObject objectPrefab)
+        public bool CanPutObject(Vector2Int pos)
         {
             int x = pos.x;
             int y = pos.y;
             int z = GetGridCellActualZ(pos);
 
-            if (_grid[x, y, z].Object != null)
+            GameObject objectOnGrid = _grid[x, y, z].Object;
+            if (objectOnGrid != null)
             {
-                return (false, _grid[x, y, z].Object);
+                // If object has Removable component, check if it's removable : prevent replacing level props
+                return !objectOnGrid.TryGetComponent(out Removable removable) || removable.IsRemovable;
+            }
+            return true;
+        }
+
+        public (bool Posable, GameObject newGameobject) SetObject(Vector2Int pos, GameObject objectPrefab)
+        {
+            int x = pos.x;
+            int y = pos.y;
+            int z = GetGridCellActualZ(pos);
+
+            GameObject objectOnGrid = _grid[x, y, z].Object;
+            if (objectOnGrid != null)
+            {
+                return (Posable: false, newGameobject: _grid[x, y, z].Object);
             }
 
             _grid[x, y, z].Object = Instantiate(objectPrefab, _grid[x, y, z].Anchor.transform);
-            return (true, _grid[x, y, z].Object);
+            return (Posable: true, newGameobject: _grid[x, y, z].Object);
         }
 
         public void CreateObject(GameObject objectPrefab, int x, int y)

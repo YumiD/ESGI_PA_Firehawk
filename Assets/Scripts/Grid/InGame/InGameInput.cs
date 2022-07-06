@@ -22,11 +22,12 @@ namespace Grid.InGame
                 }
 
                 Vector2Int pos = new Vector2Int(gridPos.x, gridPos.y);
-                (bool, GameObject) result = terrainGrid.SetObject(pos, choicesPrefab[choice].prefab);
-                if (!result.Item1)
+                if (!terrainGrid.CanPutObject(pos)) return;
+                (bool posable, GameObject newGameobject) result = terrainGrid.SetObject(pos, choicesPrefab[choice].prefab);
+                if (!result.posable)
                 {
                     // If different objects
-                    GameManager.Instance.AddInInventory(result.Item2);
+                    GameManager.Instance.AddInInventory(result.newGameobject);
                     terrainGrid.RemoveObject(pos);
                     terrainGrid.CreateObject(choicesPrefab[choice].prefab, pos.x, pos.y);
                     terrainGrid.AddInInventory(pos.x, pos.y);

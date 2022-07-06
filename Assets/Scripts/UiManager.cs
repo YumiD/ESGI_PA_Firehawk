@@ -18,10 +18,10 @@ public class UiManager : MonoBehaviour
 
     public void InitializeUi()
     {
-        LevelEditorUpdateUi();
+        InGameUpdateUi();
     }
 
-    public void LevelEditorUpdateUi()
+    public void InGameUpdateUi()
     {
         List<ItemDictionary> item = GameManager.Instance.GetInventory();
 
