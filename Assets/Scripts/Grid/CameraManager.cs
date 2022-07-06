@@ -1,34 +1,68 @@
+using DG.Tweening;
 using UnityEngine;
 
-public class CameraManager : MonoBehaviour
+namespace Grid
 {
-    [SerializeField] private float speed;
-
-    void Update()
+    public class CameraManager : MonoBehaviour
     {
-        if(Input.GetKey(KeyCode.RightArrow))
+        [SerializeField] private float speed;
+        private bool _canMove = true;
+        
+        private void Update()
         {
-            transform.Translate(new Vector3(speed * Time.deltaTime,0,0));
+            if (!_canMove) return;
+            
+            if(Input.GetKey(KeyCode.RightArrow))
+            {
+                transform.Translate(new Vector3(speed * Time.deltaTime,0,0));
+            }
+            if(Input.GetKey(KeyCode.LeftArrow))
+            {
+                transform.Translate(new Vector3(-speed * Time.deltaTime,0,0));
+            }
+            if(Input.GetKey(KeyCode.DownArrow))
+            {
+                transform.Translate(new Vector3(0,0,-speed * Time.deltaTime));
+            }
+            if(Input.GetKey(KeyCode.UpArrow))
+            {
+                transform.Translate(new Vector3(0,0,speed * Time.deltaTime));
+            }
+            if(Input.GetKey(KeyCode.A))
+            {
+                transform.Translate(new Vector3(0,speed * Time.deltaTime,0));
+            }
+            if(Input.GetKey(KeyCode.E))
+            {
+                transform.Translate(new Vector3(0,-speed * Time.deltaTime,0));
+            }
         }
-        if(Input.GetKey(KeyCode.LeftArrow))
+
+        public void MoveCamera()
         {
-            transform.Translate(new Vector3(-speed * Time.deltaTime,0,0));
+            Vector3 eulerAngles = GetTransformEulerAngles(out float rotation);
+
+            transform.DORotate(new Vector3(-rotation, eulerAngles.y, eulerAngles.z), 1f);
         }
-        if(Input.GetKey(KeyCode.DownArrow))
+
+        public void ActivateMovement(bool canMove)
         {
-            transform.Translate(new Vector3(0,0,-speed * Time.deltaTime));
+            _canMove = canMove;
         }
-        if(Input.GetKey(KeyCode.UpArrow))
+
+        private Vector3 GetTransformEulerAngles(out float rotation)
         {
-            transform.Translate(new Vector3(0,0,speed * Time.deltaTime));
-        }
-        if(Input.GetKey(KeyCode.A))
-        {
-            transform.Translate(new Vector3(0,speed * Time.deltaTime,0));
-        }
-        if(Input.GetKey(KeyCode.E))
-        {
-            transform.Translate(new Vector3(0,-speed * Time.deltaTime,0));
+            Vector3 eulerAngles = transform.eulerAngles;
+            if (transform.eulerAngles.x <= 180f)
+            {
+                rotation = transform.eulerAngles.x;
+            }
+            else
+            {
+                rotation = transform.eulerAngles.x - 360f;
+            }
+
+            return eulerAngles;
         }
     }
 }

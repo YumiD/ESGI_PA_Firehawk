@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using Events.Bool;
 using Grid.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -12,6 +13,7 @@ namespace Grid.LevelEditor
 {
     public class LevelEditorInput : AInput
     {
+        [SerializeField] private EventBool inputEvent;
         private bool _clicked;
 
         public override void PutObject(GridCell cellMouseIsOver, int choice, List<IconPrefab> choicesPrefab)
@@ -85,7 +87,10 @@ namespace Grid.LevelEditor
                 JObject root = terrainGrid.Serialize();
 
                 File.WriteAllText(path[0], root.ToString(Formatting.None));
-            }, () => {}, FileBrowser.PickMode.Files);
+            }, () =>
+            {
+                inputEvent.Raise(true);
+            }, FileBrowser.PickMode.Files);
         }
     }
 }
