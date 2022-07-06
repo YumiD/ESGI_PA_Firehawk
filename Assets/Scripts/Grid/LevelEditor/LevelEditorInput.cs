@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using Grid.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using SimpleFileBrowser;
 using UI.Models;
 using UnityEngine;
 
@@ -25,10 +29,8 @@ namespace Grid.LevelEditor
                         break;
                     default:
                         Vector2Int pos = new Vector2Int(gridPos.x, gridPos.y);
-                        terrainGrid.SetObject(new Vector2Int(gridPos.x, gridPos.y),
-                            choicesPrefab[choice].prefab);
                         terrainGrid.RemoveObject(pos);
-                        terrainGrid.CreateObject(choicesPrefab[choice].prefab, pos.x, pos.y);
+                        terrainGrid.CreateObject(pos, choicesPrefab[choice].scriptableObject);
                         break;
                 }
             }
@@ -37,10 +39,10 @@ namespace Grid.LevelEditor
                 switch (choice)
                 {
                     case (int)AIconChoice.IconChoice.Flat:
-                        terrainGrid.AddCellZ((Vector2Int)gridPos, choicesPrefab[choice].prefab);
+                        terrainGrid.AddCellZ((Vector2Int)gridPos, GridCell.CellSurface.Flat);
                         break;
                     case (int)AIconChoice.IconChoice.Slide:
-                        ManageSlideBloc(cellMouseIsOver, choicesPrefab);
+                        SwitchCellType(cellMouseIsOver);
                         break;
                     case (int)AIconChoice.IconChoice.Default:
                     case (int)AIconChoice.IconChoice.Tree:
@@ -63,17 +65,27 @@ namespace Grid.LevelEditor
             }
         }
         
-        private void ManageSlideBloc(GridCell cellMouseIsOver, IReadOnlyList<IconPrefab> choicesPrefab)
+        private void SwitchCellType(GridCell cellMouseIsOver)
         {
             int z = terrainGrid.GetGridCellActualZ((Vector2Int)cellMouseIsOver.GridPosition);
 
             GridCell topCell = terrainGrid.GetCell(cellMouseIsOver.GridPosition.x, cellMouseIsOver.GridPosition.y, z);
 
-            GameObject prefab = topCell.Surface == GridCell.CellSurface.Flat
-                ? choicesPrefab[(int)AIconChoice.IconChoice.Slide].prefab
-                : choicesPrefab[(int)AIconChoice.IconChoice.Flat].prefab;
+            GridCell.CellSurface newCellType = topCell.Surface == GridCell.CellSurface.Flat
+                ? GridCell.CellSurface.Slide
+                : GridCell.CellSurface.Flat;
 
-            terrainGrid.ChangeCellZ((Vector2Int)cellMouseIsOver.GridPosition, prefab);
+            terrainGrid.ChangeCellZ((Vector2Int)cellMouseIsOver.GridPosition, newCellType);
+        }
+        
+        public void ExportTerrainJson()
+        {
+            FileBrowser.SetFilters(false, new FileBrowser.Filter("Level data", ".json"));
+            FileBrowser.ShowSaveDialog(path => {
+                JObject root = terrainGrid.Serialize();
+
+                File.WriteAllText(path[0], root.ToString(Formatting.None));
+            }, () => {}, FileBrowser.PickMode.Files);
         }
     }
 }

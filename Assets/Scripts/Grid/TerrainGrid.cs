@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Helper;
 using Newtonsoft.Json.Linq;
+using UnityEditor;
 using UnityEngine;
 
 namespace Grid
@@ -16,8 +19,15 @@ namespace Grid
 
         private GridCell[,,] _grid;
 
-        private void CreateGridCell(int x, int y, int z, float angle, GameObject cellPrefab)
+        private void CreateGridCell(int x, int y, int z, float angle, GridCell.CellSurface cellType)
         {
+            GameObject cellPrefab = cellType switch
+            {
+                GridCell.CellSurface.Flat => _flatTerrainPrefab,
+                GridCell.CellSurface.Slide => _slideTerrainPrefab,
+                _ => throw new ArgumentOutOfRangeException()
+            };
+            
             _grid[x, y, z] = Instantiate(cellPrefab, transform).GetComponent<GridCell>();
             _grid[x, y, z].transform.localPosition = new Vector3(x, z, y).Multiply(_gridCellSize);
             _grid[x, y, z].transform.localRotation = Quaternion.Euler(0, angle, 0);
@@ -42,60 +52,45 @@ namespace Grid
             int y = pos.y;
             int z = GetGridCellActualZ(pos);
 
-            GameObject objectOnGrid = _grid[x, y, z].Object;
+            FireObject objectOnGrid = _grid[x, y, z].Object;
             if (objectOnGrid != null)
             {
                 // If object has Removable component, check if it's removable : prevent replacing level props
-                return !objectOnGrid.TryGetComponent(out Removable removable) || removable.IsRemovable;
+                return !objectOnGrid.Instance.TryGetComponent(out Removable removable) || removable.IsRemovable;
             }
             return true;
         }
 
-        public (bool Posable, GameObject newGameobject) SetObject(Vector2Int pos, GameObject objectPrefab)
+        public void CreateObject(Vector2Int pos, FireObjectScriptableObject scriptableObject)
+        {
+            int x = pos.x;
+            int y = pos.y;
+            int z = GetGridCellActualZ(pos);
+            
+            _grid[x, y, z].Object = new FireObject
+            {
+                Instance = Instantiate(scriptableObject.Prefab, _grid[x, y, z].Anchor.transform),
+                ScriptableObject = scriptableObject
+            };
+        }
+
+        public FireObjectScriptableObject RemoveObject(Vector2Int pos)
         {
             int x = pos.x;
             int y = pos.y;
             int z = GetGridCellActualZ(pos);
 
-            GameObject objectOnGrid = _grid[x, y, z].Object;
-            if (objectOnGrid != null)
+            FireObject fireObject = _grid[x, y, z].Object;
+            if (fireObject != null)
             {
-                return (Posable: false, newGameobject: _grid[x, y, z].Object);
+                Destroy(fireObject.Instance);
+                return fireObject.ScriptableObject;
             }
 
-            _grid[x, y, z].Object = Instantiate(objectPrefab, _grid[x, y, z].Anchor.transform);
-            return (Posable: true, newGameobject: _grid[x, y, z].Object);
+            return null;
         }
 
-        public void CreateObject(GameObject objectPrefab, int x, int y)
-        {
-            int z = GetGridCellActualZ(new Vector2Int(x, y));
-            _grid[x, y, z].Object = Instantiate(objectPrefab, _grid[x, y, z].Anchor.transform);
-        }
-
-        public void AddInInventory(int x, int y)
-        {
-            int z = GetGridCellActualZ(new Vector2Int(x, y));
-            int index = GameManager.Instance.VerifyInInventory(_grid[x, y, z].Object);
-            GameManager.Instance.RemoveInInventory(index);
-        }
-
-        public bool RemoveObject(Vector2Int pos)
-        {
-            int x = pos.x;
-            int y = pos.y;
-            int z = GetGridCellActualZ(pos);
-
-            if (_grid[x, y, z].Object != null)
-            {
-                Destroy(_grid[x, y, z].Object);
-                return true;
-            }
-
-            return false;
-        }
-
-        public void AddCellZ(Vector2Int pos, GameObject cellPrefab)
+        public void AddCellZ(Vector2Int pos, GridCell.CellSurface cellType)
         {
             int x = pos.x;
             int y = pos.y;
@@ -109,19 +104,19 @@ namespace Grid
             {
                 if (_grid[x, y, currentZ].Object != null)
                 {
-                    Destroy(_grid[x, y, currentZ].Object);
+                    Destroy(_grid[x, y, currentZ].Object.Instance);
                 }
 
                 if (_grid[x, y, currentZ].Surface == GridCell.CellSurface.Slide)
                 {
-                    ChangeCellZ(pos, _flatTerrainPrefab);
+                    ChangeCellZ(pos, GridCell.CellSurface.Flat);
                 }
             }
 
-            CreateGridCell(x, y, newZ, 0, cellPrefab);
+            CreateGridCell(x, y, newZ, 0, cellType);
         }
 
-        public void ChangeCellZ(Vector2Int pos, GameObject cellPrefab)
+        public void ChangeCellZ(Vector2Int pos, GridCell.CellSurface cellType)
         {
             int x = pos.x;
             int y = pos.y;
@@ -129,22 +124,22 @@ namespace Grid
 
             float angle = _grid[x, y, z].transform.eulerAngles.y;
 
-            GameObject cellObject = null;
+            FireObject cellObject = null;
             if (_grid[x, y, z].Object != null)
             {
                 cellObject = _grid[x, y, z].Object;
                 _grid[x, y, z].Object = null;
-                cellObject.transform.SetParent(transform.root, false);
+                cellObject.Instance.transform.SetParent(transform.root, false);
             }
 
             RemoveGridCell(x, y, z);
 
-            CreateGridCell(x, y, z, angle, cellPrefab);
+            CreateGridCell(x, y, z, angle, cellType);
 
             if (cellObject != null)
             {
                 _grid[x, y, z].Object = cellObject;
-                cellObject.transform.SetParent(_grid[x, y, z].Anchor.transform, false);
+                cellObject.Instance.transform.SetParent(_grid[x, y, z].Anchor.transform, false);
             }
         }
 
@@ -215,7 +210,7 @@ namespace Grid
 
                         if (gridCell.Object != null)
                         {
-                            jsonCell["o"] = "";//TODO
+                            jsonCell["o"] = gridCell.Object.ScriptableObject.SerializedName;
                         }
 						
                         jsonGridCells.Add(jsonCell);
@@ -232,6 +227,11 @@ namespace Grid
         {
             _size = jsonData["grid_size"].ToVector3Int();
             _grid = new GridCell[_size.x, _size.y, _size.z];
+            
+            List<FireObjectScriptableObject> scriptableObjects = AssetDatabase.FindAssets($"t: {nameof(FireObjectScriptableObject)}")
+                .Select(AssetDatabase.GUIDToAssetPath)
+                .Select(AssetDatabase.LoadAssetAtPath<FireObjectScriptableObject>)
+                .ToList();
 
             JArray jsonGridCells = (JArray)jsonData["grid_cells"];
             for (int i = 0; i < jsonGridCells.Count; i++)
@@ -250,19 +250,20 @@ namespace Grid
                 int y = gridPos.y;
                 int z = gridPos.z;
 
-                string cellType = (string)jsonCell["t"];
-                GameObject prefab = cellType switch
+                string cellTypeStr = (string)jsonCell["t"];
+                GridCell.CellSurface cellType = cellTypeStr switch
                 {
-                    "f" => _flatTerrainPrefab,
-                    "s" => _slideTerrainPrefab,
+                    "f" => GridCell.CellSurface.Flat,
+                    "s" => GridCell.CellSurface.Slide,
                     _ => throw new ArgumentOutOfRangeException()
                 };
 				
-                CreateGridCell(x, y, z, (float)jsonCell["r"], prefab);
+                CreateGridCell(x, y, z, (float)jsonCell["r"], cellType);
 
-                if (jsonCell.ContainsKey("object"))
+                if (jsonCell.ContainsKey("o"))
                 {
-                    //TODO
+                    string objectSerializedName = (string)jsonCell["o"];
+                    CreateObject(new Vector2Int(x, y), scriptableObjects.Find(so => so.SerializedName == objectSerializedName));
                 }
             }
         }
@@ -276,7 +277,7 @@ namespace Grid
             {
                 for (int x = 0; x < _size.x; x++)
                 {
-                    CreateGridCell(x, y, 0, 0, _flatTerrainPrefab);
+                    CreateGridCell(x, y, 0, 0, GridCell.CellSurface.Flat);
                 }
             }
         }

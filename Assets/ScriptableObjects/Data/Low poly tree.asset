@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f64de182ed115924ca4a2a353ac20297, type: 3}
+  m_Script: {fileID: 11500000, guid: f1fa0de21fa141d28c691be3c8384d70, type: 3}
   m_Name: Low poly tree
   m_EditorClassIdentifier: 
   SerializedName: low_poly_tree

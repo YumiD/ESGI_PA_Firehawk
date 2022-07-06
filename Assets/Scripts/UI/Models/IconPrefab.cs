@@ -8,6 +8,6 @@ namespace UI.Models
     public class IconPrefab
     {
         public GameObject icon;
-        public GameObject prefab;
+        public FireObjectScriptableObject scriptableObject;
     }
 }

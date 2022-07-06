@@ -6,10 +6,10 @@ namespace Scriptable_Objects
     [Serializable]
     public class ItemDictionary 
     {
-        public GameObject item;
+        public FireObjectScriptableObject item;
         public int quantity;
 
-        public ItemDictionary(GameObject item, int quantity)
+        public ItemDictionary(FireObjectScriptableObject item, int quantity)
         {
             this.item = item;
             this.quantity = quantity;

@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Level1 Inventory
   m_EditorClassIdentifier: 
   inventory:
-  - item: {fileID: 8189746004441625058, guid: 68cf71b0d3c0419c8c5c49da86c2a74c, type: 3}
+  - item: {fileID: 11400000, guid: 0716befe28134131beaef290907c396d, type: 2}
     quantity: 3
-  - item: {fileID: 7852428176035045063, guid: bb72a8c4c15e85f4696a9803a78bbdae, type: 3}
+  - item: {fileID: 11400000, guid: ffb01ed73d0456b4cbe25e14d4838398, type: 2}
     quantity: 2
-  - item: {fileID: 3452599993199128207, guid: d0eb53ad0e5a4194bb45f6254a03d546, type: 3}
+  - item: {fileID: 11400000, guid: b5f88f4f69a34ad989dab3c3d02ee5f1, type: 2}
     quantity: 2

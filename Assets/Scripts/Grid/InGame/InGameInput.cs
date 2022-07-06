@@ -15,27 +15,22 @@ namespace Grid.InGame
             Vector3Int gridPos = cellMouseIsOver.GridPosition;
             if (Input.GetMouseButtonDown(0) && choice >= 0)
             {
-                int index = GameManager.Instance.VerifyInInventory(choicesPrefab[choice].prefab);
-                if (index == -1)
+                bool isInInventory = GameManager.Instance.VerifyInInventory(choicesPrefab[choice].scriptableObject);
+                if (!isInInventory)
                 {
                     return;
                 }
 
                 Vector2Int pos = new Vector2Int(gridPos.x, gridPos.y);
-                if (!terrainGrid.CanPutObject(pos)) return;
-                (bool posable, GameObject newGameobject) result = terrainGrid.SetObject(pos, choicesPrefab[choice].prefab);
-                if (!result.posable)
-                {
-                    // If different objects
-                    GameManager.Instance.AddInInventory(result.newGameobject);
-                    terrainGrid.RemoveObject(pos);
-                    terrainGrid.CreateObject(choicesPrefab[choice].prefab, pos.x, pos.y);
-                    terrainGrid.AddInInventory(pos.x, pos.y);
-                }
-                else
-                {
-                    GameManager.Instance.RemoveInInventory(index);
-                }
+                
+                if (!terrainGrid.CanPutObject(pos))
+                    return;
+                
+                FireObjectScriptableObject previousObject = terrainGrid.RemoveObject(pos);
+                GameManager.Instance.AddInInventory(previousObject);
+                
+                terrainGrid.CreateObject(pos, choicesPrefab[choice].scriptableObject);
+                GameManager.Instance.RemoveInInventory(previousObject);
 
                 updateUi.Raise();
             }
@@ -44,7 +39,7 @@ namespace Grid.InGame
                 bool result = terrainGrid.RemoveObject(new Vector2Int(gridPos.x, gridPos.y));
                 if (result)
                 {
-                    GameManager.Instance.AddInInventory(choicesPrefab[choice].prefab);
+                    GameManager.Instance.AddInInventory(choicesPrefab[choice].scriptableObject);
                     updateUi.Raise();
                 }
             }

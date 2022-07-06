@@ -34,36 +34,18 @@ public class GameManager : MonoBehaviour
         return _inventory;
     }
 
-    public void AddInInventory(GameObject obj)
+    public void AddInInventory(FireObjectScriptableObject obj)
     {
-        foreach (ItemDictionary item in _inventory.Where(item => obj.name.Contains(item.item.name)))
-        {
-            item.AddItem();
-            return;
-        }
+        _inventory.Find(item => obj == item.item)?.AddItem();
     }
 
-    public int VerifyInInventory(GameObject obj)
+    public bool VerifyInInventory(FireObjectScriptableObject obj)
     {
-        for (int i = 0; i < _inventory.Count; i++)
-        {
-            if (obj.name.Contains(_inventory[i].item.name))
-            {
-                bool result = _inventory[i].VerifyItem();
-                if (result)
-                {
-                    return i;
-                }
-
-                return -1;
-            }
-        }
-
-        return -1;
+        return _inventory.Find(item => obj == item.item).VerifyItem();
     }
 
-    public void RemoveInInventory(int index)
+    public void RemoveInInventory(FireObjectScriptableObject obj)
     {
-        _inventory[index].RemoveItem();
+        _inventory.Find(item => obj == item.item)?.RemoveItem();
     }
 }

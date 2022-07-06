@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1fa0de21fa141d28c691be3c8384d70, type: 3}
+  m_Name: Bomb tree
+  m_EditorClassIdentifier: 
+  SerializedName: bomb_tree
+  Prefab: {fileID: 5676279375136880597, guid: 05e6fbf27fa8cc84a83268cc30c7d8a0, type: 3}

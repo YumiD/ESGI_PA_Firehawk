@@ -43,6 +43,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0f4769f05b74d34af5e0208570aa6c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _size: {x: 30, y: 30, z: 10}
-  _generation: 1
   _flatTerrainPrefab: {fileID: 6999510764107976893, guid: 2dc69bb7c5f541a28e79a1b659ed3a94, type: 3}
+  _slideTerrainPrefab: {fileID: 8421436194500143322, guid: 767a995ab77f40fab2a08d16be7fe6da, type: 3}

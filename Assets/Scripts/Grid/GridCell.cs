@@ -15,7 +15,7 @@ namespace Grid
 
 		[CanBeNull]
 		[HideInInspector]
-		public GameObject Object;
+		public FireObject Object;
 
 		public CellSurface Surface;
 
