@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Grid;
-using Grid.Models;
 using Scriptable_Objects;
 using UI.Models;
 using UnityEngine;
@@ -42,11 +40,6 @@ public class UiManager : MonoBehaviour
             {
                 icons[i].UpdateQuantity(0);
             }
-
-            // if (inventory[i].item == input.ChoicesPrefab[i].scriptableObject)
-            // {
-            //     icons[i].UpdateQuantity(inventory[i].quantity);
-            // }
         }
     }
 }

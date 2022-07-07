@@ -1,4 +1,3 @@
-using FireCellScripts;
 using Trees.Models;
 using UnityEngine;
 
