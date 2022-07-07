@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Grid;
+using Grid.Models;
 using Scriptable_Objects;
 using UI.Models;
 using UnityEngine;
@@ -7,6 +10,7 @@ public class UiManager : MonoBehaviour
 {
     public static UiManager Instance;
     [SerializeField] private List<AIcon> icons;
+    [SerializeField] private InputManagerBuild input;
 
     private void Awake()
     {
@@ -23,11 +27,26 @@ public class UiManager : MonoBehaviour
 
     public void InGameUpdateUi()
     {
-        List<ItemDictionary> item = GameManager.Instance.GetInventory();
-
-        for (int i = 0; i < icons.Count; i++)
+        List<ItemDictionary> inventory = GameManager.Instance.GetInventory();
+        
+        for (int i = 0; i < input.ChoicesPrefab.Count; i++)
         {
-            icons[i].UpdateQuantity(item[i].quantity);
+            ItemDictionary it = inventory.Find(item => item.item == input.ChoicesPrefab[i].scriptableObject);
+
+            if (it != null)
+            {
+                AIcon icon = icons.Find(ico => ico.Prop == it.item);
+                icon.UpdateQuantity(it.quantity);
+            }
+            else
+            {
+                icons[i].UpdateQuantity(0);
+            }
+
+            // if (inventory[i].item == input.ChoicesPrefab[i].scriptableObject)
+            // {
+            //     icons[i].UpdateQuantity(inventory[i].quantity);
+            // }
         }
     }
 }

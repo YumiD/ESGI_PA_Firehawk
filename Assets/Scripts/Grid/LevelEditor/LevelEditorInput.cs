@@ -31,8 +31,8 @@ namespace Grid.LevelEditor
                         break;
                     default:
                         Vector2Int pos = new Vector2Int(gridPos.x, gridPos.y);
-                        terrainGrid.RemoveObject(pos);
-                        terrainGrid.CreateObject(pos, choicesPrefab[choice].scriptableObject);
+                        TerrainGrid.RemoveObject(pos);
+                        TerrainGrid.CreateObject(pos, choicesPrefab[choice].scriptableObject);
                         break;
                 }
             }
@@ -41,7 +41,7 @@ namespace Grid.LevelEditor
                 switch (choice)
                 {
                     case (int)AIconChoice.IconChoice.Flat:
-                        terrainGrid.AddCellZ((Vector2Int)gridPos, GridCell.CellSurface.Flat);
+                        TerrainGrid.AddCellZ((Vector2Int)gridPos, GridCell.CellSurface.Flat);
                         break;
                     case (int)AIconChoice.IconChoice.Slide:
                         SwitchCellType(cellMouseIsOver);
@@ -63,28 +63,28 @@ namespace Grid.LevelEditor
             else if (Input.GetMouseButtonDown(1))
             {
                 gridPos = cellMouseIsOver.GridPosition;
-                terrainGrid.RemoveCellZ((Vector2Int)gridPos);
+                TerrainGrid.RemoveCellZ((Vector2Int)gridPos);
             }
         }
         
         private void SwitchCellType(GridCell cellMouseIsOver)
         {
-            int z = terrainGrid.GetGridCellActualZ((Vector2Int)cellMouseIsOver.GridPosition);
+            int z = TerrainGrid.GetGridCellActualZ((Vector2Int)cellMouseIsOver.GridPosition);
 
-            GridCell topCell = terrainGrid.GetCell(cellMouseIsOver.GridPosition.x, cellMouseIsOver.GridPosition.y, z);
+            GridCell topCell = TerrainGrid.GetCell(cellMouseIsOver.GridPosition.x, cellMouseIsOver.GridPosition.y, z);
 
             GridCell.CellSurface newCellType = topCell.Surface == GridCell.CellSurface.Flat
                 ? GridCell.CellSurface.Slide
                 : GridCell.CellSurface.Flat;
 
-            terrainGrid.ChangeCellZ((Vector2Int)cellMouseIsOver.GridPosition, newCellType);
+            TerrainGrid.ChangeCellZ((Vector2Int)cellMouseIsOver.GridPosition, newCellType);
         }
         
         public void ExportTerrainJson()
         {
             FileBrowser.SetFilters(false, new FileBrowser.Filter("Level data", ".json"));
             FileBrowser.ShowSaveDialog(path => {
-                JObject root = terrainGrid.Serialize();
+                JObject root = TerrainGrid.Serialize();
 
                 File.WriteAllText(path[0], root.ToString(Formatting.None));
             }, () =>

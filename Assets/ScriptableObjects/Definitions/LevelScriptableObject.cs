@@ -2,9 +2,12 @@
 using Scriptable_Objects;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "ScriptableObjects/Level")]
-public class LevelScriptableObject : ScriptableObject
+namespace ScriptableObjects.Definitions
 {
-	public List<ItemDictionary> Objects;
-	public TextAsset JsonData;
+	[CreateAssetMenu(menuName = "ScriptableObjects/Level")]
+	public class LevelScriptableObject : ScriptableObject
+	{
+		public List<ItemDictionary> Objects;
+		public TextAsset JsonData;
+	}
 }

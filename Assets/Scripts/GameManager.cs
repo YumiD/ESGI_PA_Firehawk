@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using Grid;
 using Newtonsoft.Json.Linq;
 using Scriptable_Objects;
+using UI.Menu;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -31,8 +31,8 @@ public class GameManager : MonoBehaviour
 
         UiManager.Instance.InitializeUi();
     }
-    
-    public void ImportTerrainJson()
+
+    private void ImportTerrainJson()
     {
         JObject jsonData = JObject.Parse(LevelSelect.LevelToLoad.JsonData.text);
                 
@@ -52,7 +52,8 @@ public class GameManager : MonoBehaviour
 
     public bool VerifyInInventory(FireObjectScriptableObject obj)
     {
-        return _inventory.Find(item => obj == item.item).VerifyItem();
+        ItemDictionary it = _inventory.Find(item => obj == item.item);
+        return it != null && it.VerifyItem();
     }
 
     public void RemoveInInventory(FireObjectScriptableObject obj)

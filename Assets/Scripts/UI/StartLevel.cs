@@ -28,6 +28,7 @@ namespace UI
             else
             {
                 startBtn.text = "▶";
+                triggerFireEvent.Raise();
                 StopSimulation();
             }
         }

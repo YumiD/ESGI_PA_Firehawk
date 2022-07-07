@@ -19,6 +19,8 @@ namespace Grid
         private Camera _camera;
         private bool _canEdit = true;
 
+        public List<IconPrefab> ChoicesPrefab => choicesPrefab;
+
         private void Start()
         {
             _camera = Camera.main;

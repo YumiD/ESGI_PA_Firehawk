@@ -23,20 +23,23 @@ namespace Grid.InGame
 
                 Vector2Int pos = new Vector2Int(gridPos.x, gridPos.y);
                 
-                if (!terrainGrid.CanPutObject(pos))
+                if (!TerrainGrid.CanPutObject(pos))
                     return;
                 
-                FireObjectScriptableObject previousObject = terrainGrid.RemoveObject(pos);
-                GameManager.Instance.AddInInventory(previousObject);
-                
-                terrainGrid.CreateObject(pos, choicesPrefab[choice].scriptableObject);
-                GameManager.Instance.RemoveInInventory(previousObject);
+                FireObjectScriptableObject previousObject = TerrainGrid.RemoveObject(pos);
+                if (previousObject != null)
+                {
+                    GameManager.Instance.AddInInventory(previousObject);
+                }
+
+                TerrainGrid.CreateObject(pos, choicesPrefab[choice].scriptableObject);
+                GameManager.Instance.RemoveInInventory(choicesPrefab[choice].scriptableObject);
 
                 updateUi.Raise();
             }
             else if (Input.GetMouseButtonDown(1))
             {
-                bool result = terrainGrid.RemoveObject(new Vector2Int(gridPos.x, gridPos.y));
+                bool result = TerrainGrid.RemoveObject(new Vector2Int(gridPos.x, gridPos.y));
                 if (result)
                 {
                     GameManager.Instance.AddInInventory(choicesPrefab[choice].scriptableObject);

@@ -6,6 +6,7 @@ namespace FireCellScripts
     public class FireCellStarter : MonoBehaviour
     {
         private FireCell _fireCell;
+        private bool _started;
         
         private void Start()
         {
@@ -14,7 +15,12 @@ namespace FireCellScripts
 
         public void StartFire()
         {
-            _fireCell.DebugSetTemperature(900f);
+            if (_fireCell == null)
+            {
+                _fireCell = GetComponent<FireCell>();
+            }
+            _started = !_started;
+            _fireCell.DebugSetTemperature(_started ? 900f : 0f);
         }
     }
 }
