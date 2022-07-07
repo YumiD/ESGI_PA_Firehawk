@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using Grid;
+using Newtonsoft.Json.Linq;
 using Scriptable_Objects;
 using UnityEngine;
 
@@ -7,8 +10,10 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    [SerializeField] private LevelInventory levelInventory;
-    private readonly List<ItemDictionary> _inventory = new List<ItemDictionary>();
+    private List<ItemDictionary> _inventory;
+    
+    [SerializeField]
+    private GameObject gridGenerator;
 
     private void Awake()
     {
@@ -20,13 +25,19 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        foreach (ItemDictionary obj in levelInventory.inventory.Select(item =>
-                     new ItemDictionary(item.item, item.quantity)))
-        {
-            _inventory.Add(obj);
-        }
+        ImportTerrainJson();
+        
+        _inventory = LevelSelect.LevelToLoad.Objects.Select(item => new ItemDictionary(item.item, item.quantity)).ToList();
 
         UiManager.Instance.InitializeUi();
+    }
+    
+    public void ImportTerrainJson()
+    {
+        JObject jsonData = JObject.Parse(LevelSelect.LevelToLoad.JsonData.text);
+                
+        TerrainGrid terrainGridInstance = Instantiate(gridGenerator, new Vector3(0, 0, 0), Quaternion.identity).GetComponent<TerrainGrid>();
+        terrainGridInstance.Deserialize(jsonData, true);
     }
 
     public List<ItemDictionary> GetInventory()

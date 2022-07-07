@@ -43,4 +43,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c0d3ce4529b4cbeb48d5d2f2cd651eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelInventory: {fileID: 11400000, guid: a9a17344eaae2e445b426cf660abd0d6, type: 2}
+  gridGenerator: {fileID: 255509948066759206, guid: d9c333ebacf146dcbca282374ff2d583, type: 3}

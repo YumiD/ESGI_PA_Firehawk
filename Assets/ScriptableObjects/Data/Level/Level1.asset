@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c84e0e35f854cb797941ab62863354a, type: 3}
-  m_Name: Level1 Inventory
+  m_Script: {fileID: 11500000, guid: 8b50470203cffdf48809d2944034423f, type: 3}
+  m_Name: Level1
   m_EditorClassIdentifier: 
-  inventory:
+  Objects:
   - item: {fileID: 11400000, guid: 0716befe28134131beaef290907c396d, type: 2}
     quantity: 3
   - item: {fileID: 11400000, guid: ffb01ed73d0456b4cbe25e14d4838398, type: 2}
@@ -21,3 +21,4 @@ MonoBehaviour:
     quantity: 2
   - item: {fileID: 11400000, guid: dcc54e357053b8d44ab33c612e55279f, type: 2}
     quantity: 2
+  JsonData: {fileID: 4900000, guid: c9458849486342f3a4db73c176d8b2e6, type: 3}

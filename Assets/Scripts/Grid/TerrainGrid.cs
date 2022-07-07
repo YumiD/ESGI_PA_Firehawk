@@ -59,22 +59,26 @@ namespace Grid
             if (objectOnGrid != null)
             {
                 // If object has Removable component, check if it's removable : prevent replacing level props
-                return !objectOnGrid.Instance.TryGetComponent(out Removable removable) || removable.IsRemovable;
+                return objectOnGrid.Instance.GetComponent<Removable>().IsRemovable;
             }
             return true;
         }
 
-        public void CreateObject(Vector2Int pos, FireObjectScriptableObject scriptableObject)
+        public void CreateObject(Vector2Int pos, FireObjectScriptableObject scriptableObject, bool makeNonRemovable = false)
         {
             int x = pos.x;
             int y = pos.y;
             int z = GetGridCellActualZ(pos);
+
+            GameObject obj = Instantiate(scriptableObject.Prefab, _grid[x, y, z].Anchor.transform);
             
             _grid[x, y, z].Object = new FireObject
             {
-                Instance = Instantiate(scriptableObject.Prefab, _grid[x, y, z].Anchor.transform),
+                Instance = obj,
                 ScriptableObject = scriptableObject
             };
+
+            obj.AddComponent<Removable>().IsRemovable = makeNonRemovable;
         }
 
         public FireObjectScriptableObject RemoveObject(Vector2Int pos)
@@ -87,6 +91,7 @@ namespace Grid
             if (fireObject != null)
             {
                 Destroy(fireObject.Instance);
+                _grid[x, y, z].Object = null;
                 return fireObject.ScriptableObject;
             }
 
@@ -108,6 +113,7 @@ namespace Grid
                 if (_grid[x, y, currentZ].Object != null)
                 {
                     Destroy(_grid[x, y, currentZ].Object.Instance);
+                    _grid[x, y, currentZ].Object = null;
                 }
 
                 if (_grid[x, y, currentZ].Surface == GridCell.CellSurface.Slide)
@@ -235,7 +241,7 @@ namespace Grid
             return root;
         }
         
-        public void Deserialize(JObject jsonData)
+        public void Deserialize(JObject jsonData, bool makeObjectsNonRemovable = false)
         {
             Size = jsonData["grid_size"].ToVector3Int();
             _grid = new GridCell[Size.x, Size.y, Size.z];
@@ -275,7 +281,7 @@ namespace Grid
                 if (jsonCell.ContainsKey("o"))
                 {
                     string objectSerializedName = (string)jsonCell["o"];
-                    CreateObject(new Vector2Int(x, y), scriptableObjects.Find(so => so.SerializedName == objectSerializedName));
+                    CreateObject(new Vector2Int(x, y), scriptableObjects.Find(so => so.SerializedName == objectSerializedName), makeObjectsNonRemovable);
                 }
             }
         }
