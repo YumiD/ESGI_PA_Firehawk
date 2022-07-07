@@ -19,6 +19,7 @@ namespace Grid.LevelEditor
         public override void PutObject(GridCell cellMouseIsOver, int choice, List<IconPrefab> choicesPrefab)
         {
             Vector3Int gridPos = cellMouseIsOver.GridPosition;
+            Vector2Int pos = new Vector2Int(gridPos.x, gridPos.y);
             if (Input.GetMouseButton(0) && choice >= 0)
             {
                 switch (choice)
@@ -30,7 +31,6 @@ namespace Grid.LevelEditor
                         _clicked = true;
                         break;
                     default:
-                        Vector2Int pos = new Vector2Int(gridPos.x, gridPos.y);
                         TerrainGrid.RemoveObject(pos);
                         TerrainGrid.CreateObject(pos, choicesPrefab[choice].scriptableObject);
                         break;
@@ -62,8 +62,14 @@ namespace Grid.LevelEditor
             }
             else if (Input.GetMouseButtonDown(1))
             {
-                gridPos = cellMouseIsOver.GridPosition;
-                TerrainGrid.RemoveCellZ((Vector2Int)gridPos);
+                GameObject obj = TerrainGrid.GetInstanceFromCell(pos);
+                if (obj == null)
+                {
+                    gridPos = cellMouseIsOver.GridPosition;
+                    TerrainGrid.RemoveCellZ((Vector2Int)gridPos);
+                    return;
+                }
+                TerrainGrid.RemoveObject(pos);
             }
         }
         
