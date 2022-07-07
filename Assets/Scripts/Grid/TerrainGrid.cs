@@ -19,6 +19,9 @@ namespace Grid
 
         private GridCell[,,] _grid;
 
+        
+        private GameObject _pivot;
+
         private void CreateGridCell(int x, int y, int z, float angle, GridCell.CellSurface cellType)
         {
             GameObject cellPrefab = cellType switch
@@ -174,6 +177,15 @@ namespace Grid
         public bool IsGridPosValid(Vector3Int gridPos)
         {
             return gridPos.IsBetween(new Vector3Int(0, 0, 0), _size - new Vector3Int(1, 1, 1));
+        }
+
+        public Vector3 GetCenterGrid(){
+            Vector3Int centerGrid = _grid[_size.x/2, _size.y/2, 0].GridPosition * (int)_gridCellSize.x;
+            Vector3 centerPos = new Vector3();
+            centerPos.x = centerGrid.x - (int)_gridCellSize.x/2;
+            centerPos.y = centerGrid.z - (int)_gridCellSize.x/2;
+            centerPos.z = centerGrid.y - (int)_gridCellSize.x/2;
+            return centerPos;
         }
         
         public JObject Serialize()

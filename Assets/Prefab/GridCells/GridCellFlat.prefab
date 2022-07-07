@@ -172,6 +172,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Anchor: {fileID: 540038333401830821}
-  Object: {fileID: 0}
   Surface: 0
   GridPosition: {x: 0, y: 0, z: 0}

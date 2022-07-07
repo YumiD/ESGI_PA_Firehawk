@@ -20,7 +20,8 @@ namespace UI.LevelEditor
         private GameObject selectSize;
         
         public void GenerateLevel(int dropdownValue) {
-            TerrainGrid terrainGridInstance = Instantiate(gridGenerator, new Vector3(0, 0, 0), Quaternion.identity).GetComponent<TerrainGrid>();
+            GameObject gridInstantiated = Instantiate(gridGenerator, new Vector3(0, 0, 0), Quaternion.identity);
+            TerrainGrid terrainGridInstance = gridInstantiated.GetComponent<TerrainGrid>();
             terrainGridInstance.Create(dropdownValue switch
             {
                 0 => new Vector3Int(10, 10, 10),
@@ -30,6 +31,7 @@ namespace UI.LevelEditor
             });
             otherClassLikeThisOne.SetActive(true);
             selectSize.SetActive(false);
+            gridInstantiated.AddComponent<InputRotateObject>();
         }
         public void QuitLevelEditor() {
             SceneManager.LoadScene(0);
