@@ -10,9 +10,9 @@ namespace Grid
 {
     public class TerrainGrid : MonoBehaviour
     {
-        private Vector3Int _size;
+        public Vector3Int Size { get; private set; }
 
-        private Vector3 _gridCellSize = new Vector3(5, 2.5f, 5);
+        public Vector3 GridCellSize = new Vector3(5, 2.5f, 5);
 
         [SerializeField] private GameObject _flatTerrainPrefab;
         [SerializeField] private GameObject _slideTerrainPrefab;
@@ -32,7 +32,7 @@ namespace Grid
             };
             
             _grid[x, y, z] = Instantiate(cellPrefab, transform).GetComponent<GridCell>();
-            _grid[x, y, z].transform.localPosition = new Vector3(x, z, y).Multiply(_gridCellSize);
+            _grid[x, y, z].transform.localPosition = new Vector3(x, z, y).Multiply(GridCellSize);
             _grid[x, y, z].transform.localRotation = Quaternion.Euler(0, angle, 0);
             _grid[x, y, z].GridPosition = new Vector3Int(x, y, z);
             _grid[x, y, z].gameObject.name = $"Grid Space ({x} , {y} , {z})";
@@ -100,7 +100,7 @@ namespace Grid
             int currentZ = GetGridCellActualZ(pos);
             int newZ = currentZ + 1;
 
-            if (newZ >= _size.y)
+            if (newZ >= Size.y)
                 return;
 
             if (currentZ >= 0)
@@ -164,7 +164,7 @@ namespace Grid
             int y = pos.y;
             int z = 0;
 
-            while (z < _size.z)
+            while (z < Size.z)
             {
                 if (_grid[x, y, z] == null)
                     break;
@@ -176,15 +176,15 @@ namespace Grid
 
         public bool IsGridPosValid(Vector3Int gridPos)
         {
-            return gridPos.IsBetween(new Vector3Int(0, 0, 0), _size - new Vector3Int(1, 1, 1));
+            return gridPos.IsBetween(new Vector3Int(0, 0, 0), Size - new Vector3Int(1, 1, 1));
         }
 
         public Vector3 GetCenterGrid(){
-            Vector3Int centerGrid = _grid[_size.x/2, _size.y/2, 0].GridPosition * (int)_gridCellSize.x;
+            Vector3Int centerGrid = _grid[Size.x/2, Size.y/2, 0].GridPosition * (int)GridCellSize.x;
             Vector3 centerPos = new Vector3();
-            centerPos.x = centerGrid.x - (int)_gridCellSize.x/2;
-            centerPos.y = centerGrid.z - (int)_gridCellSize.x/2;
-            centerPos.z = centerGrid.y - (int)_gridCellSize.x/2;
+            centerPos.x = centerGrid.x - (int)GridCellSize.x/2;
+            centerPos.y = centerGrid.z - (int)GridCellSize.x/2;
+            centerPos.z = centerGrid.y - (int)GridCellSize.x/2;
             return centerPos;
         }
         
@@ -192,14 +192,14 @@ namespace Grid
         {
             JObject root = new JObject();
 
-            root["grid_size"] = _size.ToJson();
+            root["grid_size"] = Size.ToJson();
 
             JArray jsonGridCells = new JArray();
-            for (int x = 0; x < _size.x; x++)
+            for (int x = 0; x < Size.x; x++)
             {
-                for (int y = 0; y < _size.y; y++)
+                for (int y = 0; y < Size.y; y++)
                 {
-                    for (int z = 0; z < _size.z; z++)
+                    for (int z = 0; z < Size.z; z++)
                     {
                         GridCell gridCell = _grid[x, y, z];
 
@@ -237,8 +237,8 @@ namespace Grid
         
         public void Deserialize(JObject jsonData)
         {
-            _size = jsonData["grid_size"].ToVector3Int();
-            _grid = new GridCell[_size.x, _size.y, _size.z];
+            Size = jsonData["grid_size"].ToVector3Int();
+            _grid = new GridCell[Size.x, Size.y, Size.z];
             
             List<FireObjectScriptableObject> scriptableObjects = AssetDatabase.FindAssets($"t: {nameof(FireObjectScriptableObject)}")
                 .Select(AssetDatabase.GUIDToAssetPath)
@@ -282,12 +282,12 @@ namespace Grid
 
         public void Create(Vector3Int size)
         {
-            _size = size;
-            _grid = new GridCell[_size.x, _size.y, _size.z];
+            Size = size;
+            _grid = new GridCell[Size.x, Size.y, Size.z];
             
-            for (int y = 0; y < _size.y; y++)
+            for (int y = 0; y < Size.y; y++)
             {
-                for (int x = 0; x < _size.x; x++)
+                for (int x = 0; x < Size.x; x++)
                 {
                     CreateGridCell(x, y, 0, 0, GridCell.CellSurface.Flat);
                 }
