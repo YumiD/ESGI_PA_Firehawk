@@ -14,10 +14,13 @@ namespace UI.LevelEditor
         private GameObject gridGenerator;
 
         [SerializeField]
-        private GameObject otherClassLikeThisOne;
+        private GameObject levelUiCanvas;
 
         [SerializeField]
         private GameObject selectSize;
+
+        [SerializeField] 
+        private CameraManager cameraManager;
         
         public void GenerateLevel(int dropdownValue) {
             GameObject gridInstantiated = Instantiate(gridGenerator, new Vector3(0, 0, 0), Quaternion.identity);
@@ -29,7 +32,7 @@ namespace UI.LevelEditor
                 2 => new Vector3Int(30, 30, 10),
                 _ => throw new ArgumentOutOfRangeException()
             });
-            otherClassLikeThisOne.SetActive(true);
+            levelUiCanvas.SetActive(true);
             selectSize.SetActive(false);
             gridInstantiated.AddComponent<InputRotateObject>();
         }
@@ -45,9 +48,12 @@ namespace UI.LevelEditor
                 
                 TerrainGrid terrainGridInstance = Instantiate(gridGenerator, new Vector3(0, 0, 0), Quaternion.identity).GetComponent<TerrainGrid>();
                 terrainGridInstance.Deserialize(jsonData);
-                otherClassLikeThisOne.SetActive(true);
+                levelUiCanvas.SetActive(true);
                 selectSize.SetActive(false);
-            }, () => {}, FileBrowser.PickMode.Files);
+            }, () =>
+            {
+                cameraManager.MoveCamera();
+            }, FileBrowser.PickMode.Files);
         }
     }
 }
