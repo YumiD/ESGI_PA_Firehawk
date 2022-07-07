@@ -13,6 +13,7 @@ namespace Grid.InGame
         public override void PutObject(GridCell cellMouseIsOver, int choice, List<IconPrefab> choicesPrefab)
         {
             Vector3Int gridPos = cellMouseIsOver.GridPosition;
+            Vector2Int pos = new Vector2Int(gridPos.x, gridPos.y);
             if (Input.GetMouseButtonDown(0) && choice >= 0)
             {
                 bool isInInventory = GameManager.Instance.VerifyInInventory(choicesPrefab[choice].scriptableObject);
@@ -21,7 +22,6 @@ namespace Grid.InGame
                     return;
                 }
 
-                Vector2Int pos = new Vector2Int(gridPos.x, gridPos.y);
                 
                 if (!TerrainGrid.CanPutObject(pos))
                     return;
@@ -30,45 +30,36 @@ namespace Grid.InGame
                 if (previousObject != null)
                 {
                     GameManager.Instance.AddInInventory(previousObject);
+                    GameObject previousInstance = TerrainGrid.GetInstanceFromCell(pos);
+                    if (!GameManager.Instance.VerifyInInventory(previousObject))
+                    {
+                        ReserveObjectManager.Instance.RemoveInReserve(previousInstance.transform);
+                    }
                 }
 
-                TerrainGrid.CreateObject(pos, choicesPrefab[choice].scriptableObject);
+                GameObject obj = TerrainGrid.CreateObject(pos, choicesPrefab[choice].scriptableObject);
+                ReserveObjectManager.Instance.AddInReserve(choicesPrefab[choice].scriptableObject, obj.transform);
+
                 GameManager.Instance.RemoveInInventory(choicesPrefab[choice].scriptableObject);
 
                 updateUi.Raise();
             }
             else if (Input.GetMouseButtonDown(1))
             {
-                bool result = TerrainGrid.RemoveObject(new Vector2Int(gridPos.x, gridPos.y));
+                if (!TerrainGrid.CanPutObject(pos))
+                {
+                    return;
+                }
+
+                GameObject obj = TerrainGrid.GetInstanceFromCell(pos);
+                FireObjectScriptableObject result = TerrainGrid.RemoveObject(pos);
                 if (result)
                 {
                     GameManager.Instance.AddInInventory(choicesPrefab[choice].scriptableObject);
+                    ReserveObjectManager.Instance.RemoveInReserve(obj.transform);
                     updateUi.Raise();
                 }
             }
         }
-
-        // public bool SetObject(Vector2Int pos, GameObject objectPrefab)
-        // {
-        //     int x = pos.x;
-        //     int y = pos.y;
-        //     int z = GetGridCellActualZ(pos);
-        //
-        //     if (_grid[x, y, z].Object != null)
-        //     {
-        //         // If different objects
-        //         if (!_grid[x, y, z].Object.name.Contains(objectPrefab.name))
-        //         {
-        //             GameManager.Instance.AddInInventory(_grid[x, y, z].Object);
-        //             Destroy(_grid[x, y, z].Object);
-        //             CreateObject(objectPrefab, x, y, z);
-        //             return true;
-        //         }
-        //         return false;
-        //     }
-        //
-        //     CreateObject(objectPrefab, x, y, z);
-        //     return true;
-        // }
     }
 }

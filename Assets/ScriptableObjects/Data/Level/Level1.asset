@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Objects:
   - item: {fileID: 11400000, guid: b5f88f4f69a34ad989dab3c3d02ee5f1, type: 2}
-    quantity: 1
+    quantity: 2
   JsonData: {fileID: 4900000, guid: c9458849486342f3a4db73c176d8b2e6, type: 3}

@@ -19,9 +19,6 @@ namespace Grid
 
         private GridCell[,,] _grid;
 
-        
-        private GameObject _pivot;
-
         private void CreateGridCell(int x, int y, int z, float angle, GridCell.CellSurface cellType)
         {
             GameObject cellPrefab = cellType switch
@@ -64,14 +61,13 @@ namespace Grid
             return true;
         }
 
-        public void CreateObject(Vector2Int pos, FireObjectScriptableObject scriptableObject, bool makeNonRemovable = false)
+        public GameObject CreateObject(Vector2Int pos, FireObjectScriptableObject scriptableObject, bool makeNonRemovable = false)
         {
             int x = pos.x;
             int y = pos.y;
             int z = GetGridCellActualZ(pos);
 
             GameObject obj = Instantiate(scriptableObject.Prefab, _grid[x, y, z].Anchor.transform);
-            
             _grid[x, y, z].Object = new FireObject
             {
                 Instance = obj,
@@ -79,6 +75,7 @@ namespace Grid
             };
 
             obj.AddComponent<Removable>().IsRemovable = !makeNonRemovable;
+            return obj;
         }
 
         public FireObjectScriptableObject RemoveObject(Vector2Int pos)
@@ -96,6 +93,16 @@ namespace Grid
             }
 
             return null;
+        }
+
+        public GameObject GetInstanceFromCell(Vector2Int pos)
+        {
+            int x = pos.x;
+            int y = pos.y;
+            int z = GetGridCellActualZ(pos);
+
+            FireObject fireObject = _grid[x, y, z].Object;
+            return fireObject?.Instance;
         }
 
         public void AddCellZ(Vector2Int pos, GridCell.CellSurface cellType)

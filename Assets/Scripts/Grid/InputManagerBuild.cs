@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Grid.Interfaces;
 using Grid.Models;
 using UI.Models;
@@ -26,6 +27,11 @@ namespace Grid
             _putObject = GetComponent<IPlaceObject>();
             _uiChoice = GetComponent<IUiChoice>();
             AddButtonEvent();
+        }
+
+        private void OnEnable()
+        {
+            _canEdit = true;
         }
 
         private void AddButtonEvent()
@@ -107,7 +113,7 @@ namespace Grid
 
         public void ManageClick()
         {
-            _canEdit = false;
+            _canEdit = !_canEdit;
             foreach (IconPrefab icon in choicesPrefab)
             {
                 icon.icon.gameObject.GetComponent<Button>().interactable =

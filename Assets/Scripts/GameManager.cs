@@ -32,12 +32,13 @@ public class GameManager : MonoBehaviour
         UiManager.Instance.InitializeUi();
     }
 
-    private void ImportTerrainJson()
+    public GameObject ImportTerrainJson()
     {
         JObject jsonData = JObject.Parse(LevelSelect.LevelToLoad.JsonData.text);
                 
         TerrainGrid terrainGridInstance = Instantiate(gridGenerator, new Vector3(0, 0, 0), Quaternion.identity).GetComponent<TerrainGrid>();
         terrainGridInstance.Deserialize(jsonData, true);
+        return terrainGridInstance.gameObject;
     }
 
     public List<ItemDictionary> GetInventory()
