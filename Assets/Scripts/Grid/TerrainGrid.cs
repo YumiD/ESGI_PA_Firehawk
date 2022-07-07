@@ -78,7 +78,7 @@ namespace Grid
                 ScriptableObject = scriptableObject
             };
 
-            obj.AddComponent<Removable>().IsRemovable = makeNonRemovable;
+            obj.AddComponent<Removable>().IsRemovable = !makeNonRemovable;
         }
 
         public FireObjectScriptableObject RemoveObject(Vector2Int pos)
