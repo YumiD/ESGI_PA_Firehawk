@@ -3,6 +3,7 @@ using Grid;
 using Scriptable_Objects;
 using UI.Models;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UiManager : MonoBehaviour
 {
@@ -41,5 +42,10 @@ public class UiManager : MonoBehaviour
                 icons[i].UpdateQuantity(0);
             }
         }
+    }
+
+    public void BackToMenu()
+    {
+        SceneManager.LoadScene(0);
     }
 }
