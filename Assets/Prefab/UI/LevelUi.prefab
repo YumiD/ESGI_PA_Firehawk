@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 9151694972238040118}
   - component: {fileID: 3046452734996116699}
   - component: {fileID: 6003803983807968777}
-  - component: {fileID: 8665519681082813635}
   - component: {fileID: 3191784995101710004}
   m_Layer: 5
   m_Name: LevelUi
@@ -105,20 +104,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &8665519681082813635
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 471512415407148389}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b07a7ececcc4e26499f7eeb5a65c05bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  triggerFireEvent: {fileID: 11400000, guid: 7bbb175175c5e3044958d1ca819c08f0, type: 2}
-  startBtn: {fileID: 2088744214597186318}
 --- !u!114 &3191784995101710004
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -139,6 +124,7 @@ MonoBehaviour:
   - {fileID: 8274781929660239175}
   - {fileID: 8274781929428330124}
   - {fileID: 8274781928497137173}
+  input: {fileID: 0}
 --- !u!1 &1289273169974022791
 GameObject:
   m_ObjectHideFlags: 0
@@ -472,7 +458,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8665519681082813635}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UI.StartLevel, Assembly-CSharp
         m_MethodName: StartFire
         m_Mode: 1
@@ -1048,7 +1034,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u25B6"
+  m_Text: "\u25A0"
 --- !u!1 &2407658544609609076
 GameObject:
   m_ObjectHideFlags: 0
@@ -1373,6 +1359,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   btn: {fileID: 0}
+  prop: {fileID: 0}
 --- !u!1 &3337218002426194199
 GameObject:
   m_ObjectHideFlags: 0
@@ -1540,6 +1527,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   btn: {fileID: 3656444453376173828}
+  prop: {fileID: 0}
 --- !u!114 &2858883038133201897
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2619,6 +2607,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   btn: {fileID: 8274781928497137171}
+  prop: {fileID: 0}
 --- !u!1 &8274781929209458696
 GameObject:
   m_ObjectHideFlags: 0
@@ -2816,6 +2805,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   btn: {fileID: 8274781929428330122}
+  prop: {fileID: 0}
 --- !u!1 &8274781929660239170
 GameObject:
   m_ObjectHideFlags: 0
@@ -2950,6 +2940,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   btn: {fileID: 8274781929660239173}
+  prop: {fileID: 0}
 --- !u!1 &8274781929843247325
 GameObject:
   m_ObjectHideFlags: 0
@@ -3084,6 +3075,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   btn: {fileID: 8274781929843247312}
+  prop: {fileID: 0}
 --- !u!1 &8274781929896930748
 GameObject:
   m_ObjectHideFlags: 0
@@ -3218,6 +3210,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   btn: {fileID: 8274781929896930751}
+  prop: {fileID: 0}
 --- !u!1 &8274781929921870940
 GameObject:
   m_ObjectHideFlags: 0
@@ -3352,6 +3345,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   btn: {fileID: 0}
+  prop: {fileID: 0}
 --- !u!1 &8274781929930995021
 GameObject:
   m_ObjectHideFlags: 0
@@ -3486,6 +3480,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   btn: {fileID: 0}
+  prop: {fileID: 0}
 --- !u!1 &8274781930538327919
 GameObject:
   m_ObjectHideFlags: 0
@@ -3613,7 +3608,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f4c46ee2da1483ca3c3219a1925680d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  terrainGrid: {fileID: 0}
+  inputEvent: {fileID: 0}
 --- !u!114 &5412084358785315567
 MonoBehaviour:
   m_ObjectHideFlags: 0
