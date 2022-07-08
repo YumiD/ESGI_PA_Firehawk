@@ -252,11 +252,8 @@ namespace Grid
         {
             Size = jsonData["grid_size"].ToVector3Int();
             _grid = new GridCell[Size.x, Size.y, Size.z];
-            
-            List<FireObjectScriptableObject> scriptableObjects = AssetDatabase.FindAssets($"t: {nameof(FireObjectScriptableObject)}")
-                .Select(AssetDatabase.GUIDToAssetPath)
-                .Select(AssetDatabase.LoadAssetAtPath<FireObjectScriptableObject>)
-                .ToList();
+
+            FireObjectScriptableObject[] scriptableObjects = Resources.LoadAll<FireObjectScriptableObject>("ScriptableObjects/Data/FireObject");
 
             JArray jsonGridCells = (JArray)jsonData["grid_cells"];
             for (int i = 0; i < jsonGridCells.Count; i++)
@@ -288,7 +285,7 @@ namespace Grid
                 if (jsonCell.ContainsKey("o"))
                 {
                     string objectSerializedName = (string)jsonCell["o"];
-                    CreateObject(new Vector2Int(x, y), scriptableObjects.Find(so => so.SerializedName == objectSerializedName), makeObjectsNonRemovable);
+                    CreateObject(new Vector2Int(x, y), Array.Find(scriptableObjects, so => so.SerializedName == objectSerializedName), makeObjectsNonRemovable);
                 }
             }
         }

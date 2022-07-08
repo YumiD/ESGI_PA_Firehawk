@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace FireCellScripts
 {
+#if UNITY_EDITOR
 	[CustomEditor(typeof(FireCell))]
 	public class FireCellEditor : Editor
 	{
@@ -22,4 +23,5 @@ namespace FireCellScripts
 			}
 		}
 	}
+#endif
 }
