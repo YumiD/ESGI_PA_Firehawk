@@ -14,6 +14,10 @@ namespace FireCellScripts
 
         public void StartFire()
         {
+            if (_fireCell == null)
+            {
+                _fireCell = GetComponent<FireCell>();
+            }
             _fireCell.DebugSetTemperature(900f);
         }
     }

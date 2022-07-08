@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TerainWithInventory.unity
     guid: 0515290327cdfbb439cae86f0f7d8d7d
+  - enabled: 1
+    path: Assets/Scenes/LevelWithFirehawk.unity
+    guid: 32952b22bba5942419a9acd8f5c27474
   m_configObjects: {}

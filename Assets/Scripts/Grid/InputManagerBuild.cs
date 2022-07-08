@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Grid.Interfaces;
-using Grid.LevelEditor;
 using Grid.Models;
 using UI.Models;
 using UnityEngine;
@@ -19,12 +19,19 @@ namespace Grid
         private Camera _camera;
         private bool _canEdit = true;
 
+        public List<IconPrefab> ChoicesPrefab => choicesPrefab;
+
         private void Start()
         {
             _camera = Camera.main;
             _putObject = GetComponent<IPlaceObject>();
             _uiChoice = GetComponent<IUiChoice>();
             AddButtonEvent();
+        }
+
+        private void OnEnable()
+        {
+            _canEdit = true;
         }
 
         private void AddButtonEvent()
@@ -106,7 +113,7 @@ namespace Grid
 
         public void ManageClick()
         {
-            _canEdit = false;
+            _canEdit = !_canEdit;
             foreach (IconPrefab icon in choicesPrefab)
             {
                 icon.icon.gameObject.GetComponent<Button>().interactable =

@@ -1,13 +1,22 @@
-﻿using UnityEngine;
+﻿using ScriptableObjects.Definitions;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LevelSelect : MonoBehaviour
+namespace UI.Menu
 {
-	public static LevelScriptableObject LevelToLoad;
-
-	public void StartLevel(LevelScriptableObject jsonFile)
+	public class LevelSelect : MonoBehaviour
 	{
-		LevelToLoad = jsonFile;
-		SceneManager.LoadScene(2);
+		public static LevelScriptableObject LevelToLoad;
+
+		public void StartLevel(LevelScriptableObject jsonFile)
+		{
+			LevelToLoad = jsonFile;
+			SceneManager.LoadScene(2);
+		}
+		public void StartLevel2(LevelScriptableObject jsonFile)
+		{
+			LevelToLoad = jsonFile;
+			SceneManager.LoadScene("LevelWithFirehawk");
+		}
 	}
 }

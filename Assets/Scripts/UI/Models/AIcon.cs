@@ -7,6 +7,9 @@ namespace UI.Models
     public abstract class AIcon : MonoBehaviour, IIcon
     {
         [SerializeField] protected Image btn;
+        [SerializeField] private FireObjectScriptableObject prop;
+
+        public FireObjectScriptableObject Prop => prop;
         public abstract void UpdateQuantity(int qty);
 
         public virtual void SelectButton()

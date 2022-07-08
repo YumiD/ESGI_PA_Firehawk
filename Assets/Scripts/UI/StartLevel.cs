@@ -12,7 +12,7 @@ namespace UI
         [SerializeField] private Text startBtn;
 
         private TerrainGrid _originalTerrainGrid;
-        private TerrainGrid _cloneTerrainGrid;
+        private GameObject _cloneTerrainGrid;
         private bool _hasStarted;
 
         public void StartFire()
@@ -21,13 +21,14 @@ namespace UI
             {
                 _hasStarted = true;
                 startBtn.text = "■";
-                triggerFireEvent.Raise();
-                
                 StartSimulation();
+                
+                triggerFireEvent.Raise();
             }
             else
             {
                 startBtn.text = "▶";
+                triggerFireEvent.Raise();
                 StopSimulation();
             }
         }
@@ -40,14 +41,18 @@ namespace UI
                 _originalTerrainGrid = FindObjectOfType<TerrainGrid>();
             }
 
-            _cloneTerrainGrid = Instantiate(_originalTerrainGrid);
-            _cloneTerrainGrid.gameObject.SetActive(false);
+            _originalTerrainGrid.gameObject.SetActive(false);
+            _originalTerrainGrid.transform.position = new Vector3(0, -200, 0);
+            GameObject clone = GameManager.Instance.ImportTerrainJson();
+            _cloneTerrainGrid = clone;
+            ReserveObjectManager.Instance.InstantiateReserve();
         }
 
         private void StopSimulation()
         {
-            Destroy(_originalTerrainGrid.gameObject);
-            _originalTerrainGrid = _cloneTerrainGrid;
+            Destroy(_cloneTerrainGrid);
+            ReserveObjectManager.Instance.HideDuplicate();
+            _originalTerrainGrid.transform.position = Vector3.zero;
             _originalTerrainGrid.gameObject.SetActive(true);
             _cloneTerrainGrid = null;
             _hasStarted = false;
