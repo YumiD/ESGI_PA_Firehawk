@@ -18,7 +18,7 @@ namespace FirehawkAI.Tasks
             var litBranch = GetData("litBranch");
             if (litBranch == null)
             {
-                // Debug.Log("Can't go back yet");
+                Debug.Log("Can't go back yet");
                 State = NodeState.SUCCESS;
                 return State;
             }

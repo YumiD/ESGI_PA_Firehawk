@@ -41,7 +41,7 @@ namespace FirehawkAI.Checks
             if (holdingBranch == null)
             {
                 var litBranch = GetData("litBranch");
-                // Debug.Log("CheckHoldingBranch");
+                Debug.Log("CheckHoldingBranch");
                 var currentPos = _transform.position;
 
                 if (litBranch == null)
@@ -50,7 +50,7 @@ namespace FirehawkAI.Checks
                     if (Vector3.Distance(_meshTransform.position, foundLitBranch.transform.position) >
                         FirehawkBT.DistanceBetweenMeshParent+.1f)
                     {
-                        // Debug.Log("Check go toward lit branch");
+                        Debug.Log("Check go toward lit branch");
                         State = NodeState.SUCCESS;
                         return State;
                     }
@@ -61,7 +61,7 @@ namespace FirehawkAI.Checks
                         FirehawkBT.LitBranchLayerMask);
                     if (colliders.Length > 0)
                     {
-                        // Debug.Log("Pick up lit branch");
+                        Debug.Log("Pick up lit branch");
                         SetDataToRoot("litBranch", colliders[0].transform);
                         if (fireCell != null)
                         {
@@ -73,11 +73,11 @@ namespace FirehawkAI.Checks
                 // Go back in sky part
                 if (litBranch != null)
                 {
-                    // Debug.Log("Go back in sky.");
+                    Debug.Log("Go back in sky.");
                     var target = new Vector3(currentPos.x, _originCoordinate, currentPos.z);
                     if (Vector3.Distance(_transform.position, target) <= 0.01f)
                     {
-                        // Debug.Log("Go back in sky done");
+                        Debug.Log("Go back in sky done");
                         SetDataToRoot("isHoldingBranch", true);
                         ClearData("FoundLitBranch");
                     }

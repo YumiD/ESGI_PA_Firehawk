@@ -4,9 +4,10 @@ namespace FireCellScripts
 {
     public class FireCellBranch : MonoBehaviour
     {
+        [SerializeField] private Transform root;
         public void BurnBranch()
         {
-            transform.root.gameObject.layer = 8; //litBranch
+            root.gameObject.layer = 8; //litBranch
         }
 
         public void FinishSmoking()

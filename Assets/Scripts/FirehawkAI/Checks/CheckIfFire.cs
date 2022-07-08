@@ -17,7 +17,7 @@ namespace FirehawkAI.Checks
 
             if (target == null)
             {
-                // Debug.Log("CheckIfFire");
+                Debug.Log("CheckIfFire");
                 var colliders = Physics.OverlapSphere(_transform.position, FirehawkBT.DetectionRange,
                     FirehawkBT.BurningLayerMask);
 
@@ -27,7 +27,7 @@ namespace FirehawkAI.Checks
                     {
                         if (!col.TryGetComponent<FireCell>(out var cell)) continue;
                         if (cell.FireState != FireState.OnFire) continue;
-                        // Debug.Log("FOUND fire");
+                        Debug.Log("FOUND fire");
                         Parent.Parent.SetData("fire", col.gameObject);
                         State = NodeState.SUCCESS;
                         return State;

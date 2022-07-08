@@ -19,7 +19,7 @@ namespace FirehawkAI.Tasks
             var litBranch = (Transform)GetData("litBranch");
             if (_waitBeforeNewActionCounter > 0)
             {
-                // Debug.Log("Waiting");
+                Debug.Log("Waiting");
                 _waitBeforeNewActionCounter -= Time.deltaTime;
                 if (_waitBeforeNewActionCounter <= 0)
                 {

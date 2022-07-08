@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1151139726751313842}
   - component: {fileID: 3540168498006469698}
   - component: {fileID: 800347820141604780}
+  - component: {fileID: 8452918496583052558}
   m_Layer: 0
   m_Name: Icosphere.003
   m_TagString: Untagged
@@ -81,6 +82,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!135 &8452918496583052558
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3827273933822964984}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.0225797
+  m_Center: {x: 0.0044836905, y: -0.00010293627, z: 0.00018643306}
 --- !u!1 &5299391344008493280
 GameObject:
   m_ObjectHideFlags: 0
@@ -92,6 +106,7 @@ GameObject:
   - component: {fileID: 8213514840302794250}
   - component: {fileID: 576766048661454996}
   - component: {fileID: 9009196249775381579}
+  - component: {fileID: 4224717123761020534}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -162,6 +177,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &4224717123761020534
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5299391344008493280}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.04319771, y: 0.0343816, z: 0.121389635}
+  m_Center: {x: 0.008176413, y: 0.008863044, z: 0.04725544}
 --- !u!1 &5590432086507899842
 GameObject:
   m_ObjectHideFlags: 0
@@ -296,7 +324,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5011911175313075567}
   - component: {fileID: 5676279375136880596}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: BombTree
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -337,6 +365,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   seed: {fileID: 9209864866982685191}
+  direction: {fileID: 8205266670285782576}
 --- !u!1001 &3779293754347017296
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -526,6 +555,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 23c4e3eb29e7b06468a3bed2b4d7868a, type: 3}
+--- !u!1 &8205266670285782576 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4344780451721517422, guid: 23c4e3eb29e7b06468a3bed2b4d7868a, type: 3}
+  m_PrefabInstance: {fileID: 5590432087196854110}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8833008286166688906 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3963187882077471700, guid: 23c4e3eb29e7b06468a3bed2b4d7868a, type: 3}
@@ -603,6 +637,10 @@ PrefabInstance:
     - target: {fileID: 376211397664253587, guid: 24fc922ee93b8aa4cbffcf5d26a42925, type: 3}
       propertyPath: m_Name
       value: Seed
+      objectReference: {fileID: 0}
+    - target: {fileID: 376211397664253587, guid: 24fc922ee93b8aa4cbffcf5d26a42925, type: 3}
+      propertyPath: m_Layer
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 376211397664253587, guid: 24fc922ee93b8aa4cbffcf5d26a42925, type: 3}
       propertyPath: m_IsActive

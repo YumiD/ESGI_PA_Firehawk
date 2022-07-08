@@ -24,7 +24,7 @@ namespace FirehawkAI.Checks
 
             var foundLitBranch = GetData("FoundLitBranch");
 
-            // Debug.Log("CheckHaveLitBranch");
+            Debug.Log("CheckHaveLitBranch");
             if (foundLitBranch == null)
             {
                 var colliders = Physics.OverlapSphere(_transform.position, FirehawkBT.DetectionRange,
@@ -34,7 +34,7 @@ namespace FirehawkAI.Checks
                 {
                     foreach (var col in colliders)
                     {
-                        // Debug.Log("FOUND Found lit branch");
+                        Debug.Log("FOUND Found lit branch");
                         Parent.Parent.SetData("FoundLitBranch", col.gameObject);
                         State = NodeState.SUCCESS;
                         return State;
