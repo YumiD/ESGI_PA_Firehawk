@@ -13,5 +13,10 @@ namespace UI.Menu
 			LevelToLoad = jsonFile;
 			SceneManager.LoadScene(2);
 		}
+		public void StartLevel2(LevelScriptableObject jsonFile)
+		{
+			LevelToLoad = jsonFile;
+			SceneManager.LoadScene("LevelWithFirehawk");
+		}
 	}
 }
