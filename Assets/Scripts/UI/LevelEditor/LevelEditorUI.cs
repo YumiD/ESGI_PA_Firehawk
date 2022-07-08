@@ -34,7 +34,6 @@ namespace UI.LevelEditor
             });
             levelUiCanvas.SetActive(true);
             selectSize.SetActive(false);
-            gridInstantiated.AddComponent<InputRotateObject>();
         }
         public void QuitLevelEditor() {
             SceneManager.LoadScene(0);
